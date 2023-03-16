@@ -37,6 +37,8 @@
     ]
   },
   "devDependencies": {
-    "react-test-renderer": "^18.2.0"
+    "prop-types": "^15.8.1",
+    "react-test-renderer": "^18.2.0",
+    "styled-components": "^5.3.9"
   }
 }

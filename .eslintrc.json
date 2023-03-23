@@ -19,6 +19,7 @@
         "extensions": [".js", ".jsx"]
       }
     ],
+    "import/no-extraneous-dependencies": 0,
     "jsx-a11y/label-has-associated-control": "off",
     "comma-dangle": "off",
     "linebreak-style": 0,

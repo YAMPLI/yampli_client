@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <Wrapper>
+    <HeaderWrapper>
       <HeaderLeft>
         <Link to="/">
           <img src="/assets/test.png" alt="YAMPLI" />
@@ -19,13 +19,13 @@ function Header() {
           <Link to="/login">Login</Link>
         </StyledNavigation>
       </HeaderRight>
-    </Wrapper>
+    </HeaderWrapper>
   );
 }
 
 export default Header;
 
-const Wrapper = styled.header`
+const HeaderWrapper = styled.header`
   width: 100%;
   height: 80px;
   position: fixed;

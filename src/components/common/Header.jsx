@@ -1,67 +1,41 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Header() {
   return (
-    <HeaderWrapper>
-      <HeaderLeft>
-        <Link to="/">
-          <img src="/assets/test.png" alt="YAMPLI" />
-        </Link>
-        <StyledNavigation>
-          <Link to="/login">Login</Link>
-          <Link to="/playlist">Playlist</Link>
-        </StyledNavigation>
-      </HeaderLeft>
-      <HeaderRight>
-        <StyledNavigation>
-          <Link to="/login">Login</Link>
-        </StyledNavigation>
-      </HeaderRight>
-    </HeaderWrapper>
+    <div id="top-navbar--wrap">
+      <Navbar expand="lg" className="bg">
+        <Container className="top-navbar">
+          <Navbar.Brand href="#home" className="top-link">
+            React-Bootstrap
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse className="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#link">Link</Nav.Link>
+              <NavDropdown title="Dropdown" className="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
   );
 }
 
 export default Header;
-
-const HeaderWrapper = styled.header`
-  width: 100%;
-  height: 80px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 0 5rem;
-
-  background: ${(props) => props.theme.Black};
-
-  img {
-    width: 200px;
-    margin-right: 30px;
-  }
-`;
-
-const HeaderLeft = styled.div`
-  display: flex;
-`;
-
-const HeaderRight = styled.div``;
-
-const StyledNavigation = styled.nav`
-  display: flex;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 2;
-
-  a {
-    margin: 0 30px;
-    cursor: pointer;
-    text-decoration-line: none;
-    color: #ffffff;
-  }
-`;

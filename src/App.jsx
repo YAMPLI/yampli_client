@@ -18,7 +18,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-
         <Route path="/playlist" element={<PlaylistPage />} />
         <Route path="/playlist/create" element={<CreatePlaylistPage />} />
       </Routes>

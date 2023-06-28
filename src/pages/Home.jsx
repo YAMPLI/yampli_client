@@ -7,7 +7,10 @@ function Home() {
 
   useEffect(() => {
     fetch('http://localhost:3306/api/auth/authcheck')
-      .then((res) => res.json())
+      .then((res) => {
+        res.json();
+        console.log(res);
+      })
       .then((json) => {
         if (json.isLogin === 'True') {
           setMode('WELCOME');

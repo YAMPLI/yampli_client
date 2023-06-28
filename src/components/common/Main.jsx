@@ -14,7 +14,8 @@ export default Main;
 
 const StyledMain = styled.main`
   height: 100vh;
-  padding-top: 80px;
-  padding-left: 105px;
+  padding-top: 50px;
+  padding-left: 250px;
+  padding-right: 250px;
   background-color: ${(props) => props.theme.Black};
 `;

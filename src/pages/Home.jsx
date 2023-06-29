@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Main from '../components/common/Main';
 import KakaoButton from '../components/common/KakaoButton';
 
@@ -6,26 +7,22 @@ function Home() {
   const [mode, setMode] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3306/api/auth/authcheck')
-      .then((res) => {
-        res.json();
-        console.log(res);
-      })
-      .then((json) => {
-        if (json.isLogin === 'True') {
-          setMode('WELCOME');
-        } else {
-          setMode('LOGIN');
-        }
-      });
+    axios.get('http://localhost:3306/api/auth/authcheck').then((res) => {
+      console.log(res);
+      if (res.data.isLogin === 'True') {
+        setMode('WELCOME');
+      } else {
+        setMode('LOGIN');
+      }
+    });
   }, []);
 
   let content = null;
 
   if (mode === 'LOGIN') {
-    content = <div>Login</div>;
+    content = <div style={{ color: 'white', fontSize: '15px' }}>Login</div>;
   } else if (mode === 'SIGNIN') {
-    content = <div>SignIn</div>;
+    content = <div style={{ color: 'white', fontSize: '15px' }}>SignIn</div>;
   } else if (mode === 'WELCOME') {
     content = (
       <>

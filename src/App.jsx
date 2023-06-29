@@ -10,6 +10,7 @@ import PlaylistPage from './pages/PlaylistPage';
 import CreatePlaylistPage from './pages/CreatePlaylistPage';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
+import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
   return (
@@ -18,8 +19,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/playlist" element={<PlaylistPage />} />
-        <Route path="/playlist/create" element={<CreatePlaylistPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/playlist" element={<PlaylistPage />} />
+          <Route path="/playlist/create" element={<CreatePlaylistPage />} />
+        </Route>
       </Routes>
       <Footer />
     </ThemeProvider>

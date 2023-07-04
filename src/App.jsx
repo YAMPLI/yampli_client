@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import PlaylistPage from './pages/PlaylistPage';
 import CreatePlaylistPage from './pages/CreatePlaylistPage';
+import KakaoCallback from './pages/KakaoCallback';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import PrivateRoute from './utils/PrivateRoute';
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/kakao/oauth" element={<KakaoCallback />} />
         <Route element={<PrivateRoute />}>
           <Route path="/playlist" element={<PlaylistPage />} />
           <Route path="/playlist/create" element={<CreatePlaylistPage />} />

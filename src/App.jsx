@@ -18,8 +18,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/kakao/oauth" element={<KakaoCallback />} />
         <Route element={<PrivateRoute />}>
           <Route path="/playlist" element={<PlaylistPage />} />

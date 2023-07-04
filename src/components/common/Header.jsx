@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-
-function Header() {
+const Header = () => {
+  if (window.location.pathname === '/kakao/oauth') return null;
   return (
     <div id="top-navbar--wrap">
       <nav className="navbar navbar-expand-lg">
@@ -74,6 +74,6 @@ function Header() {
       </nav>
     </div>
   );
-}
+};
 
 export default Header;

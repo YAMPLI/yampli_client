@@ -11,7 +11,6 @@ import CreatePlaylistPage from './pages/CreatePlaylistPage';
 import KakaoCallback from './pages/KakaoCallback';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
   return (
@@ -21,10 +20,8 @@ function App() {
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<Home />} />
         <Route path="/kakao/oauth" element={<KakaoCallback />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/playlist" element={<PlaylistPage />} />
-          <Route path="/playlist/create" element={<CreatePlaylistPage />} />
-        </Route>
+        <Route path="/playlist" element={<PlaylistPage />} />
+        <Route path="/playlist/create" element={<CreatePlaylistPage />} />
       </Routes>
       <Footer />
     </ThemeProvider>

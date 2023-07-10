@@ -26,7 +26,7 @@ const GroupList = () => {
         </div>
       ) : (
         groupList.map((list) => {
-          return <GroupCard key={list._id} title={list.groupName}></GroupCard>;
+          return <GroupCard key={list._id} title={list.title}></GroupCard>;
         })
         // <div>{groupList}</div>
       )}

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 function Main({ children }) {
   const navigate = useNavigate();
-  const preventAccess = ['/home'];
+  const preventAccess = ['/home', '/group'];
   useEffect(() => {
     if (preventAccess.includes(location.pathname)) {
       localStorage.getItem('token') === null && navigate('/');

@@ -6,7 +6,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from './authSlice';
+import groupReducer from './groupSlice';
 
 export default configureStore({
-  reducer: { auth: authReducer },
+  reducer: { auth: authReducer, group: groupReducer },
 });

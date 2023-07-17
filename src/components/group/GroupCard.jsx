@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
-
+import styles from './group.module.scss';
 const GroupCard = ({ title, onClick, children }) => {
   return (
-    <div className="card mb-3 cursor-pointer" onClick={onClick}>
-      <div className="card-body py-2 d-flex align-items-center">
-        <div className="flex-grow-1">{title}</div>
-        {children && <div>{children}</div>}
-      </div>
+    <div className={`${styles.cardBody} cursor-pointer`} onClick={onClick}>
+      <div className={styles.cardImage}> 이미지 박스</div>
+      <div className={styles.cardContent}>{title}</div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ function Header() {
           <Link to="#home">Home</Link>
           <Link to="#link">Link</Link>
           <div className="dropdown">
-            <button class="dropbtn">Dropdown</button>
+            <button className="dropbtn">Dropdown</button>
             <div className="dropdown-content">
               <Link to="#action/3.1">Action</Link>
               <Link to="#action/3.2">Another action</Link>

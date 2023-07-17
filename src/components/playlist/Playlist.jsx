@@ -1,16 +1,32 @@
 import PlaylistEle from './PlaylistEle';
 import Player from './Player';
-import React from 'react';
-import './playlist.style.scss';
+import React, { useEffect } from 'react';
+import styles from './playlist.module.scss';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getPlaylist } from '../../store/playlistSlice';
 
 const Playlist = () => {
-  let tet = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  // 파라미터 전달받기(플레이리스트 id)
+  const params = useParams();
+  const dispatch = useDispatch();
+  const songs = useSelector((state) => state.playlist.list);
+  useEffect(() => {
+    dispatch(__getPlaylist(params.id));
+  }, []);
   return (
-    <div className="player-wrap">
+    <div className={styles.playerWrap}>
       <Player />
-      <div className="list-wrap">
-        {tet.map((list) => {
-          return <PlaylistEle key={list.id}></PlaylistEle>;
+      <div className={styles.listWrap}>
+        {songs.map((list) => {
+          return (
+            <PlaylistEle
+              key={list._id}
+              url={list.url}
+              title={list.title}
+              artist={list.artist}
+            ></PlaylistEle>
+          );
         })}
       </div>
     </div>

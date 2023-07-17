@@ -4,9 +4,7 @@ import GroupList from '../components/group/GroupList';
 function GroupPage() {
   return (
     <Main>
-      <div>
-        <GroupList></GroupList>
-      </div>
+      <GroupList></GroupList>
     </Main>
   );
 }

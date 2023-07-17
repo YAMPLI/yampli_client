@@ -9,6 +9,7 @@ export const __getGroupList = createAsyncThunk(
       const response = await axios.get(`/api/group/list`, {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       });
+
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -47,6 +48,7 @@ const groupSlice = createSlice({
       // thunkAPI.fulfillWithValue(response.data)로 action.payload 값을 반환
       // 즉 action 함수 -> axion 를 실행하고 받아온 데이터 결과 값 -> payload를 바로 가져온다
       state.list = payload;
+      console.log(state.list);
     });
     builder.addCase(__addGroup.fulfilled, (state, { payload }) => {
       return (state = [...state, payload]);

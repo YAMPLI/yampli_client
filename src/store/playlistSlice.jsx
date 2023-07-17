@@ -6,7 +6,7 @@ export const __getPlaylist = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
-      const response = await axios.get(`/api/group/test/${payload}`, {
+      const response = await axios.get(`/api/playlist/${payload}`, {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       });
       return thunkAPI.fulfillWithValue(response.data);

@@ -1,20 +1,21 @@
 import React from 'react';
 // import { useState } from 'react';
-import './playlist.style.scss';
-const PlaylistEle = () => {
+import styles from './playlist.module.scss';
+
+const PlaylistEle = ({ url, title, artist }) => {
   return (
-    <div className="flex-wrap">
-      <div className="flex-video">
+    <div className={styles.flexWrap}>
+      <div className={styles.flexVideo}>
         <iframe
           // src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"
           src=""
-          title="YouTube video"
-          allowfullscreen
+          title={url}
+          allowFullScreen
         ></iframe>
       </div>
-      <div className="flex-content">
-        <h1>노래제목</h1>
-        <p>가수이름</p>
+      <div className={styles.flexContent}>
+        <h1>{title}</h1>
+        <p>{artist}</p>
       </div>
     </div>
   );

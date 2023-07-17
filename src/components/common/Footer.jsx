@@ -11,13 +11,13 @@ const Footer1 = () => {
           <Card.Body>
             <ul className="cardUi">
               <li>
-                <h6>대표 </h6>설한정
-                <h6>주소지</h6>인천시 계양구 작전동
+                <h6>대표</h6>&nbsp;&nbsp;설한정
+                <h6>주소지</h6>&nbsp;&nbsp;인천시 계양구 작전동
               </li>
               <li>
-                <h6>사업자 등록번호</h6>111-111-1111
-                <h6>연락처</h6> 010-111-1111
-                <h6>이메일</h6> hanjeong94@naver.com
+                <h6>사업자 등록번호</h6>&nbsp;&nbsp;111-111-1111
+                <h6>연락처</h6>&nbsp;&nbsp;010-111-1111
+                <h6>이메일</h6>&nbsp;&nbsp;hanjeong94@naver.com
               </li>
             </ul>
           </Card.Body>

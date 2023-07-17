@@ -22,7 +22,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/group" element={<Group />} />
         <Route path="/kakao/oauth" element={<KakaoCallback />} />
-        <Route path="/playlist" element={<PlaylistPage />} />
+        <Route path="/playlist/:id" element={<PlaylistPage />} />
         <Route path="/playlist/create" element={<CreatePlaylistPage />} />
       </Routes>
       <Footer />

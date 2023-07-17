@@ -1,79 +1,28 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-const Header = () => {
-  if (window.location.pathname === '/kakao/oauth') return null;
+import { Link } from 'react-router-dom';
+
+function Header() {
   return (
-    <div id="top-navbar--wrap">
-      <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid">
-          <a className="navbar-brand" to="/">
-            Navbar
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNavDropdown"
-          >
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" to="/">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" to="/">
-                  Features
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" to="/#">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  to="/"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown link
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" to="/">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" to="/">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" to="/">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+    <div id="top-navbar--wrap2" className="bg">
+      <div className="top-navbar">
+        <abbr to="#home" className="top-link">
+          React-Bootstrap
+        </abbr>
+        <div className="nav-content">
+          <Link to="#home">Home</Link>
+          <Link to="#link">Link</Link>
+          <div className="dropdown">
+            <button class="dropbtn">Dropdown</button>
+            <div className="dropdown-content">
+              <Link to="#action/3.1">Action</Link>
+              <Link to="#action/3.2">Another action</Link>
+              <Link to="#action/3.3">Something</Link>
+            </div>
           </div>
         </div>
-      </nav>
+      </div>
     </div>
   );
-};
+}
 
 export default Header;

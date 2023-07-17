@@ -7,7 +7,12 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from './authSlice';
 import groupReducer from './groupSlice';
+import playlistReducer from './playlistSlice';
 
 export default configureStore({
-  reducer: { auth: authReducer, group: groupReducer },
+  reducer: {
+    auth: authReducer,
+    group: groupReducer,
+    playlist: playlistReducer,
+  },
 });

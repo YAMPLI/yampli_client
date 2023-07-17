@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
+import './main.style.scss';
 function Main({ children }) {
   const navigate = useNavigate();
   const preventAccess = ['/home', '/group'];
@@ -11,7 +11,7 @@ function Main({ children }) {
       localStorage.getItem('token') === null && navigate('/');
     }
   }, []);
-  return <StyledMain>{children}</StyledMain>;
+  return <div className="main-container">{children}</div>;
 }
 
 Main.propTypes = {
@@ -19,11 +19,3 @@ Main.propTypes = {
 };
 
 export default Main;
-
-const StyledMain = styled.main`
-  height: 100vh;
-  padding-top: 50px;
-  padding-left: 250px;
-  padding-right: 250px;
-  background-color: ${(props) => props.theme.Black};
-`;

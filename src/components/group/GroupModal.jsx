@@ -19,12 +19,12 @@ const GroupModal = ({ setModalOpen }) => {
   };
   return (
     <div id="modal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">그룹 이름 작성</h5>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">그룹 이름 작성</h5>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <textarea
               value={title}
               onChange={(event) => {
@@ -32,11 +32,11 @@ const GroupModal = ({ setModalOpen }) => {
               }}
             />
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" onClick={createGroup}>
+          <div className="modal-footer">
+            <button className="btn btn-secondary" onClick={createGroup}>
               그룹 생성
             </button>
-            <button class="btn btn-secondary" onClick={closeModal}>
+            <button className="btn btn-secondary" onClick={closeModal}>
               닫기
             </button>
           </div>

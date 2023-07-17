@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #2e2e2e;
 }
 
 .App-logo {
@@ -11,6 +12,14 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+@font-face {
+  font-family: 'pretendar';
+  src: url('./config/font/PretendardVariable.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'scdream4';
+  src: url('./config/font/SCDream4.otf') format('opentype');
 }
 
 .App-header {

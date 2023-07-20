@@ -8,11 +8,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
 import groupReducer from './groupSlice';
 import playlistReducer from './playlistSlice';
+import modalReducer from './modalSlice';
 
 export default configureStore({
   reducer: {
     auth: authReducer,
     group: groupReducer,
     playlist: playlistReducer,
+    modal: modalReducer,
   },
 });

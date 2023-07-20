@@ -10,6 +10,7 @@ export const __getLogin = createAsyncThunk(
     try {
       const { data } = await axios.get(`/api/auth/kakao/oauth?code=${payload}`);
       // 요청 성공시 fulfillwithvalue 실행
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.token);
     } catch (error) {
       // 실패시 rejectwithvalue실행

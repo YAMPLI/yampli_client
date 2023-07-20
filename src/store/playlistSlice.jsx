@@ -5,8 +5,7 @@ export const __getPlaylist = createAsyncThunk(
   'playlist/getList',
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
-      const response = await axios.get(`/api/playlist/${payload}`, {
+      const response = await axios.get(`/api/playlist/socket/${payload}`, {
         headers: { Authorization: `Bearer ${localStorage.token}` },
       });
       return thunkAPI.fulfillWithValue(response.data);
@@ -23,6 +22,7 @@ const playlistSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(__getPlaylist.fulfilled, (state, { payload }) => {
+      console.log(payload);
       state.list = payload;
     });
   },

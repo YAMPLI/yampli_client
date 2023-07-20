@@ -3,7 +3,6 @@ import Main from '../components/common/Main';
 import { KAKAO_AUTH_URL } from '../config/SocialOAuth.';
 
 const LoginPage = () => {
-  console.log(KAKAO_AUTH_URL);
   return (
     <Main>
       <img

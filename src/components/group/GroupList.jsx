@@ -6,6 +6,7 @@ import GroupModal from './GroupModal';
 import GroupCard from './GroupCard';
 import { useNavigate } from 'react-router-dom';
 import styles from './group.module.scss';
+import groupModal from '../modal/ModalBasic';
 
 const GroupList = () => {
   const dispatch = useDispatch();

@@ -1,38 +1,43 @@
 import styled from 'styled-components';
 import Button from '../common/Button';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectModal } from '../../store/modalSlice';
+import { __getPlaylist } from '../../store/playlistSlice';
 
-const Modal = ({
-  title,
-  content,
-  confirmText,
-  cancelText,
-  onConfirm,
-  onCancel,
-}) => {
+const Modal = ({ title, content, confirmText, cancelText, close }) => {
+  const dispatch = useDispatch();
+  const { playlistId } = useSelector(selectModal);
+  const onPlaylist = () => {
+    dispatch(__getPlaylist(playlistId));
+    close();
+  };
+
+  const goBack = () => {
+    close();
+  };
   return (
     <>
-      <ModalBackground>
-        <ModalView onClick={(e) => e.stopPropagation()}>
-          <h3>{title}</h3>
-          <p>{content}</p>
-          <ButtonGroup>
-            <ShortMarginButton onClick={onConfirm} color="lightOrange">
-              {confirmText}
-            </ShortMarginButton>
-            <ShortMarginButton onClick={onCancel} color="lightOrange">
-              {cancelText}
-            </ShortMarginButton>
-          </ButtonGroup>
-        </ModalView>
-      </ModalBackground>
+      <ModalView>
+        <h3>{title}</h3>
+        <p>{content}</p>
+        <ButtonGroup>
+          <ShortMarginButton onClick={onPlaylist} color="lightOrange">
+            {confirmText}
+          </ShortMarginButton>
+          <ShortMarginButton onClick={goBack} color="lightOrange">
+            {cancelText}
+          </ShortMarginButton>
+        </ButtonGroup>
+      </ModalView>
     </>
   );
 };
 
 Modal.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  content: PropTypes.string.isRequired,
   cancelText: PropTypes.string.isRequired,
   confirmText: PropTypes.string.isRequired,
   onConfirm: PropTypes.func,
@@ -46,26 +51,12 @@ Modal.defaultProps = {
 
 export default Modal;
 
-const ModalBackground = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 const ModalView = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 520px;
-  height: 300px;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 2px;
+
   h3 {
     margin: 0;
     font-family: 'PretendardRegular';
@@ -83,6 +74,7 @@ const ButtonGroup = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
 const ShortMarginButton = styled(Button)`
   & + & {
     margin-left: 0.5rem;

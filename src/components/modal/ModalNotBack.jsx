@@ -2,35 +2,32 @@ import styled from 'styled-components';
 import Button from '../common/Button';
 import PropTypes from 'prop-types';
 
-const Modal = ({
+const Modal1 = ({
   title,
-  content,
+  children,
   confirmText,
   cancelText,
   onConfirm,
   onCancel,
+  close,
 }) => {
   return (
     <>
-      <ModalBackground>
-        <ModalView onClick={(e) => e.stopPropagation()}>
-          <h3>{title}</h3>
-          <p>{content}</p>
-          <ButtonGroup>
-            <ShortMarginButton onClick={onConfirm} color="lightOrange">
-              {confirmText}
-            </ShortMarginButton>
-            <ShortMarginButton onClick={onCancel} color="lightOrange">
-              {cancelText}
-            </ShortMarginButton>
-          </ButtonGroup>
-        </ModalView>
-      </ModalBackground>
+      <h3>{title}</h3>
+      <p>{children}</p>
+      <ButtonGroup>
+        <ShortMarginButton onClick={onConfirm} color="lightOrange">
+          {confirmText}
+        </ShortMarginButton>
+        <ShortMarginButton onClick={onCancel} color="lightOrange">
+          {cancelText}
+        </ShortMarginButton>
+      </ButtonGroup>
     </>
   );
 };
 
-Modal.propTypes = {
+Modal1.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
   cancelText: PropTypes.string.isRequired,
@@ -39,12 +36,12 @@ Modal.propTypes = {
   onCancel: PropTypes.func,
 };
 
-Modal.defaultProps = {
+Modal1.defaultProps = {
   confirmText: '확인',
   cancelText: '취소',
 };
 
-export default Modal;
+export default Modal1;
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -55,6 +52,16 @@ const ModalBackground = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 const ModalView = styled.div`
   display: flex;

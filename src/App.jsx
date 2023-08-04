@@ -3,7 +3,7 @@ import { React } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import theme from './theme';
+import theme from './styles/theme';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import PlaylistPage from './pages/PlaylistPage';

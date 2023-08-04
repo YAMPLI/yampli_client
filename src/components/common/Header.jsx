@@ -1,79 +1,94 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
-const Header = () => {
-  if (window.location.pathname === '/kakao/oauth') return null;
+// 기존 Link와 혼동을 방지하기 위해서 RouterLink 이름으로 import
+import { Link as RouterLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { darken, lighten } from 'polished';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+// <FontAwesomeIcon icon="fa-solid fa-bars" style={{ color: '#ff9300' }} />;
+function Header() {
   return (
-    <div id="top-navbar--wrap">
-      <nav className="navbar navbar-expand-lg">
-        <div className="container-fluid">
-          <a className="navbar-brand" to="/">
-            Navbar
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarNavDropdown"
-          >
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" to="/">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" to="/">
-                  Features
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" to="/#">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  to="/"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown link
-                </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" to="/">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" to="/">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" to="/">
-                      Something else here
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </div>
+    <HeaderWrap>
+      <TopNavbar>
+        <NavLink to="/" color="lightOrange">
+          YAMPLI
+        </NavLink>
+        <Dropdown>
+          <FontAwesomeIcon icon={faBars} style={{ fontSize: '28px' }} />
+          <DropdownContent>
+            <DropdownLink to="#action/3.1">회원정보</DropdownLink>
+            <DropdownLink to="#action/3.2">그룹목록</DropdownLink>
+            <DropdownLink to="#action/3.3">로그아웃</DropdownLink>
+          </DropdownContent>
+        </Dropdown>
+      </TopNavbar>
+    </HeaderWrap>
   );
-};
+}
 
 export default Header;
+
+const HeaderWrap = styled.div`
+  width: 100pv;
+  height: 55px;
+  background: ${({ theme }) => theme.color.darkGray};
+  color: ${({ theme }) => theme.color.lightOrange};
+`;
+
+const NavLink = styled(RouterLink)`
+  ${({ theme }) => css`
+    color: ${theme.color.lightOrange};
+    ${theme.Font('pretendar', 25)};
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  `}
+`;
+
+const TopNavbar = styled.div`
+  ${({ theme }) => css`
+    height: 100%;
+    ${theme.FlexBetween}
+    align-items : center;
+    margin: 0 250px;
+    color: ${theme.color.lightOrange};
+    ${theme.Font('pretendar', 17)};
+  `}
+`;
+
+const DropdownContent = styled.div`
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  z-index: 1;
+  background-color: ${({ theme }) => theme.color.lightOrange};
+`;
+
+const Dropdown = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:hover ${DropdownContent} {
+    display: block;
+  }
+`;
+
+const DropdownLink = styled(RouterLink)`
+  ${({ theme }) => {
+    const orange = theme.color.lightOrange;
+    return css`
+      display: block;
+      ${theme.Font('pretendar', 20)};
+      color: ${theme.color.white};
+      text-decoration: none;
+      border-bottom: 0.1px solid;
+      padding: 12px 16px;
+      &:hover {
+        background: ${lighten(0.1, orange)};
+      }
+      &:active {
+        background: ${darken(0.1, orange)};
+      }
+    `;
+  }}
+`;

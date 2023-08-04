@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 
 function Main({ children }) {
   const navigate = useNavigate();
-  const preventAccess = ['/home'];
+  const preventAccess = ['/home', '/group'];
   useEffect(() => {
     if (preventAccess.includes(location.pathname)) {
       localStorage.getItem('token') === null && navigate('/');
     }
   }, []);
-  return <StyledMain>{children}</StyledMain>;
+  return <MainContainer>{children}</MainContainer>;
 }
 
 Main.propTypes = {
@@ -20,10 +20,7 @@ Main.propTypes = {
 
 export default Main;
 
-const StyledMain = styled.main`
+const MainContainer = styled.div`
   height: 100vh;
-  padding-top: 50px;
-  padding-left: 250px;
-  padding-right: 250px;
-  background-color: ${(props) => props.theme.Black};
+  background-color: ${({ theme }) => theme.color.black}; ;
 `;

@@ -20,7 +20,7 @@ const KakaoCallback = () => {
     if (user?.user?.nickname !== '') {
       if (user.token !== undefined) {
         if (localStorage.token !== undefined) {
-          navigate('/home', { state: localStorage.token });
+          navigate('/group', { state: localStorage.token });
         }
       }
     } else {

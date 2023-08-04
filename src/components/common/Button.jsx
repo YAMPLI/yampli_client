@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const colorStyles = css`
   ${(props) => {
-    const selected = props.theme[props.color];
+    const selected = props.theme.color[props.color];
     return css`
       background: ${selected};
       &:hover {

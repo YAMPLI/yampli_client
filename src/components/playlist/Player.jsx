@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 import YouTube from 'react-youtube';
-const PlayerContainer = styled.div`
-  flex: 8.5; // 이 값은 85%에 해당합니다.
-  height: 100%;
-  width: 100%;
-  background-color: blue;
-`;
 
 const opts = {
   height: '1145px',
@@ -19,3 +13,10 @@ const Player = ({ song }) => (
 );
 
 export default Player;
+
+const PlayerContainer = styled.div`
+  flex: 8.5; // 이 값은 85%에 해당합니다.
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+`;

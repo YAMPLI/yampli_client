@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 import Button from '../common/Button';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectModal } from '../../store/modalSlice';
 import { __getPlaylist } from '../../store/playlistSlice';
 
-const Modal = ({ title, content, confirmText, cancelText, close }) => {
+const PlayModal = ({ data, close }) => {
   const dispatch = useDispatch();
-  const { playlistId } = useSelector(selectModal);
   const onPlaylist = () => {
-    dispatch(__getPlaylist(playlistId));
+    dispatch(__getPlaylist(data.playlistId));
     close();
   };
 
@@ -20,14 +17,14 @@ const Modal = ({ title, content, confirmText, cancelText, close }) => {
   return (
     <>
       <ModalView>
-        <h3>{title}</h3>
-        <p>{content}</p>
+        <h3>{data.title}</h3>
+        <p>{data.content}</p>
         <ButtonGroup>
-          <ShortMarginButton onClick={onPlaylist} color="lightOrange">
-            {confirmText}
+          <ShortMarginButton onClick={onPlaylist} color="offWhite">
+            {data.confirmText}
           </ShortMarginButton>
-          <ShortMarginButton onClick={goBack} color="lightOrange">
-            {cancelText}
+          <ShortMarginButton onClick={goBack} color="offWhite">
+            {data.cancelText}
           </ShortMarginButton>
         </ButtonGroup>
       </ModalView>
@@ -35,47 +32,54 @@ const Modal = ({ title, content, confirmText, cancelText, close }) => {
   );
 };
 
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  cancelText: PropTypes.string.isRequired,
-  confirmText: PropTypes.string.isRequired,
+PlayModal.propTypes = {
+  data: PropTypes.object,
   onConfirm: PropTypes.func,
   onCancel: PropTypes.func,
 };
 
-Modal.defaultProps = {
+PlayModal.defaultProps = {
   confirmText: '확인',
   cancelText: '취소',
 };
 
-export default Modal;
+export default PlayModal;
 
 const ModalView = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 520px;
+  height: 300px;
+  padding: 1.5rem;
+  background: ${({ theme }) => theme.color.charcoalGray};
+  border-radius: 2px;
+  z-index: 999;
 
   h3 {
     margin: 0;
     font-family: 'PretendardRegular';
     font-size: 1.5rem;
+    color: ${({ theme }) => theme.color.offWhite};
   }
   p {
-    margin-top: 15px;
-    font-family: 'SCDream3';
-    font-size: 1.125rem;
+    margin-top: 3px;
+    font-family: 'pretendar';
+    font-size: 1rem;
+    color: ${({ theme }) => theme.color.softGray};
   }
 `;
 
 const ButtonGroup = styled.div`
-  margin-top: 3rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
 `;
 
 const ShortMarginButton = styled(Button)`
+  background: linear-gradient(to right, #9b2def, #2dceef);
+
   & + & {
     margin-left: 0.5rem;
   }

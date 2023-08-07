@@ -5,7 +5,6 @@ const initialState = {
   modalType: null,
   props: null,
   playlistId: null,
-  isOpen: false,
 };
 export const modalSlice = createSlice({
   name: 'modal',
@@ -18,10 +17,6 @@ export const modalSlice = createSlice({
       }
       state.modalType = type;
       state.props = props;
-      state.isOpen = true;
-    },
-    closeModal: (state) => {
-      state.isOpen = false;
     },
   },
 });

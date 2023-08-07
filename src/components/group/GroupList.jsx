@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __getGroupList } from '../../store/groupSlice';
 import { __getPlaylist } from '../../store/playlistSlice';
 import GroupModal from './GroupModal';
-import GroupCard from './GroupCard';
+import GroupEle from './GroupEle';
 import { useNavigate } from 'react-router-dom';
-import styles from './group.module.scss';
-import groupModal from '../modal/ModalBasic';
+import styled, { css } from 'styled-components';
+import ModalContainer from '../modal/ModalContainer';
 
 const GroupList = () => {
   const dispatch = useDispatch();
@@ -23,33 +23,72 @@ const GroupList = () => {
   };
 
   return (
-    <div>
+    <>
       {groupList.length === 0 ? (
-        <div>
-          <p>소속된 그룹이 없습니다. 그룹 생성 버튼을 눌러주세요.</p>
-          <button onClick={openModal}>그룹생성</button>
-          {modalOpen && <GroupModal setModalOpen={setModalOpen} />}
-        </div>
+        <EmptyGroup>
+          <EmptyGroupText>
+            소속된 그룹이 없습니다. 그룹 생성 버튼을 눌러주세요.
+          </EmptyGroupText>
+          <GroupCreateButton onClick={openModal}>그룹생성</GroupCreateButton>
+          {modalOpen && (
+            <ModalContainer>
+              <GroupModal setModalOpen={setModalOpen} />
+            </ModalContainer>
+          )}
+        </EmptyGroup>
       ) : (
-        groupList.map((list) => {
-          // onClickGroup() : 렌더링되면서 바로 함수가 실행되버린다
-          // onClickGrup로 클릭 이벤트만 설정하고 useState로 상태 동적 관리
-          return (
-            // component에 key값을 부여해도 에러 발생
-            // 상위 컨테이너에 key 값을 줘서 해결
-            <div className={styles.groupWrap} key={list._id}>
-              <GroupCard
-                title={list.title}
-                onClick={() => {
-                  navigate(`/playlist/${list._id}`);
-                }}
-              ></GroupCard>
-            </div>
-          );
-        })
+        <GroupListWrap>
+          {groupList.map((list) => (
+            <GroupEle
+              key={list._id}
+              title={list.title}
+              onClick={() => {
+                navigate(`/playlist/${list._id}`);
+              }}
+            />
+          ))}
+        </GroupListWrap>
       )}
-    </div>
+    </>
   );
 };
 
 export default GroupList;
+
+const EmptyGroup = styled.div`
+  ${({ theme: { MoveCenter, FlexColumn } }) => css`
+    ${MoveCenter}
+    ${FlexColumn}
+    width: 100%;
+    height: 100%;
+  `}
+`;
+const EmptyGroupText = styled.p`
+  ${({ theme: { Font } }) => css`
+    ${Font('SCDream4', 20)}
+  `}
+  margin: 0;
+  color: ${({ theme }) => theme.color.offWhite};
+`;
+
+const GroupCreateButton = styled.button`
+  margin-top: 1.5rem;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  color: ${({ theme }) => theme.color.offWhite};
+  background: linear-gradient(to right, #9b2def, #2dceef);
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background: ${({ theme }) => theme.color.lightBlue};
+  }
+`;
+
+const GroupListWrap = styled.div`
+  ${({ theme: { FlexCenter, FlexColumn } }) => css`
+    ${FlexCenter}
+    ${FlexColumn}
+  `}
+  padding : 15px 250px;
+`;

@@ -23,7 +23,7 @@ function Footer() {
 const FooterWrap = styled.div`
   ${({ theme }) => css`
      {
-      background: ${theme.color.darkGray};
+      background: ${theme.color.darkGray1};
       ${theme.MoveCenter};
       ${theme.FlexColumn};
       align-items: center;
@@ -39,7 +39,7 @@ const FooterTitle = styled.h6`
   ${({ theme }) => css`
      {
       ${theme.FlexCenter}
-      color: ${theme.color.lightOrange};
+      color: ${theme.color.offWhite};
       ${theme.Font('pretendar', 25)};
       font-weight: 500;
       margin-bottom: 25px;
@@ -48,7 +48,6 @@ const FooterTitle = styled.h6`
 `;
 
 const FooterContent = styled.div`
-  background: #2e2e2e;
   li {
     list-style-type: none;
     color: rgb(183, 172, 172);

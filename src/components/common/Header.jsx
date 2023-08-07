@@ -10,7 +10,7 @@ function Header() {
   return (
     <HeaderWrap>
       <TopNavbar>
-        <NavLink to="/" color="lightOrange">
+        <NavLink to="/" color="offWhite">
           YAMPLI
         </NavLink>
         <Dropdown>
@@ -31,13 +31,13 @@ export default Header;
 const HeaderWrap = styled.div`
   width: 100pv;
   height: 55px;
-  background: ${({ theme }) => theme.color.darkGray};
-  color: ${({ theme }) => theme.color.lightOrange};
+  background: ${({ theme }) => theme.color.dark};
+  color: ${({ theme }) => theme.color.offWhite};
 `;
 
 const NavLink = styled(RouterLink)`
   ${({ theme }) => css`
-    color: ${theme.color.lightOrange};
+    color: ${theme.color.offWhite};
     ${theme.Font('pretendar', 25)};
     font-weight: 500;
     letter-spacing: 0.1em;
@@ -51,7 +51,7 @@ const TopNavbar = styled.div`
     ${theme.FlexBetween}
     align-items : center;
     margin: 0 250px;
-    color: ${theme.color.lightOrange};
+    color: ${theme.color.offWhite};
     ${theme.Font('pretendar', 17)};
   `}
 `;
@@ -61,7 +61,7 @@ const DropdownContent = styled.div`
   position: absolute;
   min-width: 160px;
   z-index: 1;
-  background-color: ${({ theme }) => theme.color.lightOrange};
+  background-color: ${({ theme }) => theme.color.dark};
 `;
 
 const Dropdown = styled.div`
@@ -75,7 +75,7 @@ const Dropdown = styled.div`
 
 const DropdownLink = styled(RouterLink)`
   ${({ theme }) => {
-    const orange = theme.color.lightOrange;
+    const orange = theme.color.offWhite;
     return css`
       display: block;
       ${theme.Font('pretendar', 20)};

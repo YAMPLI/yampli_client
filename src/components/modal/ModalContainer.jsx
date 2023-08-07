@@ -1,36 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { closeModal, selectModal } from '../../store/modalSlice';
-import PlayModal from './PlayModal';
 
-const MODAL_COMPONENTS = {
-  playerModal: PlayModal,
-};
-
-const ModalContainer = () => {
-  const { modalType, props, isOpen } = useSelector(selectModal);
-
-  const dispatch = useDispatch();
-
-  if (!isOpen) return;
-
-  const Modal = MODAL_COMPONENTS[modalType];
-
-  const close = () => {
-    dispatch(closeModal());
-  };
-
+const ModalContainer = ({ children }) => {
   return (
     <>
       <Wrapper>
-        {Modal === PlayModal ? (
-          <Overlay></Overlay>
-        ) : (
-          <Overlay onClick={close}></Overlay>
-        )}
-        <Content>
-          <Modal close={close} {...props}></Modal>
-        </Content>
+        <Overlay></Overlay>
+        {children}
       </Wrapper>
     </>
   );
@@ -55,16 +30,4 @@ const Overlay = styled.div`
   bottom: 0;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.4);
-`;
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 520px;
-  height: 300px;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 2px;
-  z-index: 999;
 `;

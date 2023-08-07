@@ -12,12 +12,12 @@ import Group from './pages/GroupPage';
 import KakaoCallback from './pages/KakaoCallback';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import ModalContainer from './components/modal/ModalContainer';
+import GlobalModalContainer from './components/modal/GlobalModalContainer';
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <ModalContainer></ModalContainer>
+      <GlobalModalContainer></GlobalModalContainer>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<Home />} />

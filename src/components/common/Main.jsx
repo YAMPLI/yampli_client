@@ -22,5 +22,5 @@ export default Main;
 
 const MainContainer = styled.div`
   height: 100vh;
-  background-color: ${({ theme }) => theme.color.black}; ;
+  background-color: ${({ theme }) => theme.color.dark}; ;
 `;

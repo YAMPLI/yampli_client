@@ -21,6 +21,6 @@ Main.propTypes = {
 export default Main;
 
 const MainContainer = styled.div`
-  height: 100vh;
+  height: auto;
   background-color: ${({ theme }) => theme.color.dark}; ;
 `;

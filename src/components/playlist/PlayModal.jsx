@@ -50,6 +50,10 @@ const ModalView = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 520px;
   height: 300px;
   padding: 1.5rem;

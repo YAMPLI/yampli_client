@@ -90,5 +90,6 @@ const GroupListWrap = styled.div`
     ${FlexCenter}
     ${FlexColumn}
   `}
-  padding : 15px 250px;
+  height:100vh;
+  padding: 15px 250px;
 `;

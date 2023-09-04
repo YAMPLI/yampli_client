@@ -23,7 +23,6 @@ const Playlist = () => {
 
   // Player로 전달
   const handleSongSelect = (song) => {
-    console.log(song);
     setSelectedSong(song);
   };
 
@@ -43,37 +42,42 @@ const Playlist = () => {
   };
 
   return (
-    <>
+    <PlayerContainer>
       {modalOpen && (
         <ModalContainer>
           <PlayModal data={data} close={closeModal} />
         </ModalContainer>
       )}
-      <PlayerWrap>
-        <PlayerContent>
-          <Player song={selectedSong} />
-          <ListWrap>
-            {songs.map((list) => (
-              <PlaylistEle
-                key={list._id}
-                url={list.url}
-                title={list.title}
-                artist={list.artist}
-                thumb={list.thumb}
-                onSongSelect={() => handleSongSelect(list)}
-              />
-            ))}
-          </ListWrap>
-        </PlayerContent>
-      </PlayerWrap>
-    </>
+      {!modalOpen && (
+        <PlayerWrap className="playerWrap">
+          <PlayerContent>
+            <Player song={selectedSong} />
+            <ListWrap>
+              {songs.map((list) => (
+                <PlaylistEle
+                  key={list._id}
+                  url={list.url}
+                  title={list.title}
+                  artist={list.artist}
+                  thumb={list.thumb[2]}
+                  onSongSelect={() => handleSongSelect(list)}
+                />
+              ))}
+            </ListWrap>
+          </PlayerContent>
+        </PlayerWrap>
+      )}
+    </PlayerContainer>
   );
 };
 
 export default Playlist;
+const PlayerContainer = styled.div`
+  height: 100vh;
+`;
 
 const PlayerWrap = styled.div`
-  display: block;
+  display: flex;
   width: 100%;
   height: 100%;
   /* padding: 50px 250px; */
@@ -81,6 +85,7 @@ const PlayerWrap = styled.div`
 
 const PlayerContent = styled.div`
   display: flex;
+  flex: 8.5;
   width: 100%;
   height: 100%;
 `;

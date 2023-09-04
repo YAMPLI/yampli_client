@@ -32,7 +32,7 @@ export const __addGroup = createAsyncThunk(
       console.log('res' + response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error.response);
       return thunkAPI.rejectWithValue(error.response.data);
     }
   },

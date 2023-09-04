@@ -17,21 +17,20 @@ export default PlaylistEle;
 const PlaylistItemContainer = styled.div`
   display: flex;
   height: 60px;
-  margin-top: 14px;
+  margin-top: 20px;
   padding-left: 14px;
 `;
 
 const Thumbnail = styled.img`
   width: 60px;
   height: 60px;
-  background-color: yellow;
 `;
 
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 290px;
+  width: auto;
   padding-left: 14px;
   ${({ theme }) => css`
      {

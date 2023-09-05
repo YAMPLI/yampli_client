@@ -8,55 +8,60 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 // <FontAwesomeIcon icon="fa-solid fa-bars" style={{ color: '#ff9300' }} />;
 function Header() {
   return (
-    <HeaderWrap>
-      <TopNavbar>
-        <NavLink to="/" color="offWhite">
-          YAMPLI
-        </NavLink>
-        <Dropdown>
-          <FontAwesomeIcon icon={faBars} style={{ fontSize: '28px' }} />
-          <DropdownContent>
-            <DropdownLink to="#action/3.1">회원정보</DropdownLink>
-            <DropdownLink to="#action/3.2">그룹목록</DropdownLink>
-            <DropdownLink to="#action/3.3">로그아웃</DropdownLink>
-          </DropdownContent>
-        </Dropdown>
-      </TopNavbar>
-    </HeaderWrap>
+    <HeaderContainer>
+      <NavbarLink to="/">YAMPLI</NavbarLink>
+      <DropdownMenu>
+        <FontAwesomeIcon icon={faBars} style={{ fontSize: '28px' }} />
+        <MenuContent>
+          <MenuItemLink to="#action/3.1">회원정보</MenuItemLink>
+          <MenuItemLink to="#action/3.2">그룹목록</MenuItemLink>
+          <MenuItemLink to="#action/3.3">로그아웃</MenuItemLink>
+        </MenuContent>
+      </DropdownMenu>
+    </HeaderContainer>
   );
 }
 
 export default Header;
 
-const HeaderWrap = styled.div`
-  width: 100pv;
-  height: 55px;
+const HeaderContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  ${({ theme: { FlexBetween, headerHeight } }) => css`
+    ${FlexBetween}
+    ${headerHeight}
+  `}
+  align-items:center;
+  padding: 0 250px;
   background: ${({ theme }) => theme.color.dark};
   color: ${({ theme }) => theme.color.offWhite};
 `;
 
-const NavLink = styled(RouterLink)`
-  ${({ theme }) => css`
-    color: ${theme.color.offWhite};
-    ${theme.Font('pretendar', 25)};
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-  `}
+// 홈 이미지 네비게이션 링크
+const NavbarLink = styled(RouterLink)`
+  color: ${({ theme }) => theme.color.offWhite};
+  font-family: 'pretendar';
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: 0.1em; // 글자 간격
+  text-decoration: none;
 `;
 
-const TopNavbar = styled.div`
-  ${({ theme }) => css`
-    height: 100%;
-    ${theme.FlexBetween}
-    align-items : center;
-    margin: 0 250px;
-    color: ${theme.color.offWhite};
-    ${theme.Font('pretendar', 17)};
-  `}
+// 드롭다운 메뉴
+const DropdownMenu = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover div {
+    display: block;
+  }
 `;
 
-const DropdownContent = styled.div`
+const MenuContent = styled.div`
   display: none;
   position: absolute;
   min-width: 160px;
@@ -64,31 +69,20 @@ const DropdownContent = styled.div`
   background-color: ${({ theme }) => theme.color.dark};
 `;
 
-const Dropdown = styled.div`
-  position: relative;
-  display: inline-block;
+const MenuItemLink = styled(RouterLink)`
+  display: block;
+  ${({ theme }) => css`
+    ${theme.Font('pretendar', 20)};
+    color: ${theme.color.white};
+    &:hover {
+      background: ${lighten(0.1, theme.color.darkGray)};
+    }
 
-  &:hover ${DropdownContent} {
-    display: block;
-  }
-`;
-
-const DropdownLink = styled(RouterLink)`
-  ${({ theme }) => {
-    const orange = theme.color.offWhite;
-    return css`
-      display: block;
-      ${theme.Font('pretendar', 20)};
-      color: ${theme.color.white};
-      text-decoration: none;
-      border-bottom: 0.1px solid;
-      padding: 12px 16px;
-      &:hover {
-        background: ${lighten(0.1, orange)};
-      }
-      &:active {
-        background: ${darken(0.1, orange)};
-      }
-    `;
-  }}
+    &:active {
+      background: ${lighten(0.1, theme.color.darkGray)};
+    }
+  `}
+  text-decoration: none;
+  border-bottom: 0.1px solid;
+  padding: 12px 16px;
 `;

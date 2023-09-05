@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 function Footer() {
   if (window.location.pathname === '/kakao/oauth') return null;
   return (
-    <FooterWrap>
+    <FooterContainer>
       <FooterTitle>(주) YAMPLI </FooterTitle>
       <FooterContent as="ul">
         <li>
@@ -17,20 +17,19 @@ function Footer() {
           <h6>이메일</h6>&nbsp;&nbsp;hanjeong94@naver.com
         </li>
       </FooterContent>
-    </FooterWrap>
+    </FooterContainer>
   );
 }
-const FooterWrap = styled.div`
+const FooterContainer = styled.div`
   ${({ theme }) => css`
      {
-      background: ${theme.color.darkGray1};
-      ${theme.MoveCenter};
-      ${theme.FlexColumn};
-      align-items: center;
-      position: relative;
-      text-align: center;
       height: 250px;
       z-index: 999;
+      background: ${theme.color.darkGray};
+      color: ${theme.color.offWhite};
+      ${theme.FlexItemCenterColumn};
+      position: relative;
+      text-align: center;
     }
   `}
 `;
@@ -38,7 +37,6 @@ const FooterWrap = styled.div`
 const FooterTitle = styled.h6`
   ${({ theme }) => css`
      {
-      ${theme.FlexCenter}
       color: ${theme.color.offWhite};
       ${theme.Font('pretendar', 25)};
       font-weight: 500;

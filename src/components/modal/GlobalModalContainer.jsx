@@ -7,6 +7,10 @@ const MODAL_COMPONENTS = {
   playerModal: PlayModal,
 };
 
+/**
+ * 전역 모달 컨테이너
+ * 현재 열린 모달 유형과 속성을 가져와서 해당 모달 컴포넌트를 렌더링 한다.
+ */
 const GlobalModalContainer = () => {
   const { modalType, props, isOpen } = useSelector(selectModal);
 
@@ -37,6 +41,7 @@ const GlobalModalContainer = () => {
 };
 export default GlobalModalContainer;
 
+// 전체 화면 크기의 고정 위치에 모달을 중앙에 위치
 const Wrapper = styled.div`
   position: fixed;
   left: 0;

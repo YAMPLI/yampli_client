@@ -1,4 +1,4 @@
-import { Font } from './fontStyles';
+import { Font, fontSizes, fonts, lineHeights } from './fontStyles';
 import {
   FlexItemCenter,
   FlexCenter,
@@ -22,8 +22,10 @@ const color = {
   white: '#FFFFFF',
   offWhite: '#FAFAFA', // 주요 텍스트
   red: '#FF3E29', // 경고
+  footerGray: '#808080', // 푸터 작은 텍스트
 };
 
+// 반응형 미디어 쿼리
 const media = {
   mobile: '(max-width: 480px)',
   tablet: '(max-width: 768px)',
@@ -31,8 +33,9 @@ const media = {
   largeDesktop: '(min-width: 1025px)',
 };
 
+// 헤더 높이 설정 -> 헤더 고정 값
 const headerHeight = {
-  height: '55px',
+  height: '60px',
 };
 
 const theme = {
@@ -47,7 +50,9 @@ const theme = {
   headerHeight,
   CommonMedia,
   Font,
+  fontSizes,
+  fonts,
+  lineHeights,
 };
 
 export default theme;
-/* Color Theme Swatches in Hex */

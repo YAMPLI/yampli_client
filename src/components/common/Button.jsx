@@ -7,10 +7,6 @@ import PropTypes from 'prop-types';
 const colorStyles = css`
   ${(props) => {
     const selected = props.theme.color[props.color];
-    console.log(
-      'Theme colors : ' + JSON.stringify(props.theme.color[props.color]),
-    );
-    console.log('selected color : ', selected);
     return css`
       background: ${selected};
       &:hover {
@@ -84,7 +80,6 @@ const StyledButton = styled.button`
 `;
 
 function Button({ children, color, size, outline, ...rest }) {
-  console.log('color props : ' + color);
   return (
     <StyledButton color={color} size={size} outline={outline} {...rest}>
       {children}

@@ -1,11 +1,12 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Sidebar = ({ items }) => {
+// className props를 받아야 styled-components로 스타일을 확장할 수 있다.
+const Sidebar = ({ items, className }) => {
   const location = useLocation();
 
   return (
-    <SidebarContainer>
+    <SidebarContainer className={className}>
       {items.map((item, index) => (
         <SidebarItem key={index} onClick={item.onClick}>
           {item.label}

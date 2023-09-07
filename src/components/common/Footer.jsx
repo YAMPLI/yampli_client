@@ -1,62 +1,60 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-
+import styled from 'styled-components';
+import Text from './Text';
 function Footer() {
   if (window.location.pathname === '/kakao/oauth') return null;
   return (
     <FooterContainer>
-      <FooterTitle>(주) YAMPLI </FooterTitle>
-      <FooterContent as="ul">
-        <li>
-          <h6>대표</h6>&nbsp;&nbsp;설한정
-          <h6>주소지</h6>&nbsp;&nbsp;인천시 계양구 작전동
-        </li>
-        <li>
-          <h6>사업자 등록번호</h6>&nbsp;&nbsp;111-111-1111
-          <h6>연락처</h6>&nbsp;&nbsp;010-111-1111
-          <h6>이메일</h6>&nbsp;&nbsp;hanjeong94@naver.com
-        </li>
+      <TextTitle>(주) YAMPLI </TextTitle>
+      <FooterContent>
+        <FooterItem>
+          <ItemTitle>대표</ItemTitle>&nbsp;&nbsp;설한정
+          <ItemTitle>주소지</ItemTitle>&nbsp;&nbsp;인천시 계양구 작전동
+        </FooterItem>
+        <FooterItem>
+          <ItemTitle>사업자 등록번호</ItemTitle>&nbsp;&nbsp;111-111-1111
+          <ItemTitle>연락처</ItemTitle>&nbsp;&nbsp;010-111-1111
+          <ItemTitle>이메일</ItemTitle>&nbsp;&nbsp;hanjeong94@naver.com
+        </FooterItem>
       </FooterContent>
     </FooterContainer>
   );
 }
 const FooterContainer = styled.div`
-  ${({ theme }) => css`
-     {
-      height: 250px;
-      z-index: 999;
-      background: ${theme.color.darkGray};
-      color: ${theme.color.offWhite};
-      ${theme.FlexItemCenterColumn};
-      position: relative;
-      text-align: center;
-    }
-  `}
+  height: 250px;
+  z-index: 999;
+  background: ${({ theme }) => theme.color.darkGray};
+  color: ${({ theme }) => theme.color.offWhite};
+  ${(props) => props.theme.FlexItemCenterColumn}
+  position: relative;
+  text-align: center;
 `;
 
-const FooterTitle = styled.h6`
-  ${({ theme }) => css`
-     {
-      color: ${theme.color.offWhite};
-      ${theme.Font('pretendar', 25)};
-      font-weight: 500;
-      margin-bottom: 25px;
-    }
-  `}
+const TextTitle = styled(Text).attrs({
+  as: 'h6',
+  font: 'medium',
+  size: '20px',
+  weight: '500',
+  mb: '25px',
+})`
+  margin-bottom: ${(props) => props.mb}; // attrs로 전달받은 mb props 설정
+  font-weight: ${(props) => props.weight};
 `;
 
-const FooterContent = styled.div`
-  li {
-    list-style-type: none;
-    color: rgb(183, 172, 172);
-    margin-bottom: 10px;
-  }
-  h6 {
-    display: inline;
-    margin-left: 15px;
-    color: gray;
-    font-size: 15px;
-  }
+const FooterContent = styled.ul``;
+
+const FooterItem = styled.li`
+  ${(props) => props.theme.Font('medium')}
+  list-style-type: none;
+  color: rgb(183, 172, 172);
+  margin-bottom: 10px;
+`;
+
+const ItemTitle = styled(Text)`
+  display: inline;
+  ${(props) => props.theme.Font('small')}
+  margin-left: 15px;
+  color: gray;
 `;
 
 export default Footer;

@@ -16,7 +16,7 @@ const Playlist = () => {
   const modals = useModal();
   // const data = useSelector(selectModal);
   const songs = useSelector((state) => state.playlist.list);
-
+  console.log('songs', songs);
   const [modalOpen, setModalOpen] = useState(true);
   // PlaylistEle에서 음악 선택
   const [selectedSong, setSelectedSong] = useState(null);
@@ -42,7 +42,7 @@ const Playlist = () => {
   };
 
   return (
-    <PlayerContainer>
+    <PlayerContainer className="playerContainer">
       {modalOpen && (
         <ModalContainer>
           <PlayModal data={data} close={closeModal} />
@@ -51,19 +51,23 @@ const Playlist = () => {
       {!modalOpen && (
         <PlayerWrap className="playerWrap">
           <PlayerContent>
-            <Player song={selectedSong} />
-            <ListWrap>
-              {songs.map((list) => (
-                <PlaylistEle
-                  key={list._id}
-                  url={list.url}
-                  title={list.title}
-                  artist={list.artist}
-                  thumb={list.thumb[2]}
-                  onSongSelect={() => handleSongSelect(list)}
-                />
-              ))}
-            </ListWrap>
+            <PlayerThumbContainer>
+              <Player song={selectedSong} />
+            </PlayerThumbContainer>
+            <PlayerListContainer>
+              <ListWrap>
+                {songs.map((list) => (
+                  <PlaylistEle
+                    key={list._id}
+                    url={list.url}
+                    title={list.title}
+                    artist={list.artist}
+                    thumb={list.thumb[2]}
+                    onSongSelect={() => handleSongSelect(list)}
+                  />
+                ))}
+              </ListWrap>
+            </PlayerListContainer>
           </PlayerContent>
         </PlayerWrap>
       )}
@@ -73,28 +77,32 @@ const Playlist = () => {
 
 export default Playlist;
 const PlayerContainer = styled.div`
-  height: 100vh;
+  display: flex;
+  padding: 0 10px;
+  height: 100%;
 `;
 
 const PlayerWrap = styled.div`
-  display: flex;
   width: 100%;
   height: 100%;
-  /* padding: 50px 250px; */
 `;
-
 const PlayerContent = styled.div`
   display: flex;
-  flex: 8.5;
+`;
+
+const PlayerThumbContainer = styled.div`
+  display: flex;
+  /* flex: 8.5; */
   width: 100%;
   height: 100%;
 `;
-
-const ListWrap = styled.div`
+const PlayerListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1.5; // 이 값은 나머지 15%에 해당합니다.
-  height: auto;
+  /* flex: 1.5; // 이 값은 나머지 15%에 해당합니다. */
+`;
+const ListWrap = styled.div`
+  height: 100%;
   overflow-y: hidden;
   background-color: ${({ theme }) => theme.color.charcoalGray};
 `;

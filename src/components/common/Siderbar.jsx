@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { lighten } from 'polished';
+import Text from './Text';
 
 // className props를 받아야 styled-components로 스타일을 확장할 수 있다.
 const Sidebar = ({ items, className }) => {
@@ -9,7 +11,7 @@ const Sidebar = ({ items, className }) => {
     <SidebarContainer className={className}>
       {items.map((item, index) => (
         <SidebarItem key={index} onClick={item.onClick}>
-          {item.label}
+          <ItemTitle>{item.label}</ItemTitle>
         </SidebarItem>
       ))}
     </SidebarContainer>
@@ -18,20 +20,27 @@ const Sidebar = ({ items, className }) => {
 
 export default Sidebar;
 
-const SidebarContainer = styled.div`
-  /* 스타일링을 여기에 추가하세요 */
-  width: 200px;
-  background-color: #333;
-  padding: 10px;
-  height: 100vh;
+const SidebarContainer = styled.ul`
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  background-color: ${({ theme }) => theme.color.darkGray};
+  border: 1px solid ${({ theme }) => theme.color.footerGray};
+  /* box-shadow: 0px 0px 2px 2px ${({ theme }) => theme.color.darkGray}; */
 `;
 
-const SidebarItem = styled.div`
-  /* 스타일링을 여기에 추가하세요 */
-  padding: 8px;
-  color: #fff;
+// SidebarContainer의 자식 컴포넌트 SidebarItem의 스타일을 다른 컴포넌트에서도 변경하기 위해서
+export const SidebarItem = styled.li`
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
   cursor: pointer;
+  /* border-bottom: 0.1px solid ${({ theme }) => theme.color.lightBlue}; */
   &:hover {
-    background-color: #555;
+    background: ${({ theme }) => lighten(0.1, theme.color.darkGray)};
   }
 `;
+
+const ItemTitle = styled(Text).attrs({
+  font: 'large',
+})``;

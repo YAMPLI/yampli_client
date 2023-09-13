@@ -1,6 +1,6 @@
 import PlaylistEle from './PlaylistEle';
 import Player from './Player';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getPlaylist } from '../../store/playlistSlice';
@@ -16,8 +16,9 @@ const Playlist = () => {
   const modals = useModal();
   // const data = useSelector(selectModal);
   const songs = useSelector((state) => state.playlist.list);
-  console.log('songs', songs);
+  console.log('songs', songs[0]);
   const [modalOpen, setModalOpen] = useState(true);
+
   // PlaylistEle에서 음악 선택
   const [selectedSong, setSelectedSong] = useState(null);
 
@@ -29,6 +30,13 @@ const Playlist = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  // 플레이어에 바로 첫 번째 음악 썸네일 설정
+  useEffect(() => {
+    if (songs && songs.length > 0) {
+      setSelectedSong(songs[0]);
+    }
+  }, [songs]);
 
   // 렌더링 할 때 setOpen 확인해서 모달창 띄워버리기
   // 글로벌 모달창은 경고창에서만 사용하도록 하자
@@ -42,57 +50,52 @@ const Playlist = () => {
   };
 
   return (
-    <PlayerContainer className="playerContainer">
+    <PlaylistPageContainer className="playlistPageContainer">
       {modalOpen && (
         <ModalContainer>
           <PlayModal data={data} close={closeModal} />
         </ModalContainer>
       )}
       {!modalOpen && (
-        <PlayerWrap className="playerWrap">
-          <PlayerContent>
-            <PlayerThumbContainer>
-              <Player song={selectedSong} />
-            </PlayerThumbContainer>
-            <PlayerListContainer>
-              <ListWrap>
-                {songs.map((list) => (
-                  <PlaylistEle
-                    key={list._id}
-                    url={list.url}
-                    title={list.title}
-                    artist={list.artist}
-                    thumb={list.thumb[2]}
-                    onSongSelect={() => handleSongSelect(list)}
-                  />
-                ))}
-              </ListWrap>
-            </PlayerListContainer>
-          </PlayerContent>
-        </PlayerWrap>
+        <PlayerContainer className="playerContainer">
+          <PlayerWrap className="playerWrap">
+            <Player song={selectedSong} />
+          </PlayerWrap>
+          <PlayerListContainer>
+            <ListWrap>
+              {songs.map((list) => (
+                <PlaylistEle
+                  key={list._id}
+                  url={list.url}
+                  title={list.title}
+                  artist={list.artist}
+                  thumb={list.thumb[2]}
+                  onSongSelect={() => handleSongSelect(list)}
+                />
+              ))}
+            </ListWrap>
+          </PlayerListContainer>
+        </PlayerContainer>
       )}
-    </PlayerContainer>
+    </PlaylistPageContainer>
   );
 };
 
 export default Playlist;
+const PlaylistPageContainer = styled.div`
+  display: flex;
+  padding: 0px 10px;
+  height: 100%;
+`;
+
 const PlayerContainer = styled.div`
   display: flex;
-  padding: 0 10px;
-  height: 100%;
+  width: 100%;
+  /* width: 1000px; */
+  height: 1000px;
 `;
 
 const PlayerWrap = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-const PlayerContent = styled.div`
-  display: flex;
-`;
-
-const PlayerThumbContainer = styled.div`
-  display: flex;
-  /* flex: 8.5; */
   width: 100%;
   height: 100%;
 `;

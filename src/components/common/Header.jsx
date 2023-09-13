@@ -40,6 +40,7 @@ const HeaderContainer = styled.div`
   padding: 0 250px;
   background: ${({ theme }) => theme.color.dark};
   color: ${({ theme }) => theme.color.offWhite};
+  z-index: 1000;
 `;
 
 // 홈 이미지 네비게이션 링크

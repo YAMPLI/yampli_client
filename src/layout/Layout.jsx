@@ -8,8 +8,16 @@ function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const preventAccess = ['/home', '/group'];
-  const HIDDEN_FOOTER = ['/playlist', '/group'];
-  const isHiddenFooter = HIDDEN_FOOTER.includes(location.pathname);
+  // 동적인 경로 패턴에서 footer 제외하기 위한 정규표현식
+  const HIDDEN_FOOTER_PATTERNS = [
+    /^\/playlist$/,
+    /^\/group$/,
+    /^\/playlist\/[^/]+$/,
+  ];
+  // 주어진 패턴과 일치하는 주소를 가졌는지 확인하기 위한 some 함수
+  const isHiddenFooter = HIDDEN_FOOTER_PATTERNS.some((pattern) =>
+    pattern.test(location.pathname),
+  );
 
   useEffect(() => {
     if (preventAccess.includes(location.pathname)) {

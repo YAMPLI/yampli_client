@@ -5,7 +5,6 @@ import Text from '../common/Text';
 const GroupEle = ({ group, onClick, itemWidthRatio }) => {
   // 그룹 정보
   const { title, user, imageUrl } = group;
-  console.log(itemWidthRatio);
   // 유저 정보 4명만 출력
   const sliceUser = user.length > 4 ? user.slice(0, 4) : user;
   return (
@@ -24,7 +23,7 @@ const GroupEle = ({ group, onClick, itemWidthRatio }) => {
         <GroupName>{title}</GroupName>
         <GroupUserList>
           참여자 : {sliceUser.join(', ')}
-          {sliceUser.length > 4 && '...'}
+          {user.length > 4 && '...'}
         </GroupUserList>
       </GroupContentContainer>
     </GroupBody>

@@ -1,21 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
+import MiniPlayer from '../components/playlist/MiniPlayer';
 
 function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [showMenu, setShowMenu] = useState(true); // 메뉴 표시 상태
+
+  // 미니플레이어 토글 관리
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
+  // 토큰 확인
   const preventAccess = ['/home', '/group'];
-  // 동적인 경로 패턴에서 footer 제외하기 위한 정규표현식
-  const HIDDEN_FOOTER_PATTERNS = [
-    /^\/playlist$/,
-    /^\/group$/,
-    /^\/playlist\/[^/]+$/,
+
+  // Footer 표시할 경로
+  const VIEW_FOOTER_PATTERNS = [/^\/home$/, /^\/$/];
+
+  // 동적인 경로 패턴에서 MiniPlayer 제외하기 위한 정규표현식
+  const HIDDEN_MINIPLAYER_PATTERNS = [
+    /^\/$/,
+    // /^\/playlist$/,
+    // /^\/group$/,
+    // /^\/playlist\/[^/]+$/,
+    /^\/kakao\/[^/]+$/,
   ];
+
   // 주어진 패턴과 일치하는 주소를 가졌는지 확인하기 위한 some 함수
-  const isHiddenFooter = HIDDEN_FOOTER_PATTERNS.some((pattern) =>
+  const isHiddenMiniPlayer = HIDDEN_MINIPLAYER_PATTERNS.some((pattern) =>
+    pattern.test(location.pathname),
+  );
+
+  // 주어진 패턴과 일치하는 주소를 가졌는지 확인하기 위한 some 함수
+  const isViewFooter = VIEW_FOOTER_PATTERNS.some((pattern) =>
     pattern.test(location.pathname),
   );
 
@@ -31,7 +51,15 @@ function Layout() {
       <ContentWrap className="contentWrap">
         <Outlet />
       </ContentWrap>
-      {!isHiddenFooter && <Footer />}
+      {!isHiddenMiniPlayer && (
+        <>
+          <ToggleMenuButton onClick={toggleMenu}>
+            '미니플레이리스트'
+          </ToggleMenuButton>
+          {showMenu ? <MiniPlayer /> : '닫기'}
+        </>
+      )}
+      {isViewFooter && <Footer />}
     </LayoutContainer>
   );
 }
@@ -72,4 +100,9 @@ const ContentWrap = styled.div`
     padding-top: ${headerHeight.height};
   `}
   flex: 1; // 남은 공간을 채우도록 설정
+`;
+const ToggleMenuButton = styled.button`
+  /* position: absolute; */
+  z-index: 0;
+  color: white;
 `;

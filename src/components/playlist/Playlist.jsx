@@ -8,35 +8,40 @@ import useModal from '../../hooks/useModal';
 import styled from 'styled-components';
 import PlayModal from './PlayModal';
 import ModalContainer from '../modal/ModalContainer';
+import MiniPlayer from './MiniPlayer';
+import { setSelectedSong, selectPlayerState } from '../../store/playerSlice';
 const Playlist = () => {
   // 파라미터 전달받기(플레이리스트 id)
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const modals = useModal();
-  // const data = useSelector(selectModal);
+  // 음악 리스트 가져오기
   const songs = useSelector((state) => state.playlist.list);
-  console.log('songs', songs[0]);
   const [modalOpen, setModalOpen] = useState(true);
+  const [showMenu, setShowMenu] = useState(true); // 메뉴 표시 상태
 
-  // PlaylistEle에서 음악 선택
-  const [selectedSong, setSelectedSong] = useState(null);
+  // 미니플레이어 토글 관리
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
 
-  // Player로 전달
+  // playerSlice에서 selectedSong 값만 가져온다. useEffect로 인해서 0번째 노래가 저장된다.
+  const { selectedSong } = useSelector(selectPlayerState);
+
+  // Player로 노래 리스트 전달
   const handleSongSelect = (song) => {
-    setSelectedSong(song);
+    dispatch(setSelectedSong(song));
   };
 
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  // 플레이어에 바로 첫 번째 음악 썸네일 설정
   useEffect(() => {
     if (songs && songs.length > 0) {
-      setSelectedSong(songs[0]);
+      dispatch(setSelectedSong(songs[0]));
     }
-  }, [songs]);
+  }, [songs, dispatch]);
 
   // 렌더링 할 때 setOpen 확인해서 모달창 띄워버리기
   // 글로벌 모달창은 경고창에서만 사용하도록 하자
@@ -57,25 +62,32 @@ const Playlist = () => {
         </ModalContainer>
       )}
       {!modalOpen && (
-        <PlayerContainer className="playerContainer">
-          <PlayerWrap className="playerWrap">
-            <Player song={selectedSong} />
-          </PlayerWrap>
-          <PlayerListContainer>
-            <ListWrap>
-              {songs.map((list) => (
-                <PlaylistEle
-                  key={list._id}
-                  url={list.url}
-                  title={list.title}
-                  artist={list.artist}
-                  thumb={list.thumb[2]}
-                  onSongSelect={() => handleSongSelect(list)}
-                />
-              ))}
-            </ListWrap>
-          </PlayerListContainer>
-        </PlayerContainer>
+        <>
+          <PlayerContainer className="playerContainer">
+            <PlayerWrap className="playerWrap">
+              <Player song={selectedSong} />
+            </PlayerWrap>
+            <PlayerListContainer>
+              <ListWrap>
+                {songs.map((list) => (
+                  <PlaylistEle
+                    key={list._id}
+                    url={list.url}
+                    title={list.title}
+                    artist={list.artist}
+                    thumb={list.thumb[2]}
+                    onSongSelect={() => handleSongSelect(list)}
+                  />
+                ))}
+              </ListWrap>
+            </PlayerListContainer>
+          </PlayerContainer>
+          <button onClick={() => navigate('/group')}>Click me</button>
+          <ToggleMenuButton onClick={toggleMenu}>
+            '미니플레이리스트'
+          </ToggleMenuButton>
+          {showMenu ? <MiniPlayer /> : '닫기'}
+        </>
       )}
     </PlaylistPageContainer>
   );
@@ -102,10 +114,15 @@ const PlayerWrap = styled.div`
 const PlayerListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* flex: 1.5; // 이 값은 나머지 15%에 해당합니다. */
 `;
 const ListWrap = styled.div`
   height: 100%;
   overflow-y: hidden;
   background-color: ${({ theme }) => theme.color.charcoalGray};
+`;
+
+const ToggleMenuButton = styled.button`
+  /* position: absolute; */
+  z-index: 0;
+  color: white;
 `;

@@ -9,6 +9,7 @@ import authReducer from './authSlice';
 import groupReducer from './groupSlice';
 import playlistReducer from './playlistSlice';
 import modalReducer from './modalSlice';
+import playerReducer from './playerSlice';
 
 export default configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
     group: groupReducer,
     playlist: playlistReducer,
     modal: modalReducer,
+    player: playerReducer,
   },
 });

@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import MiniPlayer from '../components/playlist/MiniPlayer';
+import GlobalPlayer from '../components/common/GlobalPlayer';
 
 function Layout() {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ function Layout() {
         </>
       )}
       {isViewFooter && <Footer />}
+      <GlobalPlayer />
     </LayoutContainer>
   );
 }

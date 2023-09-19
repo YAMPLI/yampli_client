@@ -37,6 +37,7 @@ const Playlist = () => {
     setModalOpen(false);
   };
 
+  // SelectedSong 상태를 리스트의 첫 번째 노래로 변경.
   useEffect(() => {
     if (songs && songs.length > 0) {
       dispatch(setSelectedSong(songs[0]));

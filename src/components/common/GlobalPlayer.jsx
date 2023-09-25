@@ -16,10 +16,24 @@ import {
   setPlayerRef,
 } from '../../store/playerSlice';
 import { useEffect } from 'react';
+import { useState } from 'react';
 
 const GlobalPlayer = () => {
   const dispatch = useDispatch();
   const playerRef = useRef(null);
+  //   const [playerCurrent, setPlayerCurrent] = useState(null);
+
+  //   useEffect(() => {
+  //     if (playerRef.current && !playerCurrent) {
+  //       setPlayerCurrent(playerRef.current);
+  //     }
+  //   }, []);
+
+  //   useEffect(() => {
+  //     if (playerCurrent) {
+  //       dispatch(setPlayerRef(playerRef));
+  //     }
+  //   }, [playerCurrent, dispatch]);
 
   useEffect(() => {
     if (playerRef.current) {
@@ -41,11 +55,7 @@ const GlobalPlayer = () => {
   const songs = useSelector((state) => state.playlist.list);
 
   const handleProgress = (state) => {
-    console.log('BeforehandleProgress ' + state.played);
-
     if (!isSeeking) {
-      console.log('handleProgress ' + state.played);
-
       dispatch(setPlayed(state.played));
     }
   };
@@ -99,25 +109,40 @@ const GlobalPlayer = () => {
   //     console.log(playedSongsIndices);
   //   };
   return (
-    <>
-      {selectedSong && (
-        <StyledReactPlayer
-          ref={playerRef}
-          url={selectedSong ? selectedSong.url : null}
-          width="0%" // 0%로 설정하여 UI에 보이지 않게 한다.
-          height="0%"
-          playing={isPlaying}
-          loop={playMode === PlayMode.SINGLE}
-          controls={false} // controls 속성을 false로 설정
-          muted={false}
-          volume={volume}
-          style={{ display: 'none' }} // UI에 표시되지 않도록 설정
-          onProgress={handleProgress} // 재생 진행 이벤트
-          onDuration={handleDurationChange} // 영상 전체 길이
-          onEnded={handleEnded} // 재생 종료시 발생하는 이벤트
-        ></StyledReactPlayer>
-      )}
-    </>
+    // <>
+    //   {selectedSong && (
+    //     <StyledReactPlayer
+    //       ref={playerRef}
+    //       url={selectedSong ? selectedSong.url : null}
+    //       width="0%" // 0%로 설정하여 UI에 보이지 않게 한다.
+    //       height="0%"
+    //       playing={isPlaying}
+    //       loop={playMode === PlayMode.SINGLE}
+    //       controls={false} // controls 속성을 false로 설정
+    //       muted={false}
+    //       volume={volume}
+    //       style={{ display: 'none' }} // UI에 표시되지 않도록 설정
+    //       onProgress={handleProgress} // 재생 진행 이벤트
+    //       onDuration={handleDurationChange} // 영상 전체 길이
+    //       onEnded={handleEnded} // 재생 종료시 발생하는 이벤트
+    //     ></StyledReactPlayer>
+    //   )}
+    // </>
+    <StyledReactPlayer
+      ref={playerRef}
+      url={selectedSong ? selectedSong.url : null}
+      width="0%" // 0%로 설정하여 UI에 보이지 않게 한다.
+      height="0%"
+      playing={isPlaying}
+      loop={playMode === PlayMode.SINGLE}
+      controls={false} // controls 속성을 false로 설정
+      muted={false}
+      volume={volume}
+      style={{ display: 'none' }} // UI에 표시되지 않도록 설정
+      onProgress={handleProgress} // 재생 진행 이벤트
+      onDuration={handleDurationChange} // 영상 전체 길이
+      onEnded={handleEnded} // 재생 종료시 발생하는 이벤트
+    ></StyledReactPlayer>
   );
 };
 

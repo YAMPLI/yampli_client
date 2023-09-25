@@ -33,11 +33,11 @@ const Player = ({ song }) => {
     playedSongsIndices,
     globalPlayerRef,
     isSeeking,
+    playerRef,
   } = useSelector(selectPlayerState);
   // const playerRef = useRef(null);
   const defaultThumbnail = '';
   const songs = useSelector((state) => state.playlist.list);
-
   const handlePlay = () => {
     dispatch(togglePlay());
     console.log(playMode);
@@ -101,11 +101,12 @@ const Player = ({ song }) => {
   //   }
   // };
   const handleSeekChange = (e) => {
-    console.log('handleSeekChange : ' + e.target.value);
-    dispatch(setPlayed(parseFloat(e.target.value)));
+    if (playerRef && playerRef.current) {
+      dispatch(setPlayed(parseFloat(e.target.value)));
+      playerRef.current.seekTo(parseFloat(e.target.value));
+    }
   };
   const handleSeekMouseDown = (e) => {
-    console.log('mouseDown : ' + e.target.value);
     dispatch(togglePlay());
     dispatch(setIsSeeking(true));
   };
@@ -146,8 +147,8 @@ const Player = ({ song }) => {
   const handleSeekMouseUp = async (e) => {
     const playedValue = parseFloat(e.target.value);
     await dispatch(asyncSetPlayed(playedValue));
-    if (globalPlayerRef && globalPlayerRef.current) {
-      globalPlayerRef.current.seekTo(playedValue);
+    if (playerRef && playerRef.current) {
+      playerRef.current.seekTo(playedValue);
     }
     dispatch(togglePlay());
     dispatch(setIsSeeking(false));

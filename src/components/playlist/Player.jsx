@@ -19,9 +19,12 @@ import {
 } from '../../store/playerSlice';
 // import ReactPlayer from 'react-player/youtube';
 import { useState } from 'react';
+// import usePlayerRef from '../../hooks/usePlayerRef';
+import { usePlayerRef } from '../../context/PlayerContext';
 
 const Player = ({ song }) => {
   const dispatch = useDispatch();
+  const playerRef = usePlayerRef();
   const {
     isPlaying,
     currentSongIndex,
@@ -33,7 +36,7 @@ const Player = ({ song }) => {
     playedSongsIndices,
     globalPlayerRef,
     isSeeking,
-    playerRef,
+    // playerRef,
   } = useSelector(selectPlayerState);
   // const playerRef = useRef(null);
   const defaultThumbnail = '';

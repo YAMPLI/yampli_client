@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player/youtube';
+import { usePlayerRef } from '../../context/PlayerContext';
 import {
   selectPlayerState,
   PlayMode,
@@ -13,14 +14,14 @@ import {
   addPlayedSongIndex,
   playNextSong,
   playPreviousSong,
-  setPlayerRef,
 } from '../../store/playerSlice';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
 const GlobalPlayer = () => {
   const dispatch = useDispatch();
-  const playerRef = useRef(null);
+  const playerRef = usePlayerRef();
+  //   const playerRef = useRef(null);
   //   const [playerCurrent, setPlayerCurrent] = useState(null);
 
   //   useEffect(() => {
@@ -37,7 +38,7 @@ const GlobalPlayer = () => {
 
   useEffect(() => {
     if (playerRef.current) {
-      dispatch(setPlayerRef(playerRef));
+      //   dispatch(setPlayerRef(playerRef));
     }
   }, [playerRef, dispatch]);
 

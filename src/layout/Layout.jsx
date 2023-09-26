@@ -5,6 +5,7 @@ import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import MiniPlayer from '../components/playlist/MiniPlayer';
 import GlobalPlayer from '../components/common/GlobalPlayer';
+import { PlayerProvider } from '../context/PlayerContext';
 
 function Layout() {
   const navigate = useNavigate();
@@ -47,22 +48,24 @@ function Layout() {
   }, [location.pathname]);
 
   return (
-    <LayoutContainer className="layoutContainer">
-      <Header />
-      <ContentWrap className="contentWrap">
-        <Outlet />
-      </ContentWrap>
-      {!isHiddenMiniPlayer && (
-        <>
-          <ToggleMenuButton onClick={toggleMenu}>
-            '미니플레이리스트'
-          </ToggleMenuButton>
-          {showMenu ? <MiniPlayer /> : '닫기'}
-        </>
-      )}
-      {isViewFooter && <Footer />}
-      <GlobalPlayer />
-    </LayoutContainer>
+    <PlayerProvider>
+      <LayoutContainer className="layoutContainer">
+        <Header />
+        <ContentWrap className="contentWrap">
+          <Outlet />
+        </ContentWrap>
+        {!isHiddenMiniPlayer && (
+          <>
+            <ToggleMenuButton onClick={toggleMenu}>
+              '미니플레이리스트'
+            </ToggleMenuButton>
+            {showMenu ? <MiniPlayer /> : '닫기'}
+          </>
+        )}
+        {isViewFooter && <Footer />}
+        <GlobalPlayer />
+      </LayoutContainer>
+    </PlayerProvider>
   );
 }
 

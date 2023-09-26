@@ -98,9 +98,9 @@ const playerSlice = createSlice({
         (state.currentSongIndex - 1 + songs.length) % songs.length;
       state.selectedSong = songs[state.currentSongIndex];
     },
-    setPlayerRef: (state, action) => {
-      state.playerRef = action.payload;
-    },
+    // setPlayerRef: (state, action) => {
+    //   state.playerRef = action.payload;
+    // },
     setIsSeeking: (state, action) => {
       state.isSeeking = action.payload;
     },
@@ -127,7 +127,6 @@ export const {
   resetPlayedSongs,
   playNextSong,
   playPreviousSong,
-  setPlayerRef,
   setIsSeeking,
 } = playerSlice.actions;
 

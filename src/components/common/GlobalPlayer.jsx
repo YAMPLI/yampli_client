@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player/youtube';
@@ -15,32 +15,10 @@ import {
   playNextSong,
   playPreviousSong,
 } from '../../store/playerSlice';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 const GlobalPlayer = () => {
   const dispatch = useDispatch();
   const playerRef = usePlayerRef();
-  //   const playerRef = useRef(null);
-  //   const [playerCurrent, setPlayerCurrent] = useState(null);
-
-  //   useEffect(() => {
-  //     if (playerRef.current && !playerCurrent) {
-  //       setPlayerCurrent(playerRef.current);
-  //     }
-  //   }, []);
-
-  //   useEffect(() => {
-  //     if (playerCurrent) {
-  //       dispatch(setPlayerRef(playerRef));
-  //     }
-  //   }, [playerCurrent, dispatch]);
-
-  useEffect(() => {
-    if (playerRef.current) {
-      //   dispatch(setPlayerRef(playerRef));
-    }
-  }, [playerRef, dispatch]);
 
   const {
     isPlaying,
@@ -64,7 +42,7 @@ const GlobalPlayer = () => {
   const handleDurationChange = (duration) => {
     dispatch(setDuration(duration));
   };
-
+  
   //   const handleEnded = () => {
   //     if (playMode === PlayMode.LOOP) {
   //       if (currentSongIndex + 1 < songs.length) {
@@ -86,49 +64,7 @@ const GlobalPlayer = () => {
       // PlayMode.SINGLE과 PlayMode.RANDOM은 여기서 처리됩니다.
     }
   };
-  //   const playNext = () => {
-  //     let nextIndex;
-  //     if (playMode === PlayMode.RANDOM) {
-  //       const unplayedIndices = songs
-  //         .map((_, index) => index)
-  //         .filter((index) => !playedSongsIndices.includes(index));
-
-  //       if (unplayedIndices.length === 0) {
-  //         // 모든 노래가 재생되면
-  //         dispatch(resetPlayedSongs());
-  //         nextIndex = Math.floor(Math.random() * songs.length);
-  //       } else {
-  //         const randomIndex = Math.floor(Math.random() * unplayedIndices.length);
-  //         nextIndex = unplayedIndices[randomIndex];
-  //       }
-  //       dispatch(addPlayedSongIndex(nextIndex)); // 재생된 노래 인덱스 추가
-  //     } else {
-  //       nextIndex = (currentSongIndex + 1) % songs.length;
-  //     }
-
-  //     dispatch(setCurrentSongIndex(nextIndex));
-  //     console.log(playedSongsIndices);
-  //   };
   return (
-    // <>
-    //   {selectedSong && (
-    //     <StyledReactPlayer
-    //       ref={playerRef}
-    //       url={selectedSong ? selectedSong.url : null}
-    //       width="0%" // 0%로 설정하여 UI에 보이지 않게 한다.
-    //       height="0%"
-    //       playing={isPlaying}
-    //       loop={playMode === PlayMode.SINGLE}
-    //       controls={false} // controls 속성을 false로 설정
-    //       muted={false}
-    //       volume={volume}
-    //       style={{ display: 'none' }} // UI에 표시되지 않도록 설정
-    //       onProgress={handleProgress} // 재생 진행 이벤트
-    //       onDuration={handleDurationChange} // 영상 전체 길이
-    //       onEnded={handleEnded} // 재생 종료시 발생하는 이벤트
-    //     ></StyledReactPlayer>
-    //   )}
-    // </>
     <StyledReactPlayer
       ref={playerRef}
       url={selectedSong ? selectedSong.url : null}

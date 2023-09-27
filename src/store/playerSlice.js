@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Promise } from 'es6-promise';
+import { shuffle } from 'lodash';
 
 export const PlayMode = {
   LOOP: 'loop', // 전곡 반복 재생
@@ -26,7 +27,8 @@ const initialState = {
   duration: 0, // 프로그레스바를 위한 영상 길이
   selectedSong: null,
   volume: 0.3, // 볼륨제어 , 0~1
-  currentSongIndex: 0,
+  currentSongIndex: 0, // 실제 노래 리스트의 인덱스를 갖는 변수
+  currentPlayingIndex: 0, // 현재 재생 중인 곡의 인덱스를 추적하는 변수
   playMode: PlayMode.LOOP,
   playedSongsIndices: [],
   playerRef: null, // 다른 페이지에서도 플레이어를 참조할 수 있도록
@@ -37,12 +39,23 @@ const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    initPlayedSongsIndices: (state, action) => {
+      // Array.from을 이용해서 빈 배열을 초기화
+      // 새로운 배열의 원소 값을 songs 리스트의 길이만큼 0부터 채운다.
+      // ex) song.length =  3 -> songIndices=[0,1,2]
+      const songIndices = Array.from(
+        { length: action.payload.length },
+        (_, i) => i,
+      );
+      // lodash 라이브러리의 shuffle를 사용해서 랜덤모드인 경우 배열 요소를 섞어준다.
+      state.playedSongsIndices =
+        state.playMode === PlayMode.RANDOM ? shuffle(songIndices) : songIndices;
+    },
     togglePlay(state) {
       state.isPlaying = !state.isPlaying;
     },
     setPlayed(state, action) {
       state.played = action.payload;
-      console.log(action.payload);
     },
     setDuration(state, action) {
       state.duration = action.payload;
@@ -67,35 +80,45 @@ const playerSlice = createSlice({
     },
     playNextSong: (state, action) => {
       const songs = action.payload.songs;
-      console.log(songs);
-      let nextIndex;
+      const playFromStart = action.payload.playFromStart;
+      if (state.playMode === PlayMode.SINGLE) {
+        playFromStart();
+        return;
+      }
       if (state.playMode === PlayMode.LOOP) {
         state.currentSongIndex = (state.currentSongIndex + 1) % songs.length;
       } else if (state.playMode === PlayMode.RANDOM) {
-        const unplayedIndices = songs
-          .map((_, index) => index)
-          .filter((index) => !state.playedSongsIndices.includes(index));
-
-        if (unplayedIndices.length === 0) {
-          state.resetPlayedSongs();
-          // 모든 노래가 재생되면
-          nextIndex = Math.floor(Math.random() * songs.length);
+        if (state.currentPlayingIndex >= state.playedSongsIndices.length - 1) {
+          state.playedSongsIndices = shuffle(state.playedSongsIndices);
+          state.currentPlayingIndex = 0;
         } else {
-          const randomIndex = Math.floor(
-            Math.random() * unplayedIndices.length,
-          );
-          nextIndex = unplayedIndices[randomIndex];
+          state.currentPlayingIndex += 1;
         }
-        state.addPlayedSongIndex(nextIndex);
-      } else {
-        state.currentSongIndex = (state.currentSongIndex + 1) % songs.length;
+        state.currentSongIndex =
+          state.playedSongsIndices[state.currentPlayingIndex];
       }
       state.selectedSong = songs[state.currentSongIndex];
     },
     playPreviousSong: (state, action) => {
       const songs = action.payload.songs;
-      state.currentSongIndex =
-        (state.currentSongIndex - 1 + songs.length) % songs.length;
+      const playFromStart = action.payload.playFromStart;
+      if (state.playMode === PlayMode.SINGLE) {
+        playFromStart();
+        return;
+      }
+      if (state.playMode === PlayMode.LOOP) {
+        state.currentSongIndex =
+          (state.currentSongIndex - 1 + songs.length) % songs.length;
+      } else if (state.playMode === PlayMode.RANDOM) {
+        if (state.currentPlayingIndex > 0) {
+          state.currentPlayingIndex -= 1;
+        } else {
+          // 리스트의 처음에 도달한 경우, 마지막 곡으로 이동
+          state.currentPlayingIndex = state.playedSongsIndices.length - 1;
+        }
+        state.currentSongIndex =
+          state.playedSongsIndices[state.currentPlayingIndex];
+      }
       state.selectedSong = songs[state.currentSongIndex];
     },
     // setPlayerRef: (state, action) => {
@@ -128,6 +151,7 @@ export const {
   playNextSong,
   playPreviousSong,
   setIsSeeking,
+  initPlayedSongsIndices,
 } = playerSlice.actions;
 
 export const selectPlayerState = (state) => state.player;

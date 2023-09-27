@@ -19,4 +19,9 @@ export default configureStore({
     modal: modalReducer,
     player: playerReducer,
   },
+  // middleware 추가 코드이다. Redux에서는 action을 전달할 때 직렬화된 string형태의 데이터를 보내야한다.
+  // Player.jsx 컴포넌트에서 전달하는 seekTo 함수는 직렬화된 데이터가 아니기 때문에 에러가 발생
+  // 직렬화 가능한 값을 체크하는 미들웨어를 사용하지 않도록 설정
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });

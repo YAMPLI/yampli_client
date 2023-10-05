@@ -1,7 +1,7 @@
 import './App.css';
 import { React } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 import theme from './styles/theme';
 import Home from './pages/Home';
@@ -10,23 +10,22 @@ import PlaylistPage from './pages/PlaylistPage';
 import CreatePlaylistPage from './pages/CreatePlaylistPage';
 import Group from './pages/GroupPage';
 import KakaoCallback from './pages/KakaoCallback';
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import ModalContainer from './components/modal/ModalContainer';
+import Layout from './layout/Layout';
+import GlobalModalContainer from './components/modal/GlobalModalContainer';
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
-      <ModalContainer></ModalContainer>
+      <GlobalModalContainer />
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/group" element={<Group />} />
-        <Route path="/kakao/oauth" element={<KakaoCallback />} />
-        <Route path="/playlist/:id" element={<PlaylistPage />} />
-        <Route path="/playlist/create" element={<CreatePlaylistPage />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/group" element={<Group />} />
+          <Route path="/kakao/oauth" element={<KakaoCallback />} />
+          <Route path="/playlist/:id" element={<PlaylistPage />} />
+          <Route path="/playlist/create" element={<CreatePlaylistPage />} />
+        </Route>
       </Routes>
-      <Footer />
     </ThemeProvider>
   );
 }

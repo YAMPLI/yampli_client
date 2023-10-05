@@ -2,11 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getGroupList } from '../../store/groupSlice';
 import { __getPlaylist } from '../../store/playlistSlice';
+import { darken, lighten } from 'polished';
 import GroupModal from './GroupModal';
-import GroupCard from './GroupCard';
+import GroupEle from './GroupEle';
+import SearchBar from '../common/SearchBar';
+import Text from '../common/Text';
+import Sidebar, { SidebarItem } from '../common/Siderbar';
 import { useNavigate } from 'react-router-dom';
-import styles from './group.module.scss';
-import groupModal from '../modal/ModalBasic';
+import styled, { css } from 'styled-components';
+import ModalContainer from '../modal/ModalContainer';
+
+// 사이드바 테스트 데이터
+const temporaryGroupData = [
+  { id: 1, name: '그룹 1' },
+  { id: 2, name: '그룹 2' },
+  { id: 3, name: '그룹 3' },
+  { id: 4, name: '그룹 4' },
+  { id: 5, name: '그룹 5' },
+];
 
 const GroupList = () => {
   const dispatch = useDispatch();
@@ -16,40 +29,199 @@ const GroupList = () => {
 
   useEffect(() => {
     dispatch(__getGroupList());
+    console.log(groupList.length);
   }, []);
 
   const openModal = () => {
     setModalOpen(true);
   };
 
+  const sidebarItems = temporaryGroupData.map((group) => ({
+    label: group.name,
+    onClick: () => {
+      console.log(`${group.name} 클릭됨!`);
+      // 필요한 경우 여기에 추가 로직을 넣을 수 있습니다.
+    },
+  }));
+
   return (
-    <div>
-      {groupList.length === 0 ? (
-        <div>
-          <p>소속된 그룹이 없습니다. 그룹 생성 버튼을 눌러주세요.</p>
-          <button onClick={openModal}>그룹생성</button>
-          {modalOpen && <GroupModal setModalOpen={setModalOpen} />}
-        </div>
-      ) : (
-        groupList.map((list) => {
-          // onClickGroup() : 렌더링되면서 바로 함수가 실행되버린다
-          // onClickGrup로 클릭 이벤트만 설정하고 useState로 상태 동적 관리
-          return (
-            // component에 key값을 부여해도 에러 발생
-            // 상위 컨테이너에 key 값을 줘서 해결
-            <div className={styles.groupWrap} key={list._id}>
-              <GroupCard
-                title={list.title}
-                onClick={() => {
-                  navigate(`/playlist/${list._id}`);
-                }}
-              ></GroupCard>
-            </div>
-          );
-        })
+    <GroupPageContainer className="groupPageContainer">
+      {groupList.length !== 0 && (
+        <SidebarContainer>
+          <GroupPageSidebar items={sidebarItems} />
+        </SidebarContainer>
       )}
-    </div>
+      <GroupContainer
+        className="groupContainer"
+        groupListLength={groupList.length}
+      >
+        {groupList.length !== 0 && (
+          <GroupHeader>
+            <GroupHeaderName>그룹 목록</GroupHeaderName>
+            <SearchBar />
+          </GroupHeader>
+        )}
+        {groupList.length !== 0 ? (
+          <FindGroupList
+            groupList={groupList}
+            navigate={navigate}
+            itemsPerRow={4}
+          />
+        ) : (
+          <EmptyGroupList
+            openModal={openModal}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+          />
+        )}
+      </GroupContainer>
+    </GroupPageContainer>
   );
 };
 
+const EmptyGroupList = ({ openModal, modalOpen, setModalOpen }) => {
+  return (
+    <EmptyGroup className="emptyGroup">
+      <EmptyGroupText>
+        소속된 그룹이 없습니다. 그룹 생성 버튼을 눌러주세요.
+      </EmptyGroupText>
+      <GroupCreateButton onClick={openModal}>그룹생성</GroupCreateButton>
+      {modalOpen && (
+        <ModalContainer>
+          <GroupModal setModalOpen={setModalOpen} />
+        </ModalContainer>
+      )}
+    </EmptyGroup>
+  );
+};
+
+const FindGroupList = ({ groupList, navigate, itemsPerRow }) => {
+  const emptySlots = itemsPerRow - (groupList.length % itemsPerRow);
+
+  return (
+    <GroupListWrap className="GroupListWrap" itemsPerRow={itemsPerRow}>
+      {groupList.map((group) => (
+        <GroupEleWrap
+          key={group._id}
+          itemsCount={groupList.length}
+          itemsPerRow={itemsPerRow}
+        >
+          <GroupEle
+            group={group}
+            onClick={() => {
+              navigate(`/playlist/${group._id}`);
+            }}
+            itemWidthRatio={100 / itemsPerRow}
+          />
+        </GroupEleWrap>
+      ))}
+      {Array.from({ length: emptySlots }).map((_, idx) => (
+        <EmptySlot key={`empty-${idx}`} itemsPerRow={itemsPerRow} />
+      ))}
+    </GroupListWrap>
+  );
+};
 export default GroupList;
+// 사이드바와 그룹을 보여주는 그룹 페이지 컨테이너를 모두 포함하는 최상단 컨테이너 역할을 하도록 한다.
+const GroupPageContainer = styled.div`
+  display: flex;
+  height: 100%;
+  padding: 32px 250px;
+
+  // 첫 번째 자식 요소로 들어오는 컴포넌트는 패딩이 적용되지 않도록 설정
+  /* & > *:not(:first-child) {
+    padding: 0 250px;
+  } */
+`;
+
+const SidebarContainer = styled.div`
+  width: 350px;
+`;
+
+const GroupPageSidebar = styled(Sidebar)`
+  ${SidebarItem} {
+    color: red;
+  }
+`;
+
+const GroupContainer = styled.div`
+  padding: 0px 100px;
+  // siderbar와 나란히 배치중이기 때문에 그룹이 존재하지 않은 경우에 레이아웃의 반만 사용되고있다.
+  // 그룹리스트가 존재하지 않는 경우 width 전체를 사용하도록 한다.
+  ${({ groupListLength }) => groupListLength !== 0 && `width: 100%;`}
+`;
+
+const GroupHeader = styled.div`
+  ${({ theme }) => theme.FlexCenter};
+  /* display: flex; */
+  justify-content: space-between;
+  margin-bottom: 32px;
+`;
+
+const GroupHeaderName = styled(Text).attrs({
+  font: 'large',
+  size: '20px',
+})`
+  font-weight: 500;
+`;
+
+const EmptyGroup = styled.div`
+  ${({ theme }) => theme.FlexItemCenterColumn};
+  width: 100%;
+  height: 100%;
+`;
+const EmptyGroupText = styled.p`
+  ${({ theme }) => theme.Font('alert', '20px')};
+  color: ${({ theme }) => theme.color.offWhite};
+`;
+
+const GroupCreateButton = styled.button`
+  position: relative;
+  margin-top: 1.5rem;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  color: ${({ theme }) => theme.color.offWhite};
+  background: linear-gradient(
+    to right,
+    ${({ theme }) => theme.color.lightPurple},
+    ${({ theme }) => theme.color.lightBlue}
+  );
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background: linear-gradient(
+      to right,
+      ${({ theme }) => darken(0.1, theme.color.lightPurple)},
+      ${({ theme }) => darken(0.1, theme.color.lightBlue)}
+    );
+  }
+
+  &:active {
+    background: linear-gradient(
+      to right,
+      ${({ theme }) => lighten(0.1, theme.color.lightPurple)},
+      ${({ theme }) => lighten(0.1, theme.color.lightBlue)}
+    );
+  }
+`;
+
+const GroupListWrap = styled.div`
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(calc(${({ itemsPerRow }) => `100% / ${itemsPerRow}`}), auto)
+  );
+`;
+
+const GroupEleWrap = styled.div`
+  width: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+`;
+
+const EmptySlot = styled.div`
+  width: ${({ itemsPerRow }) => `${100 / itemsPerRow}%`};
+  padding: 0.5rem;
+  box-sizing: border-box;
+`;

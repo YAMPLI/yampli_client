@@ -94,7 +94,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  color: 'black',
+  color: 'dark',
   size: 'medium',
 };
 export default Button;

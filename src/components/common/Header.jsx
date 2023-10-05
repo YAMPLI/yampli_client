@@ -5,90 +5,91 @@ import styled, { css } from 'styled-components';
 import { darken, lighten } from 'polished';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Text from './Text';
 // <FontAwesomeIcon icon="fa-solid fa-bars" style={{ color: '#ff9300' }} />;
 function Header() {
   return (
-    <HeaderWrap>
-      <TopNavbar>
-        <NavLink to="/" color="lightOrange">
-          YAMPLI
-        </NavLink>
-        <Dropdown>
-          <FontAwesomeIcon icon={faBars} style={{ fontSize: '28px' }} />
-          <DropdownContent>
-            <DropdownLink to="#action/3.1">회원정보</DropdownLink>
-            <DropdownLink to="#action/3.2">그룹목록</DropdownLink>
-            <DropdownLink to="#action/3.3">로그아웃</DropdownLink>
-          </DropdownContent>
-        </Dropdown>
-      </TopNavbar>
-    </HeaderWrap>
+    <HeaderContainer>
+      <NavbarLink to="/">YAMPLI</NavbarLink>
+      <DropdownMenu>
+        <FontAwesomeIcon icon={faBars} style={{ fontSize: '20px' }} />
+        <MenuContent>
+          <MenuItemLink to="#action/3.1">
+            <MenuItemTitle>회원정보</MenuItemTitle>
+          </MenuItemLink>
+          <MenuItemLink to="#action/3.2">
+            <MenuItemTitle>그룹목록</MenuItemTitle>
+          </MenuItemLink>
+          <MenuItemLink to="#action/3.3">
+            <MenuItemTitle>로그아웃</MenuItemTitle>
+          </MenuItemLink>
+        </MenuContent>
+      </DropdownMenu>
+    </HeaderContainer>
   );
 }
 
 export default Header;
 
-const HeaderWrap = styled.div`
-  width: 100pv;
-  height: 55px;
-  background: ${({ theme }) => theme.color.darkGray};
-  color: ${({ theme }) => theme.color.lightOrange};
+const HeaderContainer = styled.div`
+  position: fixed;
+  ${({ theme }) => theme.FlexBetween}
+  width: 100%;
+  height: ${({ theme }) => theme.headerHeight.height};
+  align-items: center;
+  padding: 0 250px;
+  background: ${({ theme }) => theme.color.dark};
+  color: ${({ theme }) => theme.color.offWhite};
+  z-index: 1000;
 `;
 
-const NavLink = styled(RouterLink)`
-  ${({ theme }) => css`
-    color: ${theme.color.lightOrange};
-    ${theme.Font('pretendar', 25)};
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-  `}
+// 홈 이미지 네비게이션 링크
+const NavbarLink = styled(RouterLink)`
+  color: ${({ theme }) => theme.color.offWhite};
+  ${({ theme }) => theme.Font('', '25px')}
+  font-weight: 500;
+  letter-spacing: 0.1em; // 글자 간격
+  text-decoration: none;
 `;
 
-const TopNavbar = styled.div`
-  ${({ theme }) => css`
-    height: 100%;
-    ${theme.FlexBetween}
-    align-items : center;
-    margin: 0 250px;
-    color: ${theme.color.lightOrange};
-    ${theme.Font('pretendar', 17)};
-  `}
-`;
-
-const DropdownContent = styled.div`
-  display: none;
-  position: absolute;
-  min-width: 160px;
-  z-index: 1;
-  background-color: ${({ theme }) => theme.color.lightOrange};
-`;
-
-const Dropdown = styled.div`
+// 드롭다운 메뉴
+const DropdownMenu = styled.div`
   position: relative;
   display: inline-block;
 
-  &:hover ${DropdownContent} {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover div {
     display: block;
   }
 `;
 
-const DropdownLink = styled(RouterLink)`
-  ${({ theme }) => {
-    const orange = theme.color.lightOrange;
-    return css`
-      display: block;
-      ${theme.Font('pretendar', 20)};
-      color: ${theme.color.white};
-      text-decoration: none;
-      border-bottom: 0.1px solid;
-      padding: 12px 16px;
-      &:hover {
-        background: ${lighten(0.1, orange)};
-      }
-      &:active {
-        background: ${darken(0.1, orange)};
-      }
-    `;
-  }}
+const MenuContent = styled.div`
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  z-index: 1;
+  background-color: ${({ theme }) => theme.color.dark};
 `;
+
+const MenuItemLink = styled(RouterLink)`
+  display: block;
+  text-decoration: none;
+  border-bottom: 0.1px solid;
+  padding: 12px 16px;
+
+  &:hover {
+    background: ${({ theme }) => darken(0.1, theme.color.darkGray)};
+  }
+
+  &:active {
+    background: ${({ theme }) => lighten(0.1, theme.color.darkGray)};
+  }
+`;
+
+const MenuItemTitle = styled(Text).attrs({
+  font: 'small',
+  color: 'offWhite',
+})``;

@@ -83,11 +83,6 @@ const Playlist = () => {
               </ListWrap>
             </PlayerListContainer>
           </PlayerContainer>
-          <button onClick={() => navigate('/group')}>Click me</button>
-          <ToggleMenuButton onClick={toggleMenu}>
-            '미니플레이리스트'
-          </ToggleMenuButton>
-          {showMenu ? <MiniPlayer /> : '닫기'}
         </>
       )}
     </PlaylistPageContainer>

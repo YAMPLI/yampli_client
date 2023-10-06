@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import Icon from '../icons';
 import {
   togglePlay,
   setPlayed,
@@ -79,17 +80,7 @@ const Player = ({ song }) => {
     dispatch(togglePlay());
     dispatch(setIsSeeking(false));
   };
-  // const handleEnded = () => {
-  //   if (playMode === PlayMode.LOOP) {
-  //     if (currentSongIndex + 1 < songs.length) {
-  //       dispatch(setCurrentSongIndex(currentSongIndex + 1));
-  //     } else {
-  //       dispatch(setCurrentSongIndex(0)); // 처음으로 돌아간다
-  //     }
-  //   } else {
-  //     playNext(); // PlayMode.SINGLE과 PlayMode.RANDOM은 여기서 처리됩니다.
-  //   }
-  // };
+
   const handleModeChange = (mode) => {
     dispatch(setPlayMode(mode));
     dispatch(initPlayedSongsIndices({ length: songs.length }));
@@ -106,13 +97,12 @@ const Player = ({ song }) => {
   return (
     <PlayerContainer>
       <Thumbnail
-        // src={song ? songs[currentSongIndex].thumb[0] : defaultThumbnail}
         src={selectedSong ? selectedSong.thumb[0] : defaultThumbnail}
       />
 
-      <Con>
+      <ControllerContainer>
         <PlayButton1 onClick={handlePlay}>
-          {isPlaying ? '⏸️' : '▶️'}
+          {isPlaying ? '⏸️' : <Icon name="PlayIcon" />}
         </PlayButton1>
         <PlayButton1
           onClick={() =>
@@ -138,7 +128,7 @@ const Player = ({ song }) => {
         >
           Previousssssss
         </PlayButton1>
-      </Con>
+      </ControllerContainer>
       <ProgressBar>
         <Progress played={played} />
       </ProgressBar>
@@ -195,7 +185,7 @@ const Thumbnail = styled.div`
   filter: blur(8px); // 블러 처리 적용
   z-index: 1;
 `;
-const Con = styled.div`
+const ControllerContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -263,4 +253,5 @@ const ModeButton = styled.button`
   margin-left: 10px;
   z-index: 1;
 `;
+
 export default Player;

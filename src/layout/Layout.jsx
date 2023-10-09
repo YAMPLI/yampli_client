@@ -77,8 +77,8 @@ const LayoutContainer = styled.div`
   // 자식 요소들의 높이를 동적으로 조절하기 위해 flexbox 사용
   display: flex;
   flex-direction: column;
-  min-height: 100vh; // 자식 요소들이 전체 높이를 채우도록 설정
-
+  /* min-height: 100vh; // 자식 요소들이 전체 높이를 채우도록 설정 */
+  height: calc(var(--vh, 1vh) * 100);
   // Mobile styles
   @media ${({ theme }) => theme.media.mobile} {
     font-size: 14px;
@@ -103,6 +103,7 @@ const LayoutContainer = styled.div`
 const ContentWrap = styled.div`
   ${({ theme: { headerHeight } }) => css`
     padding-top: ${headerHeight.height};
+    /* height: 100%; */
   `}
   flex: 1; // 남은 공간을 채우도록 설정
 `;

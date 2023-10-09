@@ -99,8 +99,9 @@ const PlaylistPageContainer = styled.div`
 const PlayerContainer = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
   /* width: 1000px; */
-  height: 1000px;
+  /* height: 1000px; */
 `;
 
 const PlayerWrap = styled.div`

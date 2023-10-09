@@ -13,6 +13,7 @@ const Icon = ({ name, color, width, height, onClick, ...rest }) => {
     fill: ${color};
     width: ${width};
     height: ${height};
+    cursor: pointer;
   `;
   return <IconContainer onClick={onClick} {...rest} />;
 };

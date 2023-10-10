@@ -39,6 +39,7 @@ const Playlist = () => {
 
   // SelectedSong 상태를 리스트의 첫 번째 노래로 변경.
   useEffect(() => {
+    console.log(songs.length);
     if (songs && songs.length > 0) {
       dispatch(setSelectedSong(songs[0]));
     }

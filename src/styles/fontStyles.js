@@ -27,7 +27,6 @@ const defaultFontStyle = {
 export const Font = (name, size) => {
   const fontStyle = { ...defaultFontStyle, ...fontStyles[name] };
   const fontSize = size || fontStyle.fontSize;
-
   return css`
     font-family: ${fontStyle.fontFamily};
     font-size: ${fontSize};

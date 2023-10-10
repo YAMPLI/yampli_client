@@ -25,7 +25,7 @@ const initialState = {
   isPlaying: false, // 재생 상태
   played: 0, // 재생 진행 상태, 0.5 -> 50% 진행
   duration: 0, // 프로그레스바를 위한 영상 길이
-  selectedSong: null,
+  selectedSong: null, // 현재 재생중인 노래 정보
   volume: 0.3, // 볼륨제어 , 0~1
   currentSongIndex: 0, // 실제 노래 리스트의 인덱스를 갖는 변수
   currentPlayingIndex: 0, // 현재 재생 중인 곡의 인덱스를 추적하는 변수

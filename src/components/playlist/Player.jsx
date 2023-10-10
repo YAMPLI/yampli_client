@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Text from '../common/Text';
 import Icon from '../icons';
+import LoadingSpinner from '../common/LoadingSpinner';
 import {
   togglePlay,
   setPlayed,
@@ -22,6 +23,7 @@ import {
 } from '../../store/playerSlice';
 import { usePlayerRef } from '../../context/PlayerContext';
 import { useEffect } from 'react';
+import useTimeFormat from '../../hooks/useTimeFormat';
 
 const Player = ({ song }) => {
   const dispatch = useDispatch();
@@ -40,7 +42,6 @@ const Player = ({ song }) => {
     // playerRef,
   } = useSelector(selectPlayerState);
 
-  const defaultThumbnail = '';
   const songs = useSelector((state) => state.playlist.list);
 
   useEffect(() => {
@@ -91,26 +92,49 @@ const Player = ({ song }) => {
     }
   };
 
+  const handleNextSong = () =>
+    dispatch(
+      playPreviousSong({
+        songs,
+        playFromStart: () => playerRef.current?.seekTo(0),
+      }),
+    );
+
+  const handlePrevSong = () =>
+    dispatch(
+      playNextSong({
+        songs,
+        playFromStart: () => playerRef.current?.seekTo(0),
+      }),
+    );
+
+  const songCurrentTime = playerRef.current.getCurrentTime();
+  const songDuration = playerRef.current.getDuration();
+
+  const { timeFormat } = useTimeFormat();
+
+  if (!selectedSong) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <PlayerContainer>
       <Thumbnail
         // src={song ? songs[currentSongIndex].thumb[0] : defaultThumbnail}
-        src={selectedSong ? selectedSong.thumb[0] : defaultThumbnail}
+        src={selectedSong.thumb[0]}
       />
       <AlbumImageContainer>
-        <AlbumImage
-          src={selectedSong ? selectedSong.thumb[0] : defaultThumbnail}
-        />
+        <AlbumImage src={selectedSong.thumb[0]} />
       </AlbumImageContainer>
       <ControllerContainer>
         <SongInfoContainer>
-          <SongTitle>SongTitle</SongTitle>
-          <SongArtist>SongArtist</SongArtist>
+          <SongTitle>{selectedSong.title}</SongTitle>
+          <SongArtist>{selectedSong.artist}</SongArtist>
         </SongInfoContainer>
         <SeekBarContainer>
           <SeekBarTime>
-            <SongTitle>SongTitle</SongTitle>
-            <SongTitle>SongTitle</SongTitle>
+            <SongTime>{timeFormat(songCurrentTime)}</SongTime>
+            <SongTime>{timeFormat(songDuration)}</SongTime>
           </SeekBarTime>
           <SeekBar
             type="range"
@@ -142,35 +166,13 @@ const Player = ({ song }) => {
             />
           </PlayTypeContainer>
           <SongPlayControllerContainer>
-            <PlayIcon
-              name="PrevIcon"
-              onClick={() =>
-                dispatch(
-                  playPreviousSong({
-                    songs,
-                    playFromStart: () => playerRef.current?.seekTo(0),
-                  }),
-                )
-              }
-            />
-            <PlayButton1 onClick={handlePlay}>
-              {isPlaying ? (
-                <PlayIcon name="PauseIcon" />
-              ) : (
-                <PlayIcon name="PlayIcon" />
-              )}
-            </PlayButton1>
-            <PlayIcon
-              name="NextIcon"
-              onClick={() =>
-                dispatch(
-                  playNextSong({
-                    songs,
-                    playFromStart: () => playerRef.current?.seekTo(0),
-                  }),
-                )
-              }
-            />
+            <PlayIcon name="PrevIcon" onClick={handleNextSong} />
+            {isPlaying ? (
+              <PlayIcon name="PauseIcon" onClick={handlePlay} />
+            ) : (
+              <PlayIcon name="PlayIcon" onClick={handlePlay} />
+            )}
+            <PlayIcon name="NextIcon" onClick={handlePrevSong} />
           </SongPlayControllerContainer>
 
           <VolumeContainer>
@@ -218,65 +220,54 @@ const Thumbnail = styled.div`
 
 const AlbumImageContainer = styled.div`
   display: flex;
+  align-items: center;
   justify-content: center;
 `;
 const AlbumImage = styled.div`
   background-image: url(${(props) => props.src});
-  height: 300px;
-  width: 300px;
+  height: 450px;
+  width: 450px;
   z-index: 2;
   background-size: cover;
 `;
 const ControllerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 70%;
+  height: 350px;
   z-index: 2;
 `;
-const PlayButton1 = styled.button`
-  z-index: 2;
-  cursor: pointer;
-`;
 
-const PlayButton = styled.button`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 2; // Thumbnail보다 위에 위치하게 함
-  transition: opacity 0.3s;
+const SongInfoContainer = styled.div`
+  margin-bottom: 50px;
 `;
-
-const ModeButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  margin-left: 10px;
-  z-index: 1;
-`;
-const SongInfoContainer = styled.div``;
 
 const SongTitle = styled(Text).attrs({
   size: '30px',
 })`
-  font-weight: 800;
+  font-weight: 600;
+  line-height: 1.4;
 `;
 const SongArtist = styled(Text).attrs({
-  size: '24px',
+  size: '20px',
 })`
-  font-weight: 800;
+  font-weight: 400;
 `;
 
-const SeekBarContainer = styled.div`
-  /* display: flex;
-  flex-direction: column; */
-  width: 90%;
-`;
+const SeekBarContainer = styled.div``;
+
 const SeekBarTime = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+const SongTime = styled(Text).attrs({
+  size: 'small',
+})`
+  font-weight: 500;
+`;
+
 const SeekBar = styled.input`
   width: 100%;
   height: 10px;
@@ -310,6 +301,7 @@ const SeekBar = styled.input`
       `linear-gradient(to right, #f00 ${props.value * 100}%, blue 0%)`};
   }
 `;
+
 const SongControllerContainer = styled.div`
   display: flex;
   justify-content: space-between;

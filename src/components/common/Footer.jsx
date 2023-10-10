@@ -21,7 +21,7 @@ function Footer() {
   );
 }
 const FooterContainer = styled.div`
-  height: 250px;
+  height: 200px;
   z-index: 999;
   background: ${({ theme }) => theme.color.darkGray};
   color: ${({ theme }) => theme.color.offWhite};

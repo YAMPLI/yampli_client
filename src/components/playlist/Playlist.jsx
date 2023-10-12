@@ -7,7 +7,6 @@ import { __getPlaylist } from '../../store/playlistSlice';
 import styled from 'styled-components';
 import PlayModal from './PlayModal';
 import ModalContainer from '../modal/ModalContainer';
-import Icon from '../icons';
 import { selectPlaylistState } from '../../store/playlistSlice';
 import { setSelectedSong, selectPlayerState } from '../../store/playerSlice';
 
@@ -119,11 +118,4 @@ const ListWrap = styled.div`
   height: 100%;
   overflow-y: hidden;
   background-color: ${({ theme }) => theme.color.charcoalGray};
-`;
-
-const ToggleIcon = styled(Icon)`
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  left: -10px;
 `;

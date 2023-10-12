@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ReactPlayer from 'react-player/youtube';
 import { usePlayerRef } from '../../context/PlayerContext';
+import { selectPlaylistState } from '../../store/playlistSlice';
 import {
   selectPlayerState,
   PlayMode,
@@ -19,7 +20,7 @@ import {
 const GlobalPlayer = () => {
   const dispatch = useDispatch();
   const playerRef = usePlayerRef();
-
+  const { songList } = useSelector(selectPlaylistState);
   const {
     isPlaying,
     selectedSong,
@@ -31,7 +32,7 @@ const GlobalPlayer = () => {
     isSeeking,
   } = useSelector(selectPlayerState);
 
-  const songs = useSelector((state) => state.playlist.list);
+  // const songs = useSelector((state) => state.playlist.list);
 
   const handleProgress = (state) => {
     if (!isSeeking) {
@@ -42,7 +43,7 @@ const GlobalPlayer = () => {
   const handleDurationChange = (duration) => {
     dispatch(setDuration(duration));
   };
-  
+
   //   const handleEnded = () => {
   //     if (playMode === PlayMode.LOOP) {
   //       if (currentSongIndex + 1 < songs.length) {
@@ -58,9 +59,9 @@ const GlobalPlayer = () => {
   //   };
   const handleEnded = () => {
     if (playMode === PlayMode.LOOP) {
-      dispatch(playNextSong({ songs }));
+      dispatch(playNextSong({ songList }));
     } else {
-      dispatch(playNextSong({ songs }));
+      dispatch(playNextSong({ songList }));
       // PlayMode.SINGLE과 PlayMode.RANDOM은 여기서 처리됩니다.
     }
   };

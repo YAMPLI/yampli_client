@@ -6,3 +6,5 @@ export { ReactComponent as PauseIcon } from './Pause.svg';
 export { ReactComponent as RandomIcon } from './Random.svg';
 export { ReactComponent as SingleIcon } from './Single.svg';
 export { ReactComponent as VolumeIcon } from './VolumeIcon.svg';
+export { ReactComponent as SongListIcon } from './SongListIcon.svg';
+export { ReactComponent as HeartIcon } from './HeartIcon.svg';

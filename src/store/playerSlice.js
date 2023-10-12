@@ -69,6 +69,10 @@ const playerSlice = createSlice({
     setCurrentSongIndex: (state, action) => {
       state.currentSongIndex = action.payload;
     },
+    // 반복재생 모드로 변경 시 노래 추적하는 인덱스 초기화 필요
+    setCurrentPlayingIndex: (state, action) => {
+      state.currentPlayingIndex = action.payload;
+    },
     setPlayMode: (state, action) => {
       state.playMode = action.payload;
     },
@@ -79,7 +83,7 @@ const playerSlice = createSlice({
       state.playedSongsIndices = [];
     },
     playNextSong: (state, action) => {
-      const songs = action.payload.songs;
+      const songs = action.payload.songList;
       const playFromStart = action.payload.playFromStart;
       if (state.playMode === PlayMode.SINGLE) {
         playFromStart();
@@ -97,10 +101,11 @@ const playerSlice = createSlice({
         state.currentSongIndex =
           state.playedSongsIndices[state.currentPlayingIndex];
       }
+
       state.selectedSong = songs[state.currentSongIndex];
     },
     playPreviousSong: (state, action) => {
-      const songs = action.payload.songs;
+      const songs = action.payload.songList;
       const playFromStart = action.payload.playFromStart;
       if (state.playMode === PlayMode.SINGLE) {
         playFromStart();
@@ -121,9 +126,7 @@ const playerSlice = createSlice({
       }
       state.selectedSong = songs[state.currentSongIndex];
     },
-    // setPlayerRef: (state, action) => {
-    //   state.playerRef = action.payload;
-    // },
+
     setIsSeeking: (state, action) => {
       state.isSeeking = action.payload;
     },
@@ -145,6 +148,7 @@ export const {
   setSelectedSong,
   setVolume,
   setCurrentSongIndex,
+  setCurrentPlayingIndex,
   setPlayMode,
   addPlayedSongIndex,
   resetPlayedSongs,

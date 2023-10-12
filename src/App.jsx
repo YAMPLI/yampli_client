@@ -12,7 +12,6 @@ import Group from './pages/GroupPage';
 import KakaoCallback from './pages/KakaoCallback';
 import Layout from './layout/Layout';
 import GlobalModalContainer from './components/modal/GlobalModalContainer';
-import Test from './test';
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
       <GlobalModalContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/test" element={<Test />} />
           <Route path="/" element={<LoginPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/group" element={<Group />} />

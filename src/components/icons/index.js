@@ -18,7 +18,7 @@ const Icon = ({ name, color, width, height, onClick, ...rest }) => {
   return <IconContainer onClick={onClick} {...rest} />;
 };
 
-Icon.PropTypes = {
+Icon.propTypes = {
   name: PropTypes.string,
   color: PropTypes.string,
   width: PropTypes.string,

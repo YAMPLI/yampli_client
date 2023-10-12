@@ -15,16 +15,28 @@ export const __getPlaylist = createAsyncThunk(
   },
 );
 
+const initialState = {
+  songList: [],
+  isShowSongList: true,
+};
 const playlistSlice = createSlice({
   name: 'playlist',
-  // group의 list state 초기값을 배열로 생성
-  initialState: { list: [] },
-  reducers: {},
+  initialState,
+  reducers: {
+    // 음악 리스트 사이드바 노출
+    setIsShowSongList: (state) => {
+      state.isShowSongList = !state.isShowSongList;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(__getPlaylist.fulfilled, (state, { payload }) => {
       console.log(payload);
-      state.list = payload;
+      state.songList = payload;
     });
   },
 });
+
+export const { setIsShowSongList } = playlistSlice.actions;
+
+export const selectPlaylistState = (state) => state.playlist;
 export default playlistSlice.reducer;

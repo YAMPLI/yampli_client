@@ -12,6 +12,7 @@ import Group from './pages/GroupPage';
 import KakaoCallback from './pages/KakaoCallback';
 import Layout from './layout/Layout';
 import GlobalModalContainer from './components/modal/GlobalModalContainer';
+
 function App() {
   return (
     <ThemeProvider theme={theme}>

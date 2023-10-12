@@ -19,8 +19,8 @@ function Layout() {
   // 토큰 확인
   const preventAccess = ['/home', '/group'];
 
-  // Footer 표시할 경로
-  const VIEW_FOOTER_PATTERNS = [/^\/home$/, /^\/$/];
+  // Footer 표시할 경로 . "/^\/$/" : 로그인페이지
+  const VIEW_FOOTER_PATTERNS = [/^\/home$/];
 
   // 동적인 경로 패턴에서 MiniPlayer 제외하기 위한 정규표현식
   const HIDDEN_MINIPLAYER_PATTERNS = [
@@ -77,7 +77,9 @@ const LayoutContainer = styled.div`
   // 자식 요소들의 높이를 동적으로 조절하기 위해 flexbox 사용
   display: flex;
   flex-direction: column;
-  min-height: 100vh; // 자식 요소들이 전체 높이를 채우도록 설정
+  /* min-height: 100vh; // 자식 요소들이 전체 높이를 채우도록 설정 */
+  /* height: calc(var(--vh, 1vh) * 100); */
+  height: 100vh;
 
   // Mobile styles
   @media ${({ theme }) => theme.media.mobile} {
@@ -104,6 +106,7 @@ const ContentWrap = styled.div`
   ${({ theme: { headerHeight } }) => css`
     padding-top: ${headerHeight.height};
   `}
+
   flex: 1; // 남은 공간을 채우도록 설정
 `;
 const ToggleMenuButton = styled.button`

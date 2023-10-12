@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getLogin } from '../store/authSlice';
-import LoadingSpinner from '../components/common/LodingSpinner';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 const KakaoCallback = () => {
   const location = useLocation();
   const navigate = useNavigate();

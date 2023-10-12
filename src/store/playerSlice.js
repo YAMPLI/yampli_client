@@ -25,7 +25,7 @@ const initialState = {
   isPlaying: false, // 재생 상태
   played: 0, // 재생 진행 상태, 0.5 -> 50% 진행
   duration: 0, // 프로그레스바를 위한 영상 길이
-  selectedSong: null,
+  selectedSong: null, // 현재 재생중인 노래 정보
   volume: 0.3, // 볼륨제어 , 0~1
   currentSongIndex: 0, // 실제 노래 리스트의 인덱스를 갖는 변수
   currentPlayingIndex: 0, // 현재 재생 중인 곡의 인덱스를 추적하는 변수
@@ -69,6 +69,10 @@ const playerSlice = createSlice({
     setCurrentSongIndex: (state, action) => {
       state.currentSongIndex = action.payload;
     },
+    // 반복재생 모드로 변경 시 노래 추적하는 인덱스 초기화 필요
+    setCurrentPlayingIndex: (state, action) => {
+      state.currentPlayingIndex = action.payload;
+    },
     setPlayMode: (state, action) => {
       state.playMode = action.payload;
     },
@@ -79,7 +83,7 @@ const playerSlice = createSlice({
       state.playedSongsIndices = [];
     },
     playNextSong: (state, action) => {
-      const songs = action.payload.songs;
+      const songs = action.payload.songList;
       const playFromStart = action.payload.playFromStart;
       if (state.playMode === PlayMode.SINGLE) {
         playFromStart();
@@ -97,10 +101,11 @@ const playerSlice = createSlice({
         state.currentSongIndex =
           state.playedSongsIndices[state.currentPlayingIndex];
       }
+
       state.selectedSong = songs[state.currentSongIndex];
     },
     playPreviousSong: (state, action) => {
-      const songs = action.payload.songs;
+      const songs = action.payload.songList;
       const playFromStart = action.payload.playFromStart;
       if (state.playMode === PlayMode.SINGLE) {
         playFromStart();
@@ -121,9 +126,7 @@ const playerSlice = createSlice({
       }
       state.selectedSong = songs[state.currentSongIndex];
     },
-    // setPlayerRef: (state, action) => {
-    //   state.playerRef = action.payload;
-    // },
+
     setIsSeeking: (state, action) => {
       state.isSeeking = action.payload;
     },
@@ -145,6 +148,7 @@ export const {
   setSelectedSong,
   setVolume,
   setCurrentSongIndex,
+  setCurrentPlayingIndex,
   setPlayMode,
   addPlayedSongIndex,
   resetPlayedSongs,

@@ -4,26 +4,21 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getPlaylist } from '../../store/playlistSlice';
-import useModal from '../../hooks/useModal';
 import styled from 'styled-components';
 import PlayModal from './PlayModal';
 import ModalContainer from '../modal/ModalContainer';
-import MiniPlayer from './MiniPlayer';
+import { selectPlaylistState } from '../../store/playlistSlice';
 import { setSelectedSong, selectPlayerState } from '../../store/playerSlice';
+
 const Playlist = () => {
   // 파라미터 전달받기(플레이리스트 id)
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // 음악 리스트 가져오기
-  const songs = useSelector((state) => state.playlist.list);
+  // const songs = useSelector((state) => state.playlist.list);
+  const { songList, isShowSongList } = useSelector(selectPlaylistState);
   const [modalOpen, setModalOpen] = useState(true);
-  const [showMenu, setShowMenu] = useState(true); // 메뉴 표시 상태
-
-  // 미니플레이어 토글 관리
-  const toggleMenu = () => {
-    setShowMenu((prev) => !prev);
-  };
 
   // playerSlice에서 selectedSong 값만 가져온다. useEffect로 인해서 0번째 노래가 저장된다.
   const { selectedSong } = useSelector(selectPlayerState);
@@ -39,10 +34,11 @@ const Playlist = () => {
 
   // SelectedSong 상태를 리스트의 첫 번째 노래로 변경.
   useEffect(() => {
-    if (songs && songs.length > 0) {
-      dispatch(setSelectedSong(songs[0]));
+    console.log(songList.length);
+    if (songList && songList.length > 0) {
+      dispatch(setSelectedSong(songList[0]));
     }
-  }, [songs, dispatch]);
+  }, [songList, dispatch]);
 
   // 렌더링 할 때 setOpen 확인해서 모달창 띄워버리기
   // 글로벌 모달창은 경고창에서만 사용하도록 하자
@@ -69,25 +65,22 @@ const Playlist = () => {
               <Player song={selectedSong} />
             </PlayerWrap>
             <PlayerListContainer>
-              <ListWrap>
-                {songs.map((list) => (
-                  <PlaylistEle
-                    key={list._id}
-                    url={list.url}
-                    title={list.title}
-                    artist={list.artist}
-                    thumb={list.thumb[2]}
-                    onSongSelect={() => handleSongSelect(list)}
-                  />
-                ))}
-              </ListWrap>
+              {isShowSongList && (
+                <ListWrap showMenu={isShowSongList}>
+                  {songList.map((list) => (
+                    <PlaylistEle
+                      key={list._id}
+                      url={list.url}
+                      title={list.title}
+                      artist={list.artist}
+                      thumb={list.thumb[2]}
+                      onSongSelect={() => handleSongSelect(list)}
+                    />
+                  ))}
+                </ListWrap>
+              )}
             </PlayerListContainer>
           </PlayerContainer>
-          <button onClick={() => navigate('/group')}>Click me</button>
-          <ToggleMenuButton onClick={toggleMenu}>
-            '미니플레이리스트'
-          </ToggleMenuButton>
-          {showMenu ? <MiniPlayer /> : '닫기'}
         </>
       )}
     </PlaylistPageContainer>
@@ -95,6 +88,7 @@ const Playlist = () => {
 };
 
 export default Playlist;
+
 const PlaylistPageContainer = styled.div`
   display: flex;
   padding: 0px 10px;
@@ -104,8 +98,9 @@ const PlaylistPageContainer = styled.div`
 const PlayerContainer = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
   /* width: 1000px; */
-  height: 1000px;
+  /* height: 1000px; */
 `;
 
 const PlayerWrap = styled.div`
@@ -113,17 +108,14 @@ const PlayerWrap = styled.div`
   height: 100%;
 `;
 const PlayerListContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  /* display: ${({ showMenu }) => (showMenu ? 'block' : 'none')}; */
+  /* display: flex; */
+  /* flex-direction: column; */
 `;
 const ListWrap = styled.div`
+  display: ${({ showMenu }) => (showMenu ? 'block' : 'none')};
   height: 100%;
   overflow-y: hidden;
   background-color: ${({ theme }) => theme.color.charcoalGray};
-`;
-
-const ToggleMenuButton = styled.button`
-  /* position: absolute; */
-  z-index: 0;
-  color: white;
 `;

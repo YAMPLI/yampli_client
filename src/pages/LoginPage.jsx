@@ -20,7 +20,7 @@ const ImageWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   padding: 0;
   margin: 0;
 `;
@@ -31,3 +31,4 @@ const StyledImage = styled.img`
   margin: 0;
   padding: 0;
 `;
+

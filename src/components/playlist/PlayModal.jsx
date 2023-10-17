@@ -20,7 +20,7 @@ const PlayModal = ({ data, close }) => {
         <h3>{data.title}</h3>
         <p>{data.content}</p>
         <ButtonGroup>
-          <ShortMarginButton onClick={onPlaylist} color="offWhite">
+          <ShortMarginButton onClick={onPlaylist}>
             {data.confirmText}
           </ShortMarginButton>
           <ShortMarginButton onClick={goBack} color="offWhite">

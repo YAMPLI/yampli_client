@@ -5,13 +5,14 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import theme from './styles/theme';
 import Home from './pages/Home';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/auth/LoginPage';
 import PlaylistPage from './pages/PlaylistPage';
 import CreatePlaylistPage from './pages/CreatePlaylistPage';
 import Group from './pages/GroupPage';
 import KakaoCallback from './pages/KakaoCallback';
 import Layout from './layout/Layout';
 import GlobalModalContainer from './components/modal/GlobalModalContainer';
+import SignUp from './pages/auth/SignUp';
 import Test from './test';
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="/test" element={<Test />} />
           <Route path="/" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
           <Route path="/group" element={<Group />} />
           <Route path="/kakao/oauth" element={<KakaoCallback />} />

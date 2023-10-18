@@ -14,7 +14,7 @@ Input.defaultProps = {
   border: '1px solid',
   bg: 'transparent',
   ts: '.2s ease', // 전환 효과 걸리는 시간 2초, ease: 타이밍 함수. 시작과 끝의 느린 속도.
-  w: '305px', // 와이어프레임에 지정된 너비
+  w: '100%', // 와이어프레임에 지정된 너비
   h: '25px', // 와이어프레임에 지정된 높이
   //   fontsize: '14px', // 텍스트 크기
   onChange: () => {}, // 함수 이름 수정
@@ -34,13 +34,14 @@ const InputStyle = styled.input`
   border: ${(props) => props.border};
   background-color: ${(props) => props.bg};
   transition: ${(props) => props.ts};
-  color: ${(props) => props.color};
+  color: ${(props) => props.theme.color.offWhite};
   ${(props) => props.theme.Font('small')}
 
   // 플레이스홀더 스타일
-  ::placeholder {
-    color: #a9a9a9; // 예시 값, 실제 스타일에 맞게 조정 필요
-    font-size: ${(props) => props.size};
+  &::placeholder {
+    color: ${(props) =>
+      props.theme.color.softGray}; // 예시 값, 실제 스타일에 맞게 조정 필요
+    ${(props) => props.theme.Font('small')}
   }
 `;
 

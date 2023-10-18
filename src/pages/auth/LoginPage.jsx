@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { KAKAO_AUTH_URL } from '../config/SocialOAuth.';
-import Text from '../components/common/Text';
-import Button from '../components/common/Button';
-import KakaoLoginLogo from '../assets/imgs/logo-kakao.png';
+import { KAKAO_AUTH_URL } from '../../config/SocialOAuth.';
+import Text from '../../components/common/Text';
+import Button from '../../components/common/Button';
+import KakaoLoginLogo from '../../assets/imgs/logo-kakao.png';
+import authStyles from './AuthStyles';
+import STRINGS from '../../constants/strings';
 const LoginPage = () => {
   return (
-    <LoginContainer>
-      <LoginBox>
-        <LoginTitle>
-          간편하게 로그인하고 <br />
-          나만의 플레이리스트를 만들어보세요.
-        </LoginTitle>
+    <authStyles.AuthContainer>
+      <authStyles.AuthBox>
+        <LoginTitle>{STRINGS.AUTH_TITLE.LOGIN_TITLE}</LoginTitle>
         <ButtonWrapper>
           <StyledLoginButton
             fullWidth
@@ -27,36 +26,23 @@ const LoginPage = () => {
           <a href="#">이메일로 회원가입</a>
           <a href="#">비밀번호 찾기</a>
         </BottomSection>
-      </LoginBox>
-    </LoginContainer>
+      </authStyles.AuthBox>
+    </authStyles.AuthContainer>
   );
 };
 
 export default LoginPage;
-const LoginContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 100vw;
-  padding: 130px 0;
-`;
-
-const LoginBox = styled.div`
-  padding: 30px 20px;
-  width: 400px;
-  border: 2px solid ${(props) => props.theme.color.charcoalGray};
-  text-align: center;
-  overflow: hidden;
-`;
 
 const LoginTitle = styled(Text).attrs({
   size: '22px',
 })`
   line-height: 35px;
   margin: 20px 0;
+  white-space: pre-line; // 문장에서 개행문자('\n') 적용하기 위한 스타일
 `;
 const ButtonWrapper = styled.div`
   ${(props) => props.theme.FlexItemCenterColumn}
+  padding : 0 15px;
   margin: 45px 0;
   gap: 10px; // 상하좌우 여백
 `;

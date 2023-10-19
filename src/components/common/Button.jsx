@@ -53,7 +53,17 @@ const sizeStyles = css`
     font-size: ${sizes[size].fontSize};
   `}
 `;
-
+const fullWidthStyle = css`
+  ${(props) =>
+    props.fullWidth &&
+    css`
+      width: 100%;
+      justify-content: center;
+      & + & {
+        margin: 0 0 0 0;
+      }
+    `}
+`;
 const StyledButton = styled.button`
   /* 공통 스타일 */
   display: inline-flex;
@@ -73,15 +83,22 @@ const StyledButton = styled.button`
   /* 색상 */
   ${colorStyles}
 
+  ${fullWidthStyle}
   /* 기타 */
   & + & {
     margin-left: 1rem;
   }
 `;
 
-function Button({ children, color, size, outline, ...rest }) {
+function Button({ children, color, size, outline, fullWidth, ...rest }) {
   return (
-    <StyledButton color={color} size={size} outline={outline} {...rest}>
+    <StyledButton
+      color={color}
+      size={size}
+      outline={outline}
+      fullWidth={fullWidth}
+      {...rest}
+    >
       {children}
     </StyledButton>
   );

@@ -8,7 +8,13 @@ export const __getLogin = createAsyncThunk(
   'auth/getLogin',
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/api/auth/kakao/oauth?code=${payload}`);
+      console.log('tt');
+      const { data } = await axios.get(
+        `/api/auth/kakao/oauth?code=${payload}`,
+        {
+          withCredentials: true,
+        },
+      );
       // 요청 성공시 fulfillwithvalue 실행
       console.log(data);
       return thunkAPI.fulfillWithValue(data.token);
@@ -24,7 +30,6 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(__getLogin.fulfilled, (state, { payload }) => {
-      console.log(jwtDecode(payload));
       return { ...state, user: jwtDecode(payload), token: payload };
     });
   },

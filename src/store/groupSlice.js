@@ -6,10 +6,14 @@ export const __getGroupList = createAsyncThunk(
   'group/getList',
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.get(`/api/group/list`, {
-        headers: { Authorization: `Bearer ${localStorage.token}` },
-      });
-
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/api/group/list`,
+        {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${localStorage.token}` },
+        },
+      );
+      console.log('res' + response.status);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

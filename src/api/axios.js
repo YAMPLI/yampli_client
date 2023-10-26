@@ -40,7 +40,7 @@ const responseInterceptorError = async (error, instance) => {
   // 성공 메세지 비워두기
   config.message = null;
   console.log(config.errorMessage);
-  return Promise.reject(errorMessage);
+  return Promise.reject(error);
 };
 
 const getAccessToken = async (instance) => {

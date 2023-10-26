@@ -6,6 +6,7 @@ import Footer from '../components/common/Footer';
 import MiniPlayer from '../components/playlist/MiniPlayer';
 import GlobalPlayer from '../components/common/GlobalPlayer';
 import { PlayerProvider } from '../context/PlayerContext';
+import GlobalErrorBoundary from '../components/errors/GlobalErrorBoundary';
 
 function Layout() {
   const navigate = useNavigate();
@@ -52,7 +53,9 @@ function Layout() {
       <LayoutContainer className="layoutContainer">
         <Header />
         <ContentWrap className="contentWrap">
-          <Outlet />
+          <GlobalErrorBoundary>
+            <Outlet />
+          </GlobalErrorBoundary>
         </ContentWrap>
         {!isHiddenMiniPlayer && (
           <>

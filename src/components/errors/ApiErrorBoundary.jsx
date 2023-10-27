@@ -35,7 +35,6 @@ class ApiErrorBoundary extends React.Component {
   }
 
   render() {
-    const navigate = useNavigate();
     if (this.state.shouldRethrow) {
       throw this.state.error;
     }

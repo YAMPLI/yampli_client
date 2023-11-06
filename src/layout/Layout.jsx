@@ -7,12 +7,17 @@ import MiniPlayer from '../components/playlist/MiniPlayer';
 import GlobalPlayer from '../components/common/GlobalPlayer';
 import { PlayerProvider } from '../context/PlayerContext';
 import GlobalErrorBoundary from '../components/errors/GlobalErrorBoundary';
-
+// Toast 렌더링
+import Toast from '../components/common/Toast';
+import { selectToastState } from '../store/toastSlice';
+import useToast from '../hooks/useToast';
+import { useSelector } from 'react-redux';
 function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(true); // 메뉴 표시 상태
-
+  const { toasts } = useSelector(selectToastState);
+  const { deleteToast } = useToast();
   // 미니플레이어 토글 관리
   const toggleMenu = () => {
     setShowMenu((prev) => !prev);
@@ -50,6 +55,7 @@ function Layout() {
 
   return (
     <PlayerProvider>
+      <Toast toasts={toasts} deleteToast={deleteToast} />
       <LayoutContainer className="layoutContainer">
         <Header />
         <ContentWrap className="contentWrap">

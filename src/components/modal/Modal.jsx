@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../styles/theme';
 
-import ModalPortal from '../common/ModalPortal';
+import ModalPortal from '../common/Portal';
 
 // 버튼 미포함 모달
 const Modal = ({ isOpen, onClose, children, duration, autoClose = false }) => {

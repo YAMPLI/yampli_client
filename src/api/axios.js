@@ -36,10 +36,13 @@ const responseInterceptorError = async (error, instance) => {
       return instance(config);
     }
   }
+
   const errorMessage = '에러메세지, error.response?.data?.errorMessage';
+  console.log(config.message);
   // 성공 메세지 비워두기
   config.message = null;
-  console.log(config.errorMessage);
+
+  console.log(error);
   return Promise.reject(error);
 };
 

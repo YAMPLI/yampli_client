@@ -42,7 +42,7 @@ class ApiErrorBoundary extends React.Component {
       return this.props.children;
     }
 
-    if (this.state.errorCode === 404) {
+    if (this.state.errorCode === 500) {
       return (
         <NetworkError
           onClickRetry={() => {

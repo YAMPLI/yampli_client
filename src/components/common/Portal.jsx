@@ -5,4 +5,8 @@ const ModalPortal = ({ children }) => {
   return ReactDOM.createPortal(children, el);
 };
 
+export const ToastPortal = ({ children }) => {
+  const el = document.getElementById('toast-root');
+  return ReactDOM.createPortal(children, el);
+};
 export default ModalPortal;

@@ -16,10 +16,12 @@
 @font-face {
   font-family: 'pretendar';
   src: url('./config/font/PretendardVariable.ttf') format('truetype');
+  font-display: swap; /* 웹 폰트가 로드되는 동안 텍스트를 보여주는 데 사용 */
 }
 @font-face {
   font-family: 'scdream4';
   src: url('./config/font/SCDream4.otf') format('opentype');
+  font-display: swap; /* 웹 폰트가 로드되는 동안 텍스트를 보여주는 데 사용 */
 }
 
 .App-header {
@@ -45,3 +47,5 @@
     transform: rotate(360deg);
   }
 }
+
+

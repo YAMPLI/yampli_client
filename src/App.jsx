@@ -13,14 +13,12 @@ import KakaoCallback from './pages/KakaoCallback';
 import Layout from './layout/Layout';
 import GlobalModalContainer from './components/modal/GlobalModalContainer';
 import SignUp from './pages/auth/SignUp';
-import TestDisplay from './myTest/testDisplay';
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalModalContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/test" element={<TestDisplay />} />
           <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Home />} />

@@ -51,10 +51,9 @@ const Content = styled(Text).attrs({
 `;
 const StyledLoginButton = styled(Button)`
   ${(props) => props.theme.Font('medium')}
-  color: ${(props) => props.theme.color.offWhite};
   font-weight: 500;
   background: ${(props) =>
-    `linear-gradient(to right, ${props.theme.color.lightPurple}, ${props.theme.color.lightBlue});`};
+    `linear-gradient(to right, ${props.theme.color.button.gradientStart}, ${props.theme.color.button.gradientEnd});`};
   width: 60%;
   height: 45px;
   margin: 30px 0;

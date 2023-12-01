@@ -23,8 +23,7 @@ function Footer() {
 const FooterContainer = styled.div`
   height: 200px;
   z-index: 999;
-  background: ${({ theme }) => theme.color.darkGray};
-  color: ${({ theme }) => theme.color.offWhite};
+  background-color: ${(props) => props.theme.color.background.footer};
   ${(props) => props.theme.FlexItemCenterColumn}
   position: relative;
   text-align: center;

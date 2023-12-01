@@ -51,12 +51,14 @@ const ButtonWrapper = styled.div`
 const StyledLoginButton = styled(Button)`
   ${(props) => props.theme.Font('medium')}
   color: ${(props) =>
-    props.kakao ? props.theme.color.dark : props.theme.color.offWhite};
+    props.kakao
+      ? props.theme.color.background.default
+      : props.theme.color.text.main};
   font-weight: 500;
   background: ${(props) =>
     props.kakao
       ? '#feeb4a'
-      : `linear-gradient(to right, ${props.theme.color.lightPurple}, ${props.theme.color.lightBlue});`};
+      : `linear-gradient(to right, ${props.theme.color.button.gradientStart}, ${props.theme.color.button.gradientEnd});`};
   width: 100%;
   height: 45px;
   line-height: 48px;
@@ -81,7 +83,7 @@ const BottomSection = styled.div`
     padding: 0 17px 0 14px;
     ${(props) => props.theme.Font('small')};
     line-height: 20px;
-    color: ${(props) => props.theme.color.offWhite};
+    color: ${(props) => props.theme.color.text.main};
   }
   // 마지막 a태그에는 적용 x
   a:not(:last-of-type)::before {
@@ -92,6 +94,6 @@ const BottomSection = styled.div`
     top: 5px;
     width: 1px;
     height: 10px;
-    background-color: ${(props) => props.theme.color.offWhite};
+    background-color: ${(props) => props.theme.color.text.main};
   }
 `;

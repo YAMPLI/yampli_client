@@ -38,14 +38,12 @@ const HeaderContainer = styled.div`
   height: ${({ theme }) => theme.headerHeight.height};
   align-items: center;
   padding: 0 250px;
-  background: ${({ theme }) => theme.color.dark};
-  color: ${({ theme }) => theme.color.offWhite};
+  background-color: ${(props) => props.theme.color.background.default};
   z-index: 1000;
 `;
 
 // 홈 이미지 네비게이션 링크
 const NavbarLink = styled(RouterLink)`
-  color: ${({ theme }) => theme.color.offWhite};
   ${({ theme }) => theme.Font('', '25px')}
   font-weight: 500;
   letter-spacing: 0.1em; // 글자 간격
@@ -71,7 +69,7 @@ const MenuContent = styled.div`
   position: absolute;
   min-width: 160px;
   z-index: 1;
-  background-color: ${({ theme }) => theme.color.dark};
+  background-color: ${(props) => props.theme.color.background.default};
 `;
 
 const MenuItemLink = styled(RouterLink)`
@@ -81,11 +79,11 @@ const MenuItemLink = styled(RouterLink)`
   padding: 12px 16px;
 
   &:hover {
-    background: ${({ theme }) => darken(0.1, theme.color.darkGray)};
+    background: ${({ theme }) => darken(0.1, theme.color.background.footer)};
   }
 
   &:active {
-    background: ${({ theme }) => lighten(0.1, theme.color.darkGray)};
+    background: ${({ theme }) => lighten(0.1, theme.color.background.footer)};
   }
 `;
 

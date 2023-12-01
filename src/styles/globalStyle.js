@@ -7,15 +7,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow: overlay;
   overflow: hidden;
+  background-color: ${(props) => props.theme.color.background.default};
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+// 모든 요소에 대한 기본 스타일 설정
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; // 박스 사이징 설정
+  text-decoration-line: none; // 텍스트 장식 제거
+  color: inherit; // 상속받은 색상 사용
+  font-family: 'pretendard';
 }
+
+html {
+  font-size: 16px
+}
+
 /* 에러 오버레이 숨기기 */
 iframe {
   display: none;
@@ -157,25 +167,9 @@ button {
   cursor: pointer;
   padding: 0;
 }
-a {
-  color: #000;
-  text-decoration: none;
-}
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-// 모든 요소에 대한 기본 스타일 설정
-* {
-  box-sizing: border-box; // 박스 사이징 설정
-  text-decoration-line: none; // 텍스트 장식 제거
-  color: inherit; // 상속받은 색상 사용
-  font-family: 'pretendard';
-}
-
-html {
-  font-size: 16px
 }
 `;
 

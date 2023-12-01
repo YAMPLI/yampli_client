@@ -39,7 +39,7 @@ const ToastContainer = styled.div`
 
 const ToastWrapper = styled.div`
   ${({ theme }) => theme.FlexItemCenter}
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   padding: 1rem 1rem;
   margin-right: 2rem;
   border-radius: 8px;

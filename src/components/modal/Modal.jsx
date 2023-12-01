@@ -77,6 +77,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: inherit;
+  color: ${(props) => props.theme.color.text.main};
 `;
 const Overlay = styled.div`
   position: fixed;
@@ -93,7 +94,7 @@ const ModalMsgContainer = styled.div`
   padding: 3.125rem 4.0625rem;
   letter-spacing: -0.5px;
   white-space: pre-line;
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   z-index: 99999;
 `;
 

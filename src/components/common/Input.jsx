@@ -34,13 +34,13 @@ const InputStyle = styled.input`
   border: ${(props) => props.border};
   background-color: ${(props) => props.bg};
   transition: ${(props) => props.ts};
-  color: ${(props) => props.theme.color.offWhite};
+  color: ${(props) => props.theme.color.text.main};
   ${(props) => props.theme.Font('small')}
 
   // 플레이스홀더 스타일
   &::placeholder {
     color: ${(props) =>
-      props.theme.color.softGray}; // 예시 값, 실제 스타일에 맞게 조정 필요
+      props.theme.color.text.sub}; // 예시 값, 실제 스타일에 맞게 조정 필요
     ${(props) => props.theme.Font('small')}
   }
 `;

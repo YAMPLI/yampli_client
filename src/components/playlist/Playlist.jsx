@@ -117,5 +117,5 @@ const ListWrap = styled.div`
   display: ${({ showMenu }) => (showMenu ? 'block' : 'none')};
   height: 100%;
   overflow-y: hidden;
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
 `;

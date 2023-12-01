@@ -21,7 +21,7 @@ const background = {
 
 const text = {
   main: '#FAFAFA', // 유지됨: 기본 텍스트로 'offWhite' 색상을 유지
-  secondary: '#B0B0B0', // 수정됨: 작은 텍스트에 사용되는 'softGray' 색상을 밝게 변경하여 가독성 향상
+  sub: '#B0B0B0', // 수정됨: 작은 텍스트에 사용되는 'softGray' 색상을 밝게 변경하여 가독성 향상
   alert: '#FF3E29', // 유지됨: 경고 및 주의 텍스트에 사용되는 'red' 색상을 유지
 };
 
@@ -32,10 +32,23 @@ const button = {
   hoverGradientEnd: 'rgba(45, 206, 239, 1)', // 추가됨: 버튼 호버 시 그라디언트 끝 색상을 명시적으로 추가
 };
 
+const border = {
+  input: '#333333',
+  sideBar: '#808080',
+  inputFocus: '#99999f',
+};
+
+const icon = {
+  main: '#FAFAFA',
+  red: '#FF3E29',
+};
+
 const color = {
   background,
   text,
   button,
+  border,
+  icon,
   charcoalGray: '#3a3a3d', // 플레이 프로그레스바, 선택된 그룹 강조
   dark: '#161a1a', // 헤더, 배경
   darkGray: '#424346', // footer, 비활성 버튼

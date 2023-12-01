@@ -50,13 +50,12 @@ const StyledInput = styled.input`
   border-radius: 8px 0px 0px 8px;
   background-color: transparent; // 배경색 삭제
   border: 1px solid ${({ theme }) => theme.color.charcoalGray};
-  color: ${({ theme }) => theme.color.offWhite};
   ${({ theme }) => theme.Font('alert', '1rem')}
   box-sizing: border-box; // 테두리 기준 크기
 
   &:focus {
     // 입력 중일 때의 스타일을 설정합니다.
-    border: 3px solid ${({ theme }) => theme.color.softGray}; // 테두리 색상을 변경합니다.;
+    border: 3px solid ${(props) => props.theme.color.text.sub}; // 테두리 색상을 변경합니다.;
     outline: none; // focus시 테두리 없애기
   }
 `;
@@ -64,11 +63,9 @@ const StyledInput = styled.input`
 const SearchButton = styled.button`
   height: 2.5rem;
   width: 2.5rem;
-
   border-radius: 0px 4px 4px 0px;
   border: none;
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   ${({ theme }) => theme.Font('alert', '14px')};
-  color: ${({ theme }) => theme.color.offWhite};
   cursor: pointer;
 `;

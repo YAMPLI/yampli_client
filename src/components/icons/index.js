@@ -28,7 +28,7 @@ const StyledIcons = Object.keys(icons).reduce((acc, key) => {
   // 각 아이콘 이름에 맞게 StyledComponent를 생성합니다.
   acc[key] = styled(icons[key])`
     fill: ${(props) =>
-      props.theme.color[props.color] || props.theme.color.offWhite};
+      props.theme.color.icon[props.color] || props.theme.color.icon.main};
     width: ${(props) => props.width || '1rem'};
     height: ${(props) => props.height || '1rem'};
     cursor: pointer;
@@ -76,7 +76,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  color: 'offWhite',
+  color: 'main',
   width: '22px',
   height: '28px',
 };

@@ -39,11 +39,11 @@ const ContentContainer = styled.div`
   `}
   h1 {
     font-size: 15px;
-    color: ${({ theme }) => theme.color.offWhite};
+    color: ${(props) => props.theme.color.text.main};
     margin-bottom: 5px;
   }
   p {
     font-size: 14px;
-    color: ${({ theme }) => theme.color.softGray};
+    color: ${(props) => props.theme.color.text.sub};
   }
 `;

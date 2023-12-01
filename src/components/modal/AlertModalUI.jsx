@@ -39,11 +39,12 @@ const AlertWrapper = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  ${({ theme }) => theme.FlexItemCenter}
+  ${({ theme }) => theme.FlexItemCenter};
+  color: ${(props) => props.theme.color.text.main};
 `;
 
 const AlertContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   border-radius: 0.5rem;
   width: 30%;
 `;
@@ -52,7 +53,6 @@ const AlertMsgWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  color: ${({ theme }) => theme.color.offWhite};
   padding: 1rem 1rem;
 `;
 
@@ -83,7 +83,7 @@ const shrink = keyframes`
 `;
 const ProgressBar = styled.div`
   height: 0.2rem;
-  background-color: ${({ theme }) => theme.color.offWhite};
+  background-color: ${({ theme }) => theme.color.text.main};
   animation: ${shrink} ${(props) => props.progressBarDuration}ms linear forwards;
   pointer-events: none;
   border-radius: 1rem;
@@ -100,7 +100,6 @@ const AlertButton = styled.button`
   outline: none;
   border: none;
   border-radius: 4px;
-  color: ${({ theme }) => theme.color.offWhite};
   font-weight: bold;
   cursor: pointer;
   padding: 10px 30px;

@@ -24,7 +24,7 @@ const SidebarContainer = styled.ul`
   display: inline-block;
   text-align: center;
   width: 100%;
-  background-color: ${({ theme }) => theme.color.darkGray};
+  background-color: ${(props) => props.theme.color.background.footer};
   border: 1px solid ${({ theme }) => theme.color.footerGray};
   /* box-shadow: 0px 0px 2px 2px ${({ theme }) => theme.color.darkGray}; */
 `;
@@ -37,7 +37,7 @@ export const SidebarItem = styled.li`
   cursor: pointer;
   /* border-bottom: 0.1px solid ${({ theme }) => theme.color.lightBlue}; */
   &:hover {
-    background: ${({ theme }) => lighten(0.1, theme.color.darkGray)};
+    background: ${({ theme }) => lighten(0.1, theme.color.background.footer)};
   }
 `;
 

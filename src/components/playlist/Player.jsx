@@ -256,8 +256,8 @@ const SeekBar = styled.input`
     width: 15px;
     margin-top: -2px; // 버튼 위치 기준점 고려해서 중앙 위치 하도록 설정
     border-radius: 50%;
-    border: 1px solid ${({ theme }) => theme.color.darkGray};
-    background: ${({ theme }) => theme.color.offWhite};
+    border: 1px solid ${(props) => props.theme.color.background.footer};
+    background: ${({ theme }) => theme.color.text.main};
     opacity: 0; // 기본 상태에서 보여지지 않도록 투명화 처리
   }
 

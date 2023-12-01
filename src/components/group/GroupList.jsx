@@ -172,7 +172,6 @@ const EmptyGroup = styled.div`
 `;
 const EmptyGroupText = styled.p`
   ${({ theme }) => theme.Font('alert', '20px')};
-  color: ${({ theme }) => theme.color.offWhite};
 `;
 
 const GroupCreateButton = styled.button`
@@ -181,27 +180,26 @@ const GroupCreateButton = styled.button`
   padding: 0.5rem 2rem;
   font-size: 1rem;
   border-radius: 5px;
-  color: ${({ theme }) => theme.color.offWhite};
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.color.lightPurple},
-    ${({ theme }) => theme.color.lightBlue}
+    ${({ theme }) => darken(0.1, theme.color.button.gradientStart)},
+    ${({ theme }) => darken(0.1, theme.color.button.gradientEnd)}
   );
   border: none;
   cursor: pointer;
   &:hover {
     background: linear-gradient(
       to right,
-      ${({ theme }) => darken(0.1, theme.color.lightPurple)},
-      ${({ theme }) => darken(0.1, theme.color.lightBlue)}
+      ${({ theme }) => darken(0.1, theme.color.button.gradientStart)},
+      ${({ theme }) => darken(0.1, theme.color.button.gradientEnd)}
     );
   }
 
   &:active {
     background: linear-gradient(
       to right,
-      ${({ theme }) => lighten(0.1, theme.color.lightPurple)},
-      ${({ theme }) => lighten(0.1, theme.color.lightBlue)}
+      ${({ theme }) => darken(0.1, theme.color.button.gradientStart)},
+      ${({ theme }) => darken(0.1, theme.color.button.gradientEnd)}
     );
   }
 `;

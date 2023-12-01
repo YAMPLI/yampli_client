@@ -82,7 +82,9 @@ export default Layout;
 
 // 반응형 폰트 사이즈 설정
 const LayoutContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.dark};
+  background-color: ${(props) => props.theme.color.background.default};
+  // globalStyle에서 정의한 모든 기본 color는 상속받도록 설정. (offwhite) 색상을 기본으로 사용
+  color: ${(props) => props.theme.color.text.main};
   // 자식 요소들의 높이를 동적으로 조절하기 위해 flexbox 사용
   display: flex;
   flex-direction: column;

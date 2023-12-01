@@ -89,33 +89,30 @@ const LayoutContainer = styled.div`
   /* min-height: 100vh; // 자식 요소들이 전체 높이를 채우도록 설정 */
   /* height: calc(var(--vh, 1vh) * 100); */
   height: 100vh;
-
-  // Mobile styles
-  @media ${({ theme }) => theme.media.mobile} {
-    font-size: 14px;
-  }
-
-  // Tablet styles
-  @media ${({ theme }) => theme.media.tablet} {
-    font-size: 16px;
-  }
-
-  // Desktop styles
-  @media ${({ theme }) => theme.media.desktop} {
-    font-size: 18px;
-  }
-
-  // Large Desktop styles
-  @media ${({ theme }) => theme.media.largeDesktop} {
-    font-size: 20px;
-  }
 `;
 
 const ContentWrap = styled.div`
   ${({ theme: { headerHeight } }) => css`
-    padding-top: ${headerHeight.height};
+    margin-top: ${headerHeight.height};
   `}
+  overflow: auto;
+  // 스크롤바 스타일
+  &::-webkit-scrollbar {
+    width: 12px;
+    z-index: 1000; // 높은 z-index 값 설정
+  }
 
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   flex: 1; // 남은 공간을 채우도록 설정
 `;
 const ToggleMenuButton = styled.button`

@@ -40,9 +40,8 @@ const responseInterceptorError = async (error, instance) => {
   const errorMessage = '에러메세지, error.response?.data?.errorMessage';
   console.log(config.message);
   // 성공 메세지 비워두기
-  config.message = null;
+  config.message = '서버에서 전달받은 에러메시지';
 
-  console.log(error);
   return Promise.reject(error);
 };
 

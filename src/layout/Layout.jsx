@@ -118,5 +118,6 @@ const ContentWrap = styled.div`
 const ToggleMenuButton = styled.button`
   /* position: absolute; */
   z-index: 0;
+  background-color: inherit;
   color: white;
 `;

@@ -14,7 +14,7 @@
   }
 }
 @font-face {
-  font-family: 'pretendar';
+  font-family: 'pretendard';
   src: url('./config/font/PretendardVariable.woff2') format('woff2');
   font-display: swap; /* 웹 폰트가 로드되는 동안 텍스트를 보여주는 데 사용 */
 }

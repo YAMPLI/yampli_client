@@ -69,7 +69,7 @@ const ModalView = styled.div`
   }
   p {
     margin-top: 3px;
-    font-family: 'pretendar';
+    font-family: 'pretendard';
     font-size: 1rem;
     color: ${({ theme }) => theme.color.softGray};
   }

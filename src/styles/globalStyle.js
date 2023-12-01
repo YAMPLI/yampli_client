@@ -1,15 +1,12 @@
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
-  max-width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-body {
-  width: 100vw;
-  overflow-x: hidden;
+  overflow: overlay;
+  overflow: hidden;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -148,8 +145,10 @@ table {
   border-spacing: 0;
 }
 textarea {
-  box-sizing: border-box;
-  font-family: sans-serif;
+  border: none; // 테두리 없음
+  padding: 0.5rem; // 내부 여백 설정
+  resize: none; // 크기 조절 기능 비활성화
+  white-space: pre-wrap; // 공백 처리 방식
 }
 button {
   border: none;
@@ -166,3 +165,18 @@ a {
 .cursor-pointer {
   cursor: pointer;
 }
+
+// 모든 요소에 대한 기본 스타일 설정
+* {
+  box-sizing: border-box; // 박스 사이징 설정
+  text-decoration-line: none; // 텍스트 장식 제거
+  color: inherit; // 상속받은 색상 사용
+  font-family: 'pretendard';
+}
+
+html {
+  font-size: 16px
+}
+`;
+
+export default GlobalStyle;

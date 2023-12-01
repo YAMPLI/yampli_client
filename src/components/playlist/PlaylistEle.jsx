@@ -34,7 +34,7 @@ const ContentContainer = styled.div`
   padding-left: 14px;
   ${({ theme }) => css`
      {
-      ${theme.Font('pretendar')}
+      ${theme.Font('pretendard')}
     }
   `}
   h1 {

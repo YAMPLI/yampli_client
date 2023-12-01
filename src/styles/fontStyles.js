@@ -19,7 +19,7 @@ const fontStyles = {
 
 // 기본 폰트 스타일 -> pretendar 기본폰트
 const defaultFontStyle = {
-  fontFamily: 'pretendar',
+  fontFamily: 'pretendard',
   ...fontStyles.medium,
 };
 
@@ -35,7 +35,7 @@ export const Font = (name, size) => {
 
 // 사용 가능 폰트
 export const fonts = {
-  primary: 'pretendar',
+  primary: 'pretendard',
   alert: 'SCDream4',
 };
 

@@ -22,6 +22,7 @@ const background = {
 const text = {
   main: '#FAFAFA', // 유지됨: 기본 텍스트로 'offWhite' 색상을 유지
   sub: '#B0B0B0', // 수정됨: 작은 텍스트에 사용되는 'softGray' 색상을 밝게 변경하여 가독성 향상
+  sub1: '#D3D3D3', // sub와 대비
   alert: '#FF3E29', // 유지됨: 경고 및 주의 텍스트에 사용되는 'red' 색상을 유지
 };
 
@@ -33,9 +34,9 @@ const button = {
 };
 
 const border = {
-  input: '#333333',
-  sideBar: '#808080',
-  inputFocus: '#99999f',
+  border1: '#333333', // input
+  border2: '#808080', // input2
+  border3: '#99999f', // input Focus
 };
 
 const icon = {
@@ -74,7 +75,7 @@ const media = {
 
 // 헤더 높이 설정 -> 헤더 고정 값
 const headerHeight = {
-  height: '60px',
+  height: '3.75rem',
 };
 
 /**

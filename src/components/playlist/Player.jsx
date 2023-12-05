@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import Text from '../common/Text';
 import Icon from '../icons';
 import LoadingSpinner from '../common/LoadingSpinner';
 import {
@@ -173,8 +172,8 @@ const Player = () => {
             onMouseUp={handleSeekMouseUp}
           />
           <SeekBarTimeContainer>
-            <SongTime>{timeFormat(songCurrentTime)}</SongTime>
-            <SongTime>{timeFormat(songDuration)}</SongTime>
+            <span>{timeFormat(songCurrentTime)}</span>
+            <span>{timeFormat(songDuration)}</span>
           </SeekBarTimeContainer>
         </SeekBarContainer>
 
@@ -242,9 +241,9 @@ const PlayerIcon = styled(Icon)`
 
 const SeekBar = styled.input`
   width: 100%;
-  height: 10px;
+  height: 0.625rem;
   appearance: none; // 기본 디자인 제거
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   border-radius: 5px;
   cursor: pointer;
   z-index: 1;
@@ -252,12 +251,12 @@ const SeekBar = styled.input`
   // -webkit-slider-thumb : 웹킷 브라우저 input type =range 요소의 슬라이더 스타일링
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
-    margin-top: -2px; // 버튼 위치 기준점 고려해서 중앙 위치 하도록 설정
+    height: 1rem;
+    width: 1rem;
+    margin-top: -0.125rem; // 버튼 위치 기준점 고려해서 중앙 위치 하도록 설정
     border-radius: 50%;
     border: 1px solid ${(props) => props.theme.color.background.footer};
-    background: ${({ theme }) => theme.color.text.main};
+    background: ${(props) => props.theme.color.text.main};
     opacity: 0; // 기본 상태에서 보여지지 않도록 투명화 처리
   }
 
@@ -269,7 +268,7 @@ const SeekBar = styled.input`
   // -webkit-slider-runnable-track : 슬라이더의 트랙 부분 스타일
   &::-webkit-slider-runnable-track {
     width: 100%;
-    height: 10px;
+    height: 0.625rem;
     border-radius: 5px;
     // 재생된 부분의 색상을 변경해서 진행도 보여지도록 설정
     background: ${({ value }) =>
@@ -280,10 +279,10 @@ const SeekBar = styled.input`
 `;
 const PlayerContainer = styled.div`
   display: grid;
-  position: relative;
-  grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-content: center;
+  position: relative;
+  grid-template-columns: 1fr 1fr;
   width: 100%;
   height: 100%;
 `;
@@ -320,8 +319,8 @@ const AlbumImageContainer = styled.div`
 `;
 const AlbumImage = styled.div`
   background-image: url(${(props) => props.src});
-  height: 450px;
-  width: 450px;
+  height: 28rem;
+  width: 28rem;
   z-index: 2;
   background-size: cover;
 `;
@@ -335,34 +334,31 @@ const PlayerControllerContainer = styled.div`
 `;
 
 const SongInfoContainer = styled.div`
-  margin-bottom: 50px;
-  font-size: 30px;
+  margin-bottom: 3.125rem;
+  font-size: 1.875rem;
 `;
+
 // attrs 하이라이팅 이슈로 인해서 Text 컴포넌트에 인자값을 전달하지 않고 css 스타일 재지정으로 해결
-const SongInfoText = styled(Text)`
+const SongInfoText = styled.p`
   font-size: ${(props) => (props.isArtist ? '0.6em' : '1em')};
   font-weight: ${(props) => (props.isArtist ? 400 : 600)};
   line-height: 1.4;
-  margin-top: ${(props) => (props.isArtist ? '10px' : '0px')};
+  margin-top: ${(props) => (props.isArtist ? '0.625rem' : '0px')};
 `;
 
 const TopSectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 20px;
+  height: 1.25rem;
 `;
 
 const SongListIconWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${(props) => props.theme.FlexItemCenter}
 `;
 
 const VolumeControlWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${(props) => props.theme.FlexItemCenter}
 `;
 const VolumeBar = styled(SeekBar)`
   margin: 0 0 0 10px;
@@ -372,24 +368,22 @@ const VolumeBar = styled(SeekBar)`
 
 const SeekBarContainer = styled.div`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 `;
 const SeekBarTimeContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 2px;
-`;
-
-const SongTime = styled(Text).attrs({
-  size: 'small',
-})`
-  font-weight: 500;
+  padding: 0 0.125rem;
+  span {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
 `;
 
 const BottomSectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 4px;
+  padding: 0 25rem;
 `;
 
 const PlaybackModeWrapper = styled(FlexContainer)``;

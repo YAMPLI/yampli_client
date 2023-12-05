@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { KAKAO_AUTH_URL } from '../../config/SocialOAuth.';
-import Text from '../../components/common/Text';
 import Button from '../../components/common/Button';
 import KakaoLoginLogo from '../../assets/imgs/logo-kakao.png';
 import authStyles from './AuthStyles';
@@ -33,18 +32,17 @@ const LoginPage = () => {
 
 export default LoginPage;
 
-const LoginTitle = styled(Text).attrs({
-  size: '22px',
-})`
-  line-height: 35px;
-  margin: 20px 0;
+const LoginTitle = styled.p`
+  font-size: 1.375rem;
+  line-height: 2.125rem;
+  margin: 1.25rem 0;
   white-space: pre-line; // 문장에서 개행문자('\n') 적용하기 위한 스타일
 `;
 const ButtonWrapper = styled.div`
   ${(props) => props.theme.FlexItemCenterColumn}
-  padding : 0 15px;
-  margin: 45px 0;
-  gap: 10px; // 상하좌우 여백
+  padding : 0 1rem;
+  margin: 2.75rem 0;
+  gap: 0.625rem; // 상하좌우 여백
 `;
 
 // margin :30px 0 10px; 삭제 후 ButtonWrapper-> gap:10px , LoginTitle -> margin-bottom:20px 추가
@@ -78,11 +76,11 @@ const BottomSection = styled.div`
   a {
     display: inline-block;
     position: relative;
-    height: 20px;
-    margin-top: 10px;
-    padding: 0 17px 0 14px;
-    ${(props) => props.theme.Font('small')};
-    line-height: 20px;
+    height: 1.25rem;
+    margin-top: 0.625rem;
+    padding: 0 1rem 0 0.875rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     color: ${(props) => props.theme.color.text.main};
   }
   // 마지막 a태그에는 적용 x

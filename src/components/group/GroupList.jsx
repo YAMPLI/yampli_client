@@ -6,7 +6,6 @@ import { darken, lighten } from 'polished';
 import GroupModal from './GroupModal';
 import GroupEle from './GroupEle';
 import SearchBar from '../common/SearchBar';
-import Text from '../common/Text';
 import Sidebar, { SidebarItem } from '../common/Siderbar';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -57,7 +56,7 @@ const GroupList = () => {
       >
         {groupList.length !== 0 && (
           <GroupHeader>
-            <GroupHeaderName>그룹 목록</GroupHeaderName>
+            <span>그룹 목록</span>
             <SearchBar />
           </GroupHeader>
         )}
@@ -82,9 +81,7 @@ const GroupList = () => {
 const EmptyGroupList = ({ openModal, modalOpen, setModalOpen }) => {
   return (
     <EmptyGroup className="emptyGroup">
-      <EmptyGroupText>
-        소속된 그룹이 없습니다. 그룹 생성 버튼을 눌러주세요.
-      </EmptyGroupText>
+      <span>소속된 그룹이 없습니다. 그룹 생성 버튼을 눌러주세요.</span>
       <GroupCreateButton onClick={openModal}>그룹생성</GroupCreateButton>
       {modalOpen && (
         <ModalContainer>
@@ -135,43 +132,40 @@ const GroupPageContainer = styled.div`
 `;
 
 const SidebarContainer = styled.div`
-  width: 350px;
+  width: 21.875rem;
 `;
 
 const GroupPageSidebar = styled(Sidebar)`
   ${SidebarItem} {
-    color: red;
+    ${(props) => props.theme.color.text.alert}
   }
 `;
 
 const GroupContainer = styled.div`
-  padding: 0px 100px;
+  padding: 0px 6.25rem;
   // siderbar와 나란히 배치중이기 때문에 그룹이 존재하지 않은 경우에 레이아웃의 반만 사용되고있다.
   // 그룹리스트가 존재하지 않는 경우 width 전체를 사용하도록 한다.
   ${({ groupListLength }) => groupListLength !== 0 && `width: 100%;`}
 `;
 
 const GroupHeader = styled.div`
-  ${({ theme }) => theme.FlexCenter};
-  /* display: flex; */
+  ${(props) => props.theme.FlexCenter}
   justify-content: space-between;
-  margin-bottom: 32px;
-`;
-
-const GroupHeaderName = styled(Text).attrs({
-  font: 'large',
-  size: '20px',
-})`
-  font-weight: 500;
+  margin-bottom: 2rem;
+  span {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
 `;
 
 const EmptyGroup = styled.div`
-  ${({ theme }) => theme.FlexItemCenterColumn};
+  ${(props) => props.theme.FlexItemCenterColumn}
   width: 100%;
   height: 100%;
-`;
-const EmptyGroupText = styled.p`
-  ${({ theme }) => theme.Font('alert', '20px')};
+  span {
+    font-size: 1.25rem;
+    color: ${(props) => props.theme.color.alert};
+  }
 `;
 
 const GroupCreateButton = styled.button`

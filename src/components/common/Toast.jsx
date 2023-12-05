@@ -2,7 +2,6 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../styles/theme';
 import { ToastPortal } from './Portal';
 import Icon from '../icons';
-import Text from './Text';
 
 const Toast = ({ toasts, deleteToast }) => {
   return (
@@ -17,7 +16,7 @@ const Toast = ({ toasts, deleteToast }) => {
                 type={toast.type}
               >
                 <ToastIcon type={toast.type} name="AlertIcon"></ToastIcon>
-                <ToastText>{toast.text}</ToastText>
+                <span>{toast.text}</span>
               </ToastWrapper>
             );
           })}
@@ -38,12 +37,17 @@ const ToastContainer = styled.div`
 `;
 
 const ToastWrapper = styled.div`
-  ${({ theme }) => theme.FlexItemCenter}
+  ${(props) => props.theme.FlexItemCenter}
   background-color: ${(props) => props.theme.color.background.main};
-  padding: 1rem 1rem;
+  padding: 1rem 1.125rem;
   margin-right: 2rem;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  border-radius: 0.5rem;
+  margin-bottom: 0.875rem;
+
+  span {
+    color: ${(props) => props.theme.color.text.main};
+    font-size: 0.875rem;
+  }
 `;
 
 const ToastIcon = styled(Icon).attrs({
@@ -52,11 +56,6 @@ const ToastIcon = styled(Icon).attrs({
   height: '1rem',
 })`
   display: ${(props) => (props.type === 'success' ? 'none' : 'block')};
-  min-width: 40px;
-  margin-right: 5px;
+  min-width: 1.25rem;
+  margin-right: 0.125rem;
 `;
-
-const ToastText = styled(Text).attrs({
-  font: 'small',
-  color: 'offWhite',
-})``;

@@ -1,11 +1,11 @@
 import React from 'react';
 // 기존 Link와 혼동을 방지하기 위해서 RouterLink 이름으로 import
 import { Link as RouterLink } from 'react-router-dom';
-import styled, { css } from 'styled-components';
-import { darken, lighten } from 'polished';
+import styled from 'styled-components';
+import { lighten } from 'polished';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import Text from './Text';
+
 // <FontAwesomeIcon icon="fa-solid fa-bars" style={{ color: '#ff9300' }} />;
 function Header() {
   return (
@@ -15,13 +15,13 @@ function Header() {
         <FontAwesomeIcon icon={faBars} style={{ fontSize: '20px' }} />
         <MenuContent>
           <MenuItemLink to="#action/3.1">
-            <MenuItemTitle>회원정보</MenuItemTitle>
+            <span>회원정보</span>
           </MenuItemLink>
           <MenuItemLink to="#action/3.2">
-            <MenuItemTitle>그룹목록</MenuItemTitle>
+            <span>그룹목록</span>
           </MenuItemLink>
           <MenuItemLink to="#action/3.3">
-            <MenuItemTitle>로그아웃</MenuItemTitle>
+            <span>로그아웃</span>
           </MenuItemLink>
         </MenuContent>
       </DropdownMenu>
@@ -32,21 +32,21 @@ function Header() {
 export default Header;
 
 const HeaderContainer = styled.div`
-  position: fixed;
-  ${({ theme }) => theme.FlexBetween}
-  width: 100%;
-  height: ${({ theme }) => theme.headerHeight.height};
+  ${(props) => props.theme.FlexBetween};
   align-items: center;
-  padding: 0 250px;
+  position: fixed;
+  width: 100%;
+  height: ${(props) => props.theme.headerHeight.height};
+  padding: 0 15.625rem;
   background-color: ${(props) => props.theme.color.background.default};
   z-index: 1000;
 `;
 
 // 홈 이미지 네비게이션 링크
 const NavbarLink = styled(RouterLink)`
-  ${({ theme }) => theme.Font('', '25px')}
+  font-size: 1.5rem;
   font-weight: 500;
-  letter-spacing: 0.1em; // 글자 간격
+  letter-spacing: 0.375rem; // 글자 간격
   text-decoration: none;
 `;
 
@@ -54,7 +54,6 @@ const NavbarLink = styled(RouterLink)`
 const DropdownMenu = styled.div`
   position: relative;
   display: inline-block;
-
   &:hover {
     cursor: pointer;
   }
@@ -67,7 +66,7 @@ const DropdownMenu = styled.div`
 const MenuContent = styled.div`
   display: none;
   position: absolute;
-  min-width: 160px;
+  min-width: 7.5rem;
   z-index: 1;
   background-color: ${(props) => props.theme.color.background.default};
 `;
@@ -75,19 +74,12 @@ const MenuContent = styled.div`
 const MenuItemLink = styled(RouterLink)`
   display: block;
   text-decoration: none;
-  border-bottom: 0.1px solid;
-  padding: 12px 16px;
-
+  text-align: center;
+  padding: 0.75rem 1rem;
   &:hover {
-    background: ${({ theme }) => darken(0.1, theme.color.background.footer)};
+    background: ${({ theme }) => lighten(0.1, theme.color.background.default)};
   }
-
-  &:active {
-    background: ${({ theme }) => lighten(0.1, theme.color.background.footer)};
+  span {
+    font-size: 0.875rem;
   }
 `;
-
-const MenuItemTitle = styled(Text).attrs({
-  font: 'small',
-  color: 'offWhite',
-})``;

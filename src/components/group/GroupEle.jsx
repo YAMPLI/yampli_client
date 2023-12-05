@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import Text from '../common/Text';
 
 const GroupEle = ({ group, onClick, itemWidthRatio }) => {
   // 그룹 정보
@@ -33,7 +32,7 @@ const GroupEle = ({ group, onClick, itemWidthRatio }) => {
 export default GroupEle;
 
 const GroupBody = styled.div`
-  ${({ theme }) => theme.FlexItemCenterColumn}
+  ${(props) => props.theme.FlexItemCenterColumn}
   width : 100%;
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
@@ -59,23 +58,19 @@ const GroupContentContainer = styled.div`
   grid-template-rows: repeat(2, 1fr);
   width: 100%;
   // 그리드 높이 설정
-  height: 200px;
+  height: 12.5rem;
   margin-top: 0.5rem;
   overflow: hidden;
 `;
 
-const GroupName = styled(Text).attrs({
-  font: 'large',
-  size: '1.1vw',
-})`
+const GroupName = styled.span`
+  font-size: 1.125rem;
   margin-bottom: 0.5rem;
 `;
 
-const GroupUserList = styled(Text).attrs({
-  font: 'small',
-  size: '0.6vw',
-  color: 'softGray',
-})`
+const GroupUserList = styled.span`
+  font-size: 0.875rem;
+  color: ${(props) => props.theme.color.text.sub};
   margin-bottom: 0.5rem;
 `;
 

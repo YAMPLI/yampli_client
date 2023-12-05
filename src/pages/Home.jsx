@@ -1,11 +1,5 @@
-import Main from '../components/common/Main';
-
 function Home() {
-  return (
-    <Main>
-      <div></div>
-    </Main>
-  );
+  return <div></div>;
 }
 
 export default Home;

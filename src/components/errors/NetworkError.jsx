@@ -15,7 +15,9 @@ const NetworkError = ({ onClickRetry }) => {
           <span>요청사항을 처리하는데</span>
           <span>실패했습니다.</span>
         </ContentWrap>
-        <StyledLoginButton onClick={onClickRetry}>새로 고침</StyledLoginButton>
+        <Button boundary onClick={onClickRetry}>
+          새로 고침
+        </Button>
       </RefreshContainer>
     </NetworkErrorContainer>
   );
@@ -48,13 +50,4 @@ const ContentWrap = styled.div`
     color: ${(props) => props.theme.color.text.sub};
     line-height: 1.25rem;
   }
-`;
-
-const StyledLoginButton = styled(Button)`
-  font-weight: 500;
-  background: ${(props) =>
-    `linear-gradient(to right, ${props.theme.color.button.gradientStart}, ${props.theme.color.button.gradientEnd});`};
-  width: 60%;
-  height: 2.75rem;
-  margin: 1.875rem 0;
 `;

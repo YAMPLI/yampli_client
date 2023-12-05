@@ -10,6 +10,7 @@ import Sidebar, { SidebarItem } from '../common/Siderbar';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import ModalContainer from '../modal/ModalContainer';
+import Button from '../common/Button';
 
 // 사이드바 테스트 데이터
 const temporaryGroupData = [
@@ -82,7 +83,9 @@ const EmptyGroupList = ({ openModal, modalOpen, setModalOpen }) => {
   return (
     <EmptyGroup className="emptyGroup">
       <span>소속된 그룹이 없습니다. 그룹 생성 버튼을 눌러주세요.</span>
-      <GroupCreateButton onClick={openModal}>그룹생성</GroupCreateButton>
+      <Button group onClick={openModal}>
+        그룹생성
+      </Button>
       {modalOpen && (
         <ModalContainer>
           <GroupModal setModalOpen={setModalOpen} />
@@ -168,36 +171,6 @@ const EmptyGroup = styled.div`
   span {
     font-size: 1.25rem;
     color: ${(props) => props.theme.color.alert};
-  }
-`;
-
-const GroupCreateButton = styled.button`
-  position: relative;
-  margin-top: 1.5rem;
-  padding: 0.5rem 2rem;
-  font-size: 1rem;
-  border-radius: 5px;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => darken(0.1, theme.color.button.gradientStart)},
-    ${({ theme }) => darken(0.1, theme.color.button.gradientEnd)}
-  );
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background: linear-gradient(
-      to right,
-      ${({ theme }) => darken(0.1, theme.color.button.gradientStart)},
-      ${({ theme }) => darken(0.1, theme.color.button.gradientEnd)}
-    );
-  }
-
-  &:active {
-    background: linear-gradient(
-      to right,
-      ${({ theme }) => darken(0.1, theme.color.button.gradientStart)},
-      ${({ theme }) => darken(0.1, theme.color.button.gradientEnd)}
-    );
   }
 `;
 

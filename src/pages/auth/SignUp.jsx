@@ -41,7 +41,7 @@ const SignUp = () => {
           ></StyleInput>
         </InputContainer>
         <ButtonWrapper>
-          <StyledLoginButton fullWidth>이메일로 로그인</StyledLoginButton>
+          <StyledLoginButton>이메일로 로그인</StyledLoginButton>
         </ButtonWrapper>
         <BottomSection>
           <a href="#">이메일로 회원가입</a>

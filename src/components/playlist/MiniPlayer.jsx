@@ -46,7 +46,7 @@ const MiniPlayerContainer = styled.div`
   align-items: center;
   padding: 10px;
   background-color: #333;
-  color: white;
+  /* color: white; */
 `;
 
 const SongInfo = styled.div`

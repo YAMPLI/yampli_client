@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Input from './Input';
+import Button from './Button';
 
 const SearchBar = ({ onSearchRequest, className }) => {
   const [query, setQuery] = useState('');
@@ -33,7 +34,9 @@ const SearchBar = ({ onSearchRequest, className }) => {
         onKeyPress={submitSearchEnter}
         placeholder="Search groups..."
       />
-      <SearchButton onClick={submitSearch}>검색</SearchButton>
+      <Button search onClick={submitSearch}>
+        검색
+      </Button>
     </SearchContainer>
   );
 };
@@ -56,15 +59,4 @@ const SearchInput = styled(Input)`
     border: 1px solid ${(props) => props.theme.color.border.border3}; // 테두리 색상을 변경합니다.;
     outline: none; // focus시 테두리 없애기
   }
-`;
-
-const SearchButton = styled.button`
-  height: 2.5rem;
-  width: 3rem;
-  border-radius: 0px 4px 4px 0px;
-  border: none;
-  background-color: ${(props) => props.theme.color.background.main};
-  font-family: 'scdream4';
-  font-size: 0.875rem;
-  cursor: pointer;
 `;

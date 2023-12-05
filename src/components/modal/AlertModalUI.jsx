@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
+import Button from '../common/Button';
 
 const AlertModalUI = ({
   isErrorModalOpen,
@@ -17,7 +18,9 @@ const AlertModalUI = ({
           </AlertMsgWrapper>
           {buttonCallback ? (
             <ButtonContainer>
-              <AlertButton onClick={buttonCallback}>확인</AlertButton>
+              <Button fontW="bold" onClick={buttonCallback}>
+                확인
+              </Button>
             </ButtonContainer>
           ) : (
             <ProgressBar progressBarDuration={duration}></ProgressBar>
@@ -86,29 +89,4 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: end;
   padding: 0 0.5rem 0.5rem 0;
-`;
-
-const AlertButton = styled.button`
-  ${({ theme }) => theme.FlexItemCenter}
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 30px;
-  height: 1.75rem;
-  font-size: 0.875rem;
-  background: linear-gradient(
-    to right,
-    rgba(155, 45, 239, 0.7),
-    rgba(45, 206, 239, 0.7)
-  );
-
-  &:hover {
-    background: linear-gradient(
-      to right,
-      rgba(155, 45, 239, 1),
-      rgba(45, 206, 239, 1)
-    );
-  }
 `;

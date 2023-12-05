@@ -82,8 +82,6 @@ const ButtonGroup = styled.div`
 `;
 
 const ShortMarginButton = styled(Button)`
-  background: linear-gradient(to right, #9b2def, #2dceef);
-
   & + & {
     margin-left: 0.5rem;
   }

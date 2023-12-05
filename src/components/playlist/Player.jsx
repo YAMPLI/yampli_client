@@ -294,13 +294,14 @@ const Thumbnail = styled.div`
   width: 100%;
   height: 100%;
   background-image: url(${(props) => props.src});
-  background-size: 40%;
+  /* background-size: 40%; */
   /* background-repeat: no-repeat; // 이미지 반복 x */
   background-repeat: repeat; // 이미지를 반복하여 표시
   background-position: center;
   z-index: 1;
   border: none;
-  opacity: 0.2;
+  opacity: 0.3;
+  filter: blur(5px);
 `;
 const DarkOverlay = styled.div`
   position: absolute;
@@ -308,7 +309,7 @@ const DarkOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(23, 27, 27, 0.3); // 검은색에 50% 투명도
+  background-color: rgba(23, 27, 27, 0.5); // 검은색에 50% 투명도
   z-index: 1; // Thumbnail과 같은 z-index
   border: none;
 `;
@@ -317,10 +318,10 @@ const AlbumImageContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const AlbumImage = styled.div`
+const AlbumImage = styled.img`
   background-image: url(${(props) => props.src});
-  height: 28rem;
-  width: 28rem;
+  height: 18.75rem;
+  width: 18.75rem;
   z-index: 2;
   background-size: cover;
 `;
@@ -383,7 +384,7 @@ const SeekBarTimeContainer = styled.div`
 const BottomSectionContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 25rem;
+  /* padding: 0 2.5rem; */
 `;
 
 const PlaybackModeWrapper = styled(FlexContainer)``;

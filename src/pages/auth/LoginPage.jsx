@@ -47,7 +47,6 @@ const ButtonWrapper = styled.div`
 
 // margin :30px 0 10px; 삭제 후 ButtonWrapper-> gap:10px , LoginTitle -> margin-bottom:20px 추가
 const StyledLoginButton = styled(Button)`
-  ${(props) => props.theme.Font('medium')}
   color: ${(props) =>
     props.kakao
       ? props.theme.color.background.default

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import Input from './Input';
 
 const SearchBar = ({ onSearchRequest, className }) => {
   const [query, setQuery] = useState('');
@@ -25,7 +26,7 @@ const SearchBar = ({ onSearchRequest, className }) => {
   };
   return (
     <SearchContainer className={className}>
-      <StyledInput
+      <SearchInput
         type="text"
         value={query}
         onChange={handleSearch}
@@ -43,29 +44,27 @@ const SearchContainer = styled.div`
   ${({ theme }) => theme.FlexItemCenter}
 `;
 
-const StyledInput = styled.input`
-  /* width: 70%; */
-  padding: 10px;
+const SearchInput = styled(Input)`
   height: 2.5rem;
-  border-radius: 8px 0px 0px 8px;
-  background-color: transparent; // 배경색 삭제
-  border: 1px solid ${({ theme }) => theme.color.charcoalGray};
-  ${({ theme }) => theme.Font('alert', '1rem')}
+  padding: 0.625rem;
+  border-radius: 0.5rem 0 0 0.5rem;
+  border: 1px solid ${(props) => props.theme.color.border.border1};
+  font-family: 'scdream4';
   box-sizing: border-box; // 테두리 기준 크기
-
   &:focus {
     // 입력 중일 때의 스타일을 설정합니다.
-    border: 3px solid ${(props) => props.theme.color.text.sub}; // 테두리 색상을 변경합니다.;
+    border: 1px solid ${(props) => props.theme.color.border.border3}; // 테두리 색상을 변경합니다.;
     outline: none; // focus시 테두리 없애기
   }
 `;
 
 const SearchButton = styled.button`
   height: 2.5rem;
-  width: 2.5rem;
+  width: 3rem;
   border-radius: 0px 4px 4px 0px;
   border: none;
   background-color: ${(props) => props.theme.color.background.main};
-  ${({ theme }) => theme.Font('alert', '14px')};
+  font-family: 'scdream4';
+  font-size: 0.875rem;
   cursor: pointer;
 `;

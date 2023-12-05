@@ -16,34 +16,27 @@ export default PlaylistEle;
 
 const PlaylistItemContainer = styled.div`
   display: flex;
-  height: 60px;
-  margin-top: 20px;
-  padding-left: 14px;
+  height: 3.75rem;
+  margin-top: 1.25rem;
+  padding-left: 0.875rem;
 `;
 
 const Thumbnail = styled.img`
-  width: 60px;
-  height: 60px;
+  width: 3.75rem;
+  height: 3.75rem;
 `;
 
 const ContentContainer = styled.div`
-  display: flex;
+  ${(props) => props.theme.FlexCenter}
   flex-direction: column;
-  justify-content: center;
   width: auto;
-  padding-left: 14px;
-  ${({ theme }) => css`
-     {
-      ${theme.Font('pretendard')}
-    }
-  `}
+  padding-left: 0.875rem;
   h1 {
-    font-size: 15px;
     color: ${(props) => props.theme.color.text.main};
-    margin-bottom: 5px;
+    margin-bottom: 0.25rem;
   }
   p {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: ${(props) => props.theme.color.text.sub};
   }
 `;

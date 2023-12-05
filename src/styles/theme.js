@@ -1,4 +1,3 @@
-import { Font, fontSizes, fonts, lineHeights } from './fontStyles';
 import {
   FlexItemCenter,
   FlexItemCenterColumn,
@@ -98,10 +97,6 @@ const theme = {
   media,
   headerHeight,
   CommonMedia,
-  Font,
-  fontSizes,
-  fonts,
-  lineHeights,
   fontWeight,
 };
 

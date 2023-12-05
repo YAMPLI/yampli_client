@@ -20,10 +20,11 @@ code {
   text-decoration-line: none; // 텍스트 장식 제거
   color: inherit; // 상속받은 색상 사용
   font-family: 'pretendard';
+  font-size: 16px;
 }
 
 html {
-  font-size: 16px
+  font-size: 16px;
 }
 
 /* 에러 오버레이 숨기기 */

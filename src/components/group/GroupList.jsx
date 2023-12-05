@@ -57,7 +57,7 @@ const GroupList = () => {
         {groupList.length !== 0 && (
           <GroupHeader>
             <span>그룹 목록</span>
-            <SearchBar />
+            <GroupSearchBar />
           </GroupHeader>
         )}
         {groupList.length !== 0 ? (
@@ -148,6 +148,9 @@ const GroupContainer = styled.div`
   ${({ groupListLength }) => groupListLength !== 0 && `width: 100%;`}
 `;
 
+const GroupSearchBar = styled(SearchBar)`
+  margin-right: 0.5rem;
+`;
 const GroupHeader = styled.div`
   ${(props) => props.theme.FlexCenter}
   justify-content: space-between;

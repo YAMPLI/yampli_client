@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import Button from '../../components/common/Button';
+import { LoginButton } from '../../components/common/Button';
 
 import authStyles from './AuthStyles';
 import STRINGS from '../../constants/strings';
@@ -41,7 +41,7 @@ const SignUp = () => {
           ></StyleInput>
         </InputContainer>
         <ButtonWrapper>
-          <StyledLoginButton>이메일로 로그인</StyledLoginButton>
+          <LoginButton>이메일로 로그인</LoginButton>
         </ButtonWrapper>
         <BottomSection>
           <a href="#">이메일로 회원가입</a>
@@ -78,31 +78,6 @@ const ButtonWrapper = styled.div`
   ${(props) => props.theme.FlexItemCenterColumn}
   margin: 2.75rem 0;
   gap: 0.625rem; // 상하좌우 여백
-`;
-
-// margin :30px 0 10px; 삭제 후 ButtonWrapper-> gap:10px , LoginTitle -> margin-bottom:20px 추가
-const StyledLoginButton = styled(Button)`
-  color: ${(props) =>
-    props.kakao
-      ? props.theme.color.background.default
-      : props.theme.color.text.main};
-  font-weight: 500;
-  background: ${(props) =>
-    props.kakao
-      ? '#feeb4a'
-      : `linear-gradient(to right, ${props.theme.color.button.gradientStart}, ${props.theme.color.button.gradientEnd});`};
-  width: 100%;
-  height: 45px;
-  line-height: 48px;
-  img {
-    margin-right: 6px;
-    max-width: 100%;
-    max-height: 100%;
-    vertical-align: top;
-  }
-  & + & {
-    margin-left: 0;
-  }
 `;
 
 const BottomSection = styled.div`

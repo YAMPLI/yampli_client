@@ -5,12 +5,16 @@ import styled from 'styled-components';
 import { lighten } from 'polished';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import ARRAY from '../../constants/array';
 
 // <FontAwesomeIcon icon="fa-solid fa-bars" style={{ color: '#ff9300' }} />;
 function Header() {
   return (
     <HeaderContainer>
       <NavbarLink to="/">YAMPLI</NavbarLink>
+      {ARRAY.NAVBAR_TITLE.USER.map((title) => (
+        <span>{title}</span>
+      ))}
       <DropdownMenu>
         <FontAwesomeIcon icon={faBars} style={{ fontSize: '20px' }} />
         <MenuContent>
@@ -40,6 +44,10 @@ const HeaderContainer = styled.div`
   padding: 0 15.625rem;
   background-color: ${(props) => props.theme.color.background.default};
   z-index: 1000;
+
+  @media ${(props) => props.theme.media.tablet} {
+    padding: 16px;
+  }
 `;
 
 // 홈 이미지 네비게이션 링크

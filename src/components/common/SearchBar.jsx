@@ -44,7 +44,7 @@ const SearchBar = ({ onSearchRequest, className }) => {
 export default SearchBar;
 
 const SearchContainer = styled.div`
-  ${({ theme }) => theme.FlexItemCenter}
+  ${(props) => props.theme.FlexItemCenter}
 `;
 
 const SearchInput = styled(Input)`

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getLogin } from '../store/authSlice';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+
 const KakaoCallback = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,6 +17,10 @@ const KakaoCallback = () => {
     dispatch(__getLogin(authCode));
   }, []);
   useEffect(() => {
+    console.log(user.url);
+    if (user.url) {
+      navigate(user.url);
+    }
     localStorage.setItem('token', user.token);
     if (user?.user?.nickname !== '') {
       if (user.token !== undefined) {

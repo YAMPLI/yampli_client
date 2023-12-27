@@ -9,13 +9,13 @@ const Input = ({ inputRef, value, onChange, ...props }) => {
 
 Input.defaultProps = {
   padding: '0px', // 와이어프레임의 정확한 크기를 유지하기 위해 패딩을 0으로 설정
-  margin: '3px',
+  margin: '0.25rem',
   borderR: '0px', // 와이어프레임에 따라 보더 반경이 없으므로 0으로 설정
   border: '1px solid',
   bg: 'transparent',
   ts: '.2s ease', // 전환 효과 걸리는 시간 2초, ease: 타이밍 함수. 시작과 끝의 느린 속도.
   w: '100%', // 와이어프레임에 지정된 너비
-  h: '25px', // 와이어프레임에 지정된 높이
+  h: '1.625rem', // 와이어프레임에 지정된 높이
   //   fontsize: '14px', // 텍스트 크기
   onChange: () => {}, // 함수 이름 수정
 };

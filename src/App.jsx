@@ -20,9 +20,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/test" element={<Test />} />
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/group" element={<Group />} />
           <Route path="/kakao/oauth" element={<KakaoCallback />} />
           <Route path="/playlist/:id" element={<PlaylistPage />} />

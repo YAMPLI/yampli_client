@@ -9,7 +9,7 @@ const LoginPage = () => {
   return (
     <authStyles.AuthContainer>
       <authStyles.AuthBox>
-        <LoginTitle>{STRINGS.AUTH_TITLE.LOGIN_TITLE}</LoginTitle>
+        <LoginTitle>{STRINGS.AUTH.TITLES.LOGIN}</LoginTitle>
         <ButtonWrapper>
           <LoginButton
             kakao
@@ -21,7 +21,7 @@ const LoginPage = () => {
           <LoginButton fullWidth>이메일로 로그인</LoginButton>
         </ButtonWrapper>
         <BottomSection>
-          <a href="#">이메일로 회원가입</a>
+          <a href="/signup">이메일로 회원가입</a>
           <a href="#">비밀번호 찾기</a>
         </BottomSection>
       </authStyles.AuthBox>

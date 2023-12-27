@@ -9,7 +9,7 @@ const AuthContainer = styled.div`
 const AuthBox = styled.div`
   padding: 1.875rem 1.25rem;
   width: 25rem;
-  border: 2px solid ${(props) => props.theme.color.charcoalGray};
+  border: 2px solid ${(props) => props.theme.color.border.border1};
   text-align: center;
   overflow: hidden;
 `;

@@ -11,7 +11,7 @@ import modalReducer from './modalSlice';
 import playerReducer from './playerSlice';
 import toastReducer from './toastSlice';
 
-import testReducer from './ttestSlice';
+// import testReducer from './ttestSlice';
 export default configureStore({
   reducer: {
     auth: authReducer,
@@ -20,7 +20,7 @@ export default configureStore({
     modal: modalReducer,
     player: playerReducer,
     toast: toastReducer,
-    ttest: testReducer,
+    // ttest: testReducer,
   },
   // middleware 추가 코드이다. Redux에서는 action을 전달할 때 직렬화된 string형태의 데이터를 보내야한다.
   // Player.jsx 컴포넌트에서 전달하는 seekTo 함수는 직렬화된 데이터가 아니기 때문에 에러가 발생

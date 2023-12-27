@@ -9,6 +9,7 @@
 /coverage
 myTest
 db.json
+/src/store/ttestSlice.js
 
 # production
 /build

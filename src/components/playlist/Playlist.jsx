@@ -91,8 +91,8 @@ export default Playlist;
 
 const PlaylistPageContainer = styled.div`
   display: flex;
-  padding: 0px 10px;
   height: 100%;
+  overflow: hidden;
 `;
 
 const PlayerContainer = styled.div`
@@ -115,7 +115,8 @@ const PlayerListContainer = styled.div`
 `;
 const ListWrap = styled.div`
   display: ${({ showMenu }) => (showMenu ? 'block' : 'none')};
+  min-width: 250px;
   height: 100%;
   overflow-y: hidden;
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
 `;

@@ -69,7 +69,7 @@ const Content = styled.div`
   width: 520px;
   height: 300px;
   padding: 1.5rem;
-  background: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   border-radius: 2px;
   z-index: 999;
 `;

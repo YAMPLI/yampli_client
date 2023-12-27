@@ -1,60 +1,70 @@
 import React from 'react';
 import styled from 'styled-components';
-import Text from './Text';
 function Footer() {
   if (window.location.pathname === '/kakao/oauth') return null;
   return (
     <FooterContainer>
-      <TextTitle>(주) YAMPLI </TextTitle>
+      <FooterTitle>
+        <span>(주) YAMPLI </span>
+      </FooterTitle>
       <FooterContent>
         <FooterItem>
-          <ItemTitle>대표</ItemTitle>&nbsp;&nbsp;설한정
-          <ItemTitle>주소지</ItemTitle>&nbsp;&nbsp;인천시 계양구 작전동
+          대표 <span>설한정</span>
         </FooterItem>
         <FooterItem>
-          <ItemTitle>사업자 등록번호</ItemTitle>&nbsp;&nbsp;111-111-1111
-          <ItemTitle>연락처</ItemTitle>&nbsp;&nbsp;010-111-1111
-          <ItemTitle>이메일</ItemTitle>&nbsp;&nbsp;hanjeong94@naver.com
+          주소지<span>인천시 계양구 작전동</span>
+        </FooterItem>
+      </FooterContent>
+      <FooterContent>
+        <FooterItem>
+          사업자 등록번호<span>111-111-1111</span>
+        </FooterItem>
+        <FooterItem>
+          연락처<span>010-111-1111</span>
+        </FooterItem>
+        <FooterItem>
+          이메일<span>hanjeong94@naver.com</span>
         </FooterItem>
       </FooterContent>
     </FooterContainer>
   );
 }
 const FooterContainer = styled.div`
-  height: 200px;
+  height: 12.5rem;
   z-index: 999;
-  background: ${({ theme }) => theme.color.darkGray};
-  color: ${({ theme }) => theme.color.offWhite};
+  background-color: ${(props) => props.theme.color.background.footer};
   ${(props) => props.theme.FlexItemCenterColumn}
   position: relative;
-  text-align: center;
 `;
 
-const TextTitle = styled(Text).attrs({
-  as: 'h6',
-  font: 'medium',
-  size: '20px',
-  weight: '500',
-  mb: '25px',
-})`
-  margin-bottom: ${(props) => props.mb}; // attrs로 전달받은 mb props 설정
-  font-weight: ${(props) => props.weight};
+const FooterTitle = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  span {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
 `;
 
-const FooterContent = styled.ul``;
+const FooterContent = styled.ul`
+  display: inline;
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: ${(props) => props.theme.color.text.sub};
+  vertical-align: top;
+  line-height: 1rem;
+  margin-bottom: 0.375rem;
+`;
 
 const FooterItem = styled.li`
-  ${(props) => props.theme.Font('medium')}
-  list-style-type: none;
-  color: rgb(183, 172, 172);
-  margin-bottom: 10px;
-`;
-
-const ItemTitle = styled(Text)`
   display: inline;
-  ${(props) => props.theme.Font('small')}
-  margin-left: 15px;
-  color: gray;
+  list-style-type: none;
+  margin-left: 0.875rem;
+  span {
+    margin-left: 0.5rem;
+    color: ${(props) => props.theme.color.text.sub1};
+  }
 `;
 
 export default Footer;

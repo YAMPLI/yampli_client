@@ -32,6 +32,11 @@ const authSlice = createSlice({
     builder.addCase(__getLogin.fulfilled, (state, { payload }) => {
       return { ...state, user: jwtDecode(payload), token: payload };
     });
+    builder.addCase(__getLogin.rejected, (state, { payload }) => {
+      console.log(payload.response.data.data.url);
+      state.url = payload.response.data.data.url;
+    });
   },
 });
+
 export default authSlice.reducer;

@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from '../../styles/theme';
 
 import ModalPortal from '../common/Portal';
-
+import Button from '../common/Button';
 // 버튼 미포함 모달
 const Modal = ({ isOpen, onClose, children, duration, autoClose = false }) => {
   const timeSet = duration * 1000 || 2500;
@@ -38,7 +38,7 @@ const Modal = ({ isOpen, onClose, children, duration, autoClose = false }) => {
           <ModalPortal>
             <Wrapper isOpen={isOpen} onClose={onClose}>
               <Overlay />
-              {children}
+              <ModalMsgContainer>{children}</ModalMsgContainer>
             </Wrapper>
           </ModalPortal>
         </ThemeProvider>
@@ -62,8 +62,8 @@ export const WithButtonModal = ({
       <ModalMsgContainer>
         {children}
         <ModalCloseContainer>
-          <ModalButton onClick={onClose}>취소</ModalButton>
-          <ModalButton onClick={submit}>{text}</ModalButton>
+          <Button onClick={onClose}>취소</Button>
+          <Button onClick={submit}>{text}</Button>
         </ModalCloseContainer>
       </ModalMsgContainer>
     </Modal>
@@ -77,6 +77,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: inherit;
+  color: ${(props) => props.theme.color.text.main};
 `;
 const Overlay = styled.div`
   position: fixed;
@@ -84,7 +85,7 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
 `;
 
@@ -93,35 +94,10 @@ const ModalMsgContainer = styled.div`
   padding: 3.125rem 4.0625rem;
   letter-spacing: -0.5px;
   white-space: pre-line;
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   z-index: 99999;
 `;
 
-const ModalButton = styled.button`
-  ${({ theme }) => theme.FlexItemCenter}
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  color: ${({ theme }) => theme.color.offWhite};
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 30px;
-  height: 1.75rem;
-  font-size: 0.875rem;
-  background: linear-gradient(
-    to right,
-    rgba(155, 45, 239, 0.7),
-    rgba(45, 206, 239, 0.7)
-  );
-
-  &:hover {
-    background: linear-gradient(
-      to right,
-      rgba(155, 45, 239, 1),
-      rgba(45, 206, 239, 1)
-    );
-  }
-`;
 const ModalCloseContainer = styled.div`
   display: flex;
   justify-content: center;

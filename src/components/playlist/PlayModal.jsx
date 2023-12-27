@@ -57,7 +57,7 @@ const ModalView = styled.div`
   width: 520px;
   height: 300px;
   padding: 1.5rem;
-  background: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   border-radius: 2px;
   z-index: 999;
 
@@ -65,13 +65,13 @@ const ModalView = styled.div`
     margin: 0;
     font-family: 'PretendardRegular';
     font-size: 1.5rem;
-    color: ${({ theme }) => theme.color.offWhite};
+    color: ${(props) => props.theme.color.text.main};
   }
   p {
     margin-top: 3px;
-    font-family: 'pretendar';
+    font-family: 'pretendard';
     font-size: 1rem;
-    color: ${({ theme }) => theme.color.softGray};
+    color: ${(props) => props.theme.color.text.sub};
   }
 `;
 
@@ -82,8 +82,6 @@ const ButtonGroup = styled.div`
 `;
 
 const ShortMarginButton = styled(Button)`
-  background: linear-gradient(to right, #9b2def, #2dceef);
-
   & + & {
     margin-left: 0.5rem;
   }

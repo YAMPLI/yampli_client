@@ -58,7 +58,7 @@ const ModalView = styled.div`
   width: 520px;
   height: 300px;
   padding: 1.5rem;
-  background: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   border-radius: 2px;
   z-index: 999;
 
@@ -76,14 +76,13 @@ const ButtonGroup = styled.div`
 `;
 
 const ShortMarginButton = styled(Button)`
-  background: linear-gradient(to right, #9b2def, #2dceef);
-
   & + & {
     margin-left: 0.5rem;
   }
   &:disabled {
-    background: ${({ theme }) =>
-      theme.color.softGray}; // 비활성화 상태일 때의 배경색을 회색으로 변경
+    background-color: ${(props) =>
+      props.theme.color.text
+        .sub}; // 비활성화 상태일 때의 배경색을 회색으로 변경
   }
 `;
 const StyledInput = styled.input`
@@ -93,19 +92,19 @@ const StyledInput = styled.input`
   margin-top: 20px; // 위쪽 마진을 설정
   background-color: transparent; // 입력 창 배경 없애기
   border-radius: 5px; // 테두리 둥글게 처리
-  border: 1px solid ${({ theme }) => theme.color.lightBlue}; // 테두리 색상을 설정합니다.
+  border: 1px solid ${(props) => props.theme.color.button.gradientEnd}; // 테두리 색상을 설정합니다.
   border-width: 0 0 1px; // 아래 테두리만 남기기
   font-size: 16px; // 글자 크기를 설정합니다.
   &:focus {
     // 입력 중일 때의 스타일을 설정합니다.
     border: 2px solid;
-    border-color: ${({ theme }) =>
-      theme.color.lightBlue}; // 테두리 색상을 변경합니다.
+    border-color: ${(props) =>
+      props.theme.color.button.gradientEnd}; // 테두리 색상을 변경합니다.
   }
 `;
 
 const Warning = styled.p`
-  color: ${({ theme }) => theme.color.red};
+  color: ${(props) => props.theme.color.text.alert};
   font-size: 15px;
   margin-top: 5px;
 `;

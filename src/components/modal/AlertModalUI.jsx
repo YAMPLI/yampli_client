@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
-import Text from '../common/Text';
+import Button from '../common/Button';
 
 const AlertModalUI = ({
   isErrorModalOpen,
@@ -13,14 +13,14 @@ const AlertModalUI = ({
       <AlertWrapper>
         <AlertContainer>
           <AlertMsgWrapper>
-            {message.title && <AlertTitleMsg>{message.title}</AlertTitleMsg>}
-            {message.subTitle && (
-              <AlertSubTitleMsg>{message.subTitle}</AlertSubTitleMsg>
-            )}
+            {message.title && <span>{message.title}</span>}
+            {message.subTitle && <span>{message.subTitle}</span>}
           </AlertMsgWrapper>
           {buttonCallback ? (
             <ButtonContainer>
-              <AlertButton onClick={buttonCallback}>확인</AlertButton>
+              <Button fontW="bold" onClick={buttonCallback}>
+                확인
+              </Button>
             </ButtonContainer>
           ) : (
             <ProgressBar progressBarDuration={duration}></ProgressBar>
@@ -39,40 +39,36 @@ const AlertWrapper = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  ${({ theme }) => theme.FlexItemCenter}
+  ${(props) => props.theme.FlexItemCenter};
+  color: ${(props) => props.theme.color.text.main};
 `;
 
 const AlertContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.charcoalGray};
+  background-color: ${(props) => props.theme.color.background.main};
   border-radius: 0.5rem;
   width: 30%;
 `;
 
 const AlertMsgWrapper = styled.div`
-  display: flex;
+  ${(props) => props.theme.FlexColumn};
   justify-content: flex-start;
-  flex-direction: column;
-  color: ${({ theme }) => theme.color.offWhite};
   padding: 1rem 1rem;
+  span {
+    letter-spacing: 1px;
+    white-space: pre-line;
+  }
+  span:nth-child(1) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 2rem;
+  }
+  span:nth-child(2) {
+    font-size: 0.875rem;
+    color: ${(props) => props.theme.color.text.sub};
+    margin-bottom: 5px;
+  }
 `;
 
-const AlertTitleMsg = styled(Text).attrs({
-  font: 'large',
-})`
-  letter-spacing: 1px;
-  white-space: pre-line;
-  font-weight: 600;
-  line-height: 2rem;
-`;
-
-const AlertSubTitleMsg = styled(Text).attrs({
-  color: 'lightGray',
-  font: 'small',
-})`
-  letter-spacing: 1px;
-  white-space: pre-line;
-  margin-bottom: 5px;
-`;
 const shrink = keyframes`
   from {
     width: 0%;
@@ -83,7 +79,7 @@ const shrink = keyframes`
 `;
 const ProgressBar = styled.div`
   height: 0.2rem;
-  background-color: ${({ theme }) => theme.color.offWhite};
+  background-color: ${(props) => props.theme.color.text.main};
   animation: ${shrink} ${(props) => props.progressBarDuration}ms linear forwards;
   pointer-events: none;
   border-radius: 1rem;
@@ -93,30 +89,4 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: end;
   padding: 0 0.5rem 0.5rem 0;
-`;
-
-const AlertButton = styled.button`
-  ${({ theme }) => theme.FlexItemCenter}
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  color: ${({ theme }) => theme.color.offWhite};
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 30px;
-  height: 1.75rem;
-  font-size: 0.875rem;
-  background: linear-gradient(
-    to right,
-    rgba(155, 45, 239, 0.7),
-    rgba(45, 206, 239, 0.7)
-  );
-
-  &:hover {
-    background: linear-gradient(
-      to right,
-      rgba(155, 45, 239, 1),
-      rgba(45, 206, 239, 1)
-    );
-  }
 `;

@@ -26,9 +26,11 @@ const responseInterceptorError = async (error, instance) => {
     config,
     response: { status },
   } = error;
+  const isLoginEmailVerification =
+    error.response.data.isLoginEmailVerification || null;
 
   // 토큰 만료시 재발급, 기존 인스턴스를 그대로 사용하기 위해 플래그 retry 사용
-  if (status === 303 && !config.retry) {
+  if (isLoginEmailVerification !== true && status === 401 && !config.retry) {
     const newToken = await getAccessToken();
     if (newToken) {
       config.headers['Authorization'] = `Bearer ${newToken}`;
@@ -40,9 +42,8 @@ const responseInterceptorError = async (error, instance) => {
   const errorMessage = '에러메세지, error.response?.data?.errorMessage';
   console.log(config.message);
   // 성공 메세지 비워두기
-  config.message = null;
+  config.message = '서버에서 전달받은 에러메시지';
 
-  console.log(error);
   return Promise.reject(error);
 };
 

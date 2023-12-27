@@ -1,117 +1,104 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-// hover 설정 쉽게
-import { darken, lighten } from 'polished';
-import PropTypes from 'prop-types';
 
-const colorStyles = css`
-  ${(props) => {
-    const selected = props.theme.color[props.color];
-    return css`
-      background: ${selected};
-      &:hover {
-        background: ${lighten(0.1, selected)};
-      }
-      &:active {
-        background: ${darken(0.1, selected)};
-      }
-      /* 테투리만 지닌 버튼 */
-      ${(props) =>
-        props.outline &&
-        css`
-          color: ${selected};
-          background: none;
-          border: 1px solid ${selected};
-          &:hover {
-            background: ${selected};
-            color: white;
-          }
-        `}
-    `;
-  }}
+const Button = ({ children, ...props }) => {
+  return <StyledButton {...props}>{children}</StyledButton>;
+};
+Button.defaultProps = {
+  h: '1.75rem',
+  padding: '0.5rem 2rem',
+  margin: '0.2rem 0 0 0',
+  borderR: '4px',
+  border: 'none',
+  fontW: 500,
+  fontS: '0.875rem',
+  ts: '.1s ease',
+  onClick: () => {},
+};
+const StyledButton = styled.button`
+  ${(props) => props.theme.FlexItemCenter};
+
+  //기본 값
+  height: ${(props) => props.h};
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
+  border-radius: ${(props) => props.borderR};
+  border: ${(props) => props.border};
+  font-weight: ${(props) => props.fontW};
+  font-size: ${(props) => props.fontS};
+  transition: ${(props) => props.ts};
+  cursor: pointer;
+  background: linear-gradient(
+    to right,
+    rgba(155, 45, 239, 1),
+    rgba(45, 206, 239, 1)
+  );
+
+  &:hover {
+    background: linear-gradient(
+      to left,
+      rgba(155, 45, 239, 0.8),
+      rgba(45, 206, 239, 0.8)
+    );
+  }
+
+  // SearchBar
+  ${(props) =>
+    props.search &&
+    css`
+      width: 3rem;
+      height: 2.5rem;
+      padding: 0;
+      margin: 0;
+      background: ${(props) => props.theme.color.background.main};
+      font-family: 'scdream4';
+      border-radius: 0px 4px 4px 0px;
+    `}
+
+  // createGroup
+  ${(props) =>
+    props.group &&
+    css`
+      position: relative;
+      margin-top: 1.5rem;
+    `}
+
+    // errorBoundary
+    ${(props) =>
+    props.boundary &&
+    css`
+      width: 60%;
+      height: 2.75rem;
+      margin: 1.875rem 0;
+      font-weight: 500;
+    `}
 `;
 
-const sizes = {
-  large: {
-    height: '3rem',
-    fontSize: '1.25rem',
-  },
-  medium: {
-    height: '2.25rem',
-    fontSize: '1rem',
-  },
-  small: {
-    height: '1.75rem',
-    fontSize: '0.875rem',
-  },
+export default Button;
+
+export const LoginButton = ({ children, ...props }) => {
+  return <StyledLoginButton {...props}>{children}</StyledLoginButton>;
 };
 
-const sizeStyles = css`
-  ${({ size }) => css`
-    height: ${sizes[size].height};
-    /* width: ${sizes[size].width}; */
-    font-size: ${sizes[size].fontSize};
-  `}
-`;
-const fullWidthStyle = css`
+const StyledLoginButton = styled(Button)`
+  width: 100%;
+  height: 2.75rem;
+
   ${(props) =>
-    props.fullWidth &&
+    props.kakao &&
     css`
-      width: 100%;
-      justify-content: center;
-      & + & {
-        margin: 0 0 0 0;
+      color: ${(props) => props.kakao && props.theme.color.background.default};
+      background: ${(props) => props.kakao && '#feeb4a'};
+      font-weight: 500;
+      line-height: 3rem;
+      &:hover {
+        background: ${(props) => props.kakao && 'rgb(254, 235, 74, 0.9)'};
+      }
+      img {
+        margin-right: 0.375rem;
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: top;
       }
     `}
 `;
-const StyledButton = styled.button`
-  /* 공통 스타일 */
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  outline: none;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 30px;
-
-  /* 크기 */
-  ${sizeStyles}
-
-  /* 색상 */
-  ${colorStyles}
-
-  ${fullWidthStyle}
-  /* 기타 */
-  & + & {
-    margin-left: 1rem;
-  }
-`;
-
-function Button({ children, color, size, outline, fullWidth, ...rest }) {
-  return (
-    <StyledButton
-      color={color}
-      size={size}
-      outline={outline}
-      fullWidth={fullWidth}
-      {...rest}
-    >
-      {children}
-    </StyledButton>
-  );
-}
-Button.propTypes = {
-  color: PropTypes.string,
-  children: PropTypes.string.isRequired,
-  size: PropTypes.string,
-  outline: PropTypes.string,
-};
-
-Button.defaultProps = {
-  color: 'dark',
-  size: 'medium',
-};
-export default Button;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { LoginButton } from '../../components/common/Button';
+import Button from '../../components/common/Button';
 
 import authStyles from './AuthStyles';
 import STRINGS from '../../constants/strings';
@@ -10,6 +10,10 @@ import Input from '../../components/common/Input';
 import useRegexInput from '../../hooks/useRegexInput';
 import REGEX from '../../constants/regexPatterns';
 import STRING from '../../constants/strings';
+import QUERY from '../../constants/query';
+import { api } from '../../api/axios';
+import { sassTrue } from 'sass';
+
 const SignUp = () => {
   const usePasswordMatch = (password, confirmPassword) => {
     const [isMatch, setIsMatch] = useState(false);
@@ -21,16 +25,31 @@ const SignUp = () => {
     return isMatch;
   };
 
+  const handleSignUp = async () => {
+    const userInfo = {
+      email: inputEmail,
+      password: inputPw,
+    };
+    try {
+      const res = await api.post(QUERY.END_POINT.USER.SIGN_UP, userInfo);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   // const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
   const pwRegex = REGEX.AUTH.PASSWORD;
   const emailRegex = REGEX.AUTH.EMAIL;
 
+  // 이메일 검증 -> 커스텀 훅 사용
   const {
     input: inputEmail,
     handleInputChange: handleEmailChange,
     message: emailMessage,
     isValid: isEmailValid,
   } = useRegexInput(STRING.AUTH.SIGN_UP.EMAIL_VALID_FALSE, '', emailRegex);
+
+  // 비밀번호 검증 -> 커스텀 훅 사용
   const {
     input: inputPw,
     handleInputChange: handlePwChange,
@@ -41,16 +60,23 @@ const SignUp = () => {
     STRING.AUTH.SIGN_UP.PASSWORD_VALID_TRUE,
     pwRegex,
   );
+
+  // 2차 비밀번호 검증 -> 커스텀 훅 사용
   const {
     input: inputCheckPw,
     handleInputChange: handleCheckPwChange,
     message: checkPwMessage,
   } = useRegexInput(
-    '비밀번호가 같지 않습니다. 다시 입력해주세요.',
-    '비밀번호가 같습니다.',
+    STRINGS.AUTH.SIGN_UP.PASSWORD_COMPARE_FALSE,
+    STRINGS.AUTH.SIGN_UP.PASSWORD_COMPARE_TRUE,
     pwRegex,
   );
+
+  // 비밀번호, 2차 비밀번호 비교
   const isPasswordMatch = usePasswordMatch(inputPw, inputCheckPw);
+
+  // 이메일, 비밀번호, 2차 비밀번호 모두 유효한지 여부
+  const isFormValid = isEmailValid && isPwValid && isPasswordMatch;
 
   return (
     <authStyles.AuthContainer>
@@ -85,10 +111,14 @@ const SignUp = () => {
             autoComplete="off"
             maxLength="16"
           ></StyleInput>
-          <AlertSpan isMatch={isPasswordMatch}>{checkPwMessage}</AlertSpan>
+          <AlertSpan isMatch={isPasswordMatch && isPwValid}>
+            {checkPwMessage}
+          </AlertSpan>
         </InputContainer>
         <ButtonWrapper>
-          <LoginButton>이메일로 로그인</LoginButton>
+          <Button signUp onClick={handleSignUp} disabled={!isFormValid}>
+            회원가입
+          </Button>
         </ButtonWrapper>
         <BottomSection>
           <a href="#">이메일로 회원가입</a>
@@ -138,6 +168,7 @@ const AlertSpan = styled.span`
 const ButtonWrapper = styled.div`
   ${(props) => props.theme.FlexItemCenterColumn}
   margin: 2.75rem 0;
+  padding: 0 0.875rem;
   gap: 0.625rem; // 상하좌우 여백
 `;
 

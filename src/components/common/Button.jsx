@@ -42,6 +42,12 @@ const StyledButton = styled.button`
     );
   }
 
+  // disabled 상태
+  &:disabled {
+    background: ${(props) =>
+      props.theme.color.button.disabled}; // 비활성화 상태일 때의 배경 색상
+    cursor: not-allowed; // 커서를 not-allowed로 변경
+  }
   // SearchBar
   ${(props) =>
     props.search &&
@@ -71,6 +77,13 @@ const StyledButton = styled.button`
       height: 2.75rem;
       margin: 1.875rem 0;
       font-weight: 500;
+    `}
+
+    ${(props) =>
+    props.signUp &&
+    css`
+      width: 100%;
+      height: 2.75rem;
     `}
 `;
 

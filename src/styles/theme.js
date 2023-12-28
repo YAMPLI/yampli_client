@@ -42,6 +42,7 @@ const themeColors = {
     gradientEnd: colors.lightBlue,
     hoverGradientStart: 'rgba(155, 45, 239, 1)',
     hoverGradientEnd: 'rgba(45, 206, 239, 1)',
+    disabled: colors.darkGray,
   },
   border: {
     border1: colors.charcoalGray,

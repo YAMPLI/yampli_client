@@ -11,8 +11,8 @@
     "browser": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "prettier"],
-  "plugins": ["import", "react-hooks", "styled-components-a11y", "prettier"],
+  "extends": ["eslint:recommended"],
+  "plugins": ["import", "react-hooks", "styled-components-a11y"],
   "rules": {
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/anchor-is-valid": "off",

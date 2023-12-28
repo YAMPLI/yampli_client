@@ -5,12 +5,12 @@ const AUTH_STRINGS = {
     SIGNUP: '지금 가입하고 \n나만의 플레이리스트를 만들어보세요.',
   },
   SIGN_UP: {
-    EMAIL_VALID_FALSE : '이메일 형식이 옳바르지 않습니다.',
+    EMAIL_VALID_FALSE: '이메일 형식이 옳바르지 않습니다.',
     PASSWORD_VALID: '비밀번호는 영문,숫자,특수문자를 포함하여 8~16자리 입니다.',
     PASSWORD_VALID_TRUE: '사용 가능한 비밀번호 입니다.',
     PASSWORD_VALID_FALSE: '사용 할 수 없는 비밀번호 입니다.',
-    PASSWORD_COMPARE_TRUE: '비밀번호가 같습니다.',
-    PASSWORD_COMPARE_FALSE: '비밀번호가 같지 않습니다. 다시 입력해주세요.',
+    PASSWORD_COMPARE_TRUE: '2차 비밀번호 인증에 성공했습니다.',
+    PASSWORD_COMPARE_FALSE: '2차 비밀번호 인증에 실패했습니다. 다시 확인해주세요.',
   },
 };
 

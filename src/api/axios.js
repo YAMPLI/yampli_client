@@ -3,6 +3,9 @@ import Storage from '../utils/localStorage';
 import { Promise } from 'es6-promise';
 
 const requestInterceptor = (config) => {
+  console.log(config);
+  console.log(`req incep  config: ${config}`);
+  console.log(`req incp config type : ${typeof config}`);
   const token = Storage.getLocalStorage('token');
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;

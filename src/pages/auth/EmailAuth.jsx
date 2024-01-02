@@ -23,16 +23,7 @@ const EmailAuthPage = () => {
         onSuccess: () => navigate('/login'),
       })
       .catch((err) => {
-        let title;
-        let subTitle;
-        let errMessage =
-          err.response?.data?.errMessage || '인증에 실패했습니다.';
-        if (errMessage.includes('|')) {
-          const parts = errMessage.split('|');
-          title = parts[0];
-          subTitle = parts[1];
-        }
-        showAlertWithoutButton({ title, subTitle });
+        showAlertWithoutButton(err.response.data.errMessage);
         setTimeout(() => navigate('/login'), 2500); // 2.5초 후에 navigate 실행
       });
   }, []);

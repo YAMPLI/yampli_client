@@ -5,6 +5,7 @@ import {
   showAlertWithButton,
   showAlertWithoutButton,
 } from '../utils/alertUtils';
+
 const requestInterceptor = (config) => {
   const token = Storage.getLocalStorage('token');
   if (token) {
@@ -71,10 +72,10 @@ const responseInterceptorError = async (error, instance) => {
     }
   }
 
-  const errorMessage = '에러메세지, error.response?.data?.errorMessage';
-  console.log(config.message);
+  const errorMessage = error.response?.data?.errMessage;
+  console.log(errorMessage);
   // 성공 메세지 비워두기
-  config.message = '서버에서 전달받은 에러메시지';
+  config.message = null;
 
   return Promise.reject(error);
 };

@@ -13,8 +13,14 @@ const AlertModalUI = ({
       <AlertWrapper>
         <AlertContainer>
           <AlertMsgWrapper>
-            {message.title && <span>{message.title}</span>}
-            {message.subTitle && <span>{message.subTitle}</span>}
+            {message.title || message.subTitle ? (
+              <>
+                {message.title && <span>{message.title}</span>}
+                {message.subTitle && <span>{message.subTitle}</span>}
+              </>
+            ) : (
+              message
+            )}
           </AlertMsgWrapper>
           {buttonCallback ? (
             <ButtonContainer>
@@ -41,21 +47,24 @@ const AlertWrapper = styled.div`
   height: 100%;
   ${(props) => props.theme.FlexItemCenter};
   color: ${(props) => props.theme.color.text.main};
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const AlertContainer = styled.div`
+  ${(props) => props.theme.FlexItemCenterColumn};
   background-color: ${(props) => props.theme.color.background.main};
   border-radius: 0.5rem;
-  width: 30%;
+  width: 21.25rem;
 `;
 
 const AlertMsgWrapper = styled.div`
   ${(props) => props.theme.FlexColumn};
-  justify-content: flex-start;
+  min-height: 4rem;
   padding: 1rem 1rem;
+  white-space: pre-line;
+  line-height: 1.375rem;
   span {
     letter-spacing: 1px;
-    white-space: pre-line;
   }
   span:nth-child(1) {
     font-size: 1.25rem;
@@ -65,7 +74,6 @@ const AlertMsgWrapper = styled.div`
   span:nth-child(2) {
     font-size: 0.875rem;
     color: ${(props) => props.theme.color.text.sub};
-    margin-bottom: 5px;
   }
 `;
 
@@ -87,6 +95,6 @@ const ProgressBar = styled.div`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: end;
-  padding: 0 0.5rem 0.5rem 0;
+  align-self: end;
+  padding: 0 0.75rem 0.75rem 0;
 `;

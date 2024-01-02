@@ -1,7 +1,10 @@
 import axios from 'axios';
 import Storage from '../utils/localStorage';
 import { Promise } from 'es6-promise';
-import { showAlertWithButton } from '../utils/alertUtils';
+import {
+  showAlertWithButton,
+  showAlertWithoutButton,
+} from '../utils/alertUtils';
 const requestInterceptor = (config) => {
   const token = Storage.getLocalStorage('token');
   if (token) {
@@ -32,8 +35,10 @@ const responseInterceptor = (response) => {
     const outputMessage = config.message || message;
     if (config.onSuccess) {
       onSuccess = config.onSuccess;
+      showAlertWithButton(outputMessage, onSuccess);
+    } else {
+      showAlertWithoutButton(outputMessage);
     }
-    showAlertWithButton(outputMessage, onSuccess);
   }
 
   // request시 전달받은 메시지가 있으면 그것을 로깅하고, 메시지를 초기화

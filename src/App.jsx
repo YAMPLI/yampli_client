@@ -13,6 +13,8 @@ import Layout from './layout/Layout';
 import GlobalModalContainer from './components/modal/GlobalModalContainer';
 import SignUp from './pages/auth/SignUp';
 import Test from './myTest/TestDisplay';
+import EmailAuthPage from './pages/auth/EmailAuth';
+
 function App() {
   return (
     <>
@@ -23,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/verify-email" element={<EmailAuthPage />} />
           <Route path="/group" element={<Group />} />
           <Route path="/kakao/oauth" element={<KakaoCallback />} />
           <Route path="/playlist/:id" element={<PlaylistPage />} />

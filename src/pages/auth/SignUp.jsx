@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 import Button from '../../components/common/Button';
@@ -8,35 +9,20 @@ import STRINGS from '../../constants/strings';
 import PLACEHOLDERS from '../../constants/placeholders';
 import Input from '../../components/common/Input';
 import useRegexInput from '../../hooks/useRegexInput';
+import { useCompareString } from '../../hooks/useCompareString';
 import REGEX from '../../constants/regexPatterns';
 import STRING from '../../constants/strings';
 import QUERY from '../../constants/query';
 import { api } from '../../api/axios';
-import { sassTrue } from 'sass';
 
+/**
+ * =========================
+ * React Component Section
+ * =========================
+ */
 const SignUp = () => {
-  const usePasswordMatch = (password, confirmPassword) => {
-    const [isMatch, setIsMatch] = useState(false);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-      setIsMatch(password === confirmPassword && confirmPassword !== '');
-    }, [password, confirmPassword]);
-
-    return isMatch;
-  };
-
-  const handleSignUp = async () => {
-    const userInfo = {
-      email: inputEmail,
-      password: inputPw,
-    };
-    try {
-      const res = await api.post(QUERY.END_POINT.USER.SIGN_UP, userInfo);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   // const pwRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
   const pwRegex = REGEX.AUTH.PASSWORD;
   const emailRegex = REGEX.AUTH.EMAIL;
@@ -47,6 +33,7 @@ const SignUp = () => {
     handleInputChange: handleEmailChange,
     message: emailMessage,
     isValid: isEmailValid,
+    handleFocus: handleEmailFocus,
   } = useRegexInput(STRING.AUTH.SIGN_UP.EMAIL_VALID_FALSE, '', emailRegex);
 
   // 비밀번호 검증 -> 커스텀 훅 사용
@@ -55,6 +42,7 @@ const SignUp = () => {
     handleInputChange: handlePwChange,
     message: pwMessage,
     isValid: isPwValid,
+    handleFocus: handlePwFocus,
   } = useRegexInput(
     STRING.AUTH.SIGN_UP.PASSWORD_VALID_FALSE,
     STRING.AUTH.SIGN_UP.PASSWORD_VALID_TRUE,
@@ -64,19 +52,41 @@ const SignUp = () => {
   // 2차 비밀번호 검증 -> 커스텀 훅 사용
   const {
     input: inputCheckPw,
-    handleInputChange: handleCheckPwChange,
+    handleCompareChange: handlePwCompareChange,
     message: checkPwMessage,
+    isValid: isCheckPwValid,
+    handleFocus: handlePwCheckFocus,
   } = useRegexInput(
     STRINGS.AUTH.SIGN_UP.PASSWORD_COMPARE_FALSE,
     STRINGS.AUTH.SIGN_UP.PASSWORD_COMPARE_TRUE,
     pwRegex,
+    inputPw,
   );
 
   // 비밀번호, 2차 비밀번호 비교
-  const isPasswordMatch = usePasswordMatch(inputPw, inputCheckPw);
+  // const isPasswordMatch = useCompareString(inputPw, inputCheckPw);
 
   // 이메일, 비밀번호, 2차 비밀번호 모두 유효한지 여부
-  const isFormValid = isEmailValid && isPwValid && isPasswordMatch;
+  const isFormValid = isEmailValid && isPwValid && isCheckPwValid;
+
+  // 회원가입 핸들러
+  const handleSignUp = async () => {
+    const userInfo = {
+      email: inputEmail,
+      password: inputPw,
+    };
+    try {
+      const res = await api.post(QUERY.END_POINT.USER.SIGN_UP, userInfo, {
+        message: {
+          title: `회원가입에 성공했습니다.`,
+          subTitle: `가입하신 메일을 확인하여 인증을 완료해주세요.`,
+        },
+        onSuccess: () => navigate('/login'),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <authStyles.AuthContainer>
@@ -87,6 +97,7 @@ const SignUp = () => {
             type="email"
             value={inputEmail}
             onChange={handleEmailChange}
+            onFocus={handleEmailFocus}
             placeholder={PLACEHOLDERS.ENTER_INPUT('이메일을 ')}
             autoComplete="off"
           ></StyleInput>
@@ -96,6 +107,7 @@ const SignUp = () => {
             placeholder={PLACEHOLDERS.ENTER_INPUT('비밀번호를 ')}
             value={inputPw}
             onChange={handlePwChange}
+            onFocus={handlePwFocus}
             autoComplete="off"
             maxLength="16"
           ></StyleInput>
@@ -107,13 +119,12 @@ const SignUp = () => {
             type="password"
             placeholder={PLACEHOLDERS.ENTER_INPUT('비밀번호를 재')}
             value={inputCheckPw}
-            onChange={handleCheckPwChange}
+            onChange={handlePwCompareChange}
+            onFocus={handlePwCheckFocus}
             autoComplete="off"
             maxLength="16"
           ></StyleInput>
-          <AlertSpan isMatch={isPasswordMatch && isPwValid}>
-            {checkPwMessage}
-          </AlertSpan>
+          <AlertSpan isMatch={isCheckPwValid}>{checkPwMessage}</AlertSpan>
         </InputContainer>
         <ButtonWrapper>
           <Button signUp onClick={handleSignUp} disabled={!isFormValid}>
@@ -130,6 +141,12 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+/**
+ * =========================
+ * Styled Component Section
+ * =========================
+ */
 
 const SignTitle = styled.span`
   font-size: 1.375rem;

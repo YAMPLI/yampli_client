@@ -1,26 +1,50 @@
 import axios from 'axios';
 import Storage from '../utils/localStorage';
 import { Promise } from 'es6-promise';
-
+import { showAlertWithButton } from '../utils/alertUtils';
 const requestInterceptor = (config) => {
-  console.log(config);
-  console.log(`req incep  config: ${config}`);
-  console.log(`req incp config type : ${typeof config}`);
   const token = Storage.getLocalStorage('token');
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
+
+  if (config.customMessage) {
+    config.message = config.customMessage;
+  }
+  if (config.customOnSuccess) {
+    config.onSuccess = config.customOnSuccess;
+  }
   // 성공 메세지 전달받아서 사용
-  config.message = 'messageTest';
   return config;
 };
 
 const responseInterceptor = (response) => {
-  // request시 전달받은 메시지
-  if (response.status === 200 && response.config.message) {
-    console.log(`axios 응답 성공 메시지 추가 : ${response.config.message}`);
+  const {
+    config,
+    status,
+    data: { message },
+  } = response;
+  let onSuccess;
+
+  // 상태 코드가 200일 때만 메시지를 처리
+  if (status === 200) {
+    // request시 전달받은 메시지가 있으면 그 메시지를 사용하고, 그렇지 않으면 응답에서 받은 메시지를 사용
+    const outputMessage = config.message || message;
+    if (config.onSuccess) {
+      onSuccess = config.onSuccess;
+    }
+    showAlertWithButton(outputMessage, onSuccess);
   }
-  response.config.message = null;
+
+  // request시 전달받은 메시지가 있으면 그것을 로깅하고, 메시지를 초기화
+  if (config.message) {
+    console.log(`axios 응답 성공 메시지 추가 : ${config.message}`);
+    config.message = null; // 메시지 초기화
+  }
+  if (config.onSuccess) {
+    config.onSuccess = null;
+  }
+
   return response;
 };
 
@@ -64,13 +88,18 @@ const getAccessToken = async (instance) => {
   }
 };
 
-const createAxiosInstance = (timeoutSecond) => {
+const createAxiosInstance = (customObj, timeoutSecond) => {
   const instance = axios.create({
     withCredentials: true,
     baseURL: `${process.env.REACT_APP_SERVER_URL}`,
     timeout: timeoutSecond * 1000 || 100000000,
   });
 
+  if (customObj) {
+    const { message, onSuccess } = customObj;
+    instance.defaults.customMessage = message;
+    instance.defaults.customOnSuccess = onSuccess;
+  }
   instance.interceptors.request.use(requestInterceptor);
   instance.interceptors.response.use(responseInterceptor, (error) =>
     responseInterceptorError(error, instance),
@@ -81,8 +110,8 @@ const createAxiosInstance = (timeoutSecond) => {
 
 export const api = {
   get: (path, timeoutSecond) => createAxiosInstance(timeoutSecond).get(path),
-  post: (path, payload, timeoutSecond) =>
-    createAxiosInstance(timeoutSecond).post(path, payload),
+  post: (path, payload, customObj, timeoutSecond) =>
+    createAxiosInstance(customObj, timeoutSecond).post(path, payload),
   delete: (path, timeoutSecond) =>
     createAxiosInstance(timeoutSecond).delete(path),
   put: (path, payload, timeoutSecond) =>

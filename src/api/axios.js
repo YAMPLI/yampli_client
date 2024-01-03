@@ -5,18 +5,30 @@ import {
   showAlertWithButton,
   showAlertWithoutButton,
 } from '../utils/alertUtils';
+
+const parseMessage = (message, delimiter = '|') => {
+  console.log(message);
+  const [title, subTitle] = message.split(delimiter);
+
+  return { title, subTitle: subTitle || '' };
+};
+
 const requestInterceptor = (config) => {
   const token = Storage.getLocalStorage('token');
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
+  console.log(config.customMessage);
+  config.message =
+    typeof config.customMessage === 'string' &&
+    config.customMessage.includes('|')
+      ? parseMessage(config.customMessage)
+      : config.customMessage;
 
-  if (config.customMessage) {
-    config.message = config.customMessage;
-  }
   if (config.customOnSuccess) {
     config.onSuccess = config.customOnSuccess;
   }
+
   // 성공 메세지 전달받아서 사용
   return config;
 };
@@ -44,10 +56,10 @@ const responseInterceptor = (response) => {
   // request시 전달받은 메시지가 있으면 그것을 로깅하고, 메시지를 초기화
   if (config.message) {
     console.log(`axios 응답 성공 메시지 추가 : ${config.message}`);
-    config.message = null; // 메시지 초기화
+    delete config.message;
   }
   if (config.onSuccess) {
-    config.onSuccess = null;
+    delete config.onSuccess;
   }
 
   return response;
@@ -71,10 +83,13 @@ const responseInterceptorError = async (error, instance) => {
     }
   }
 
-  const errorMessage = '에러메세지, error.response?.data?.errorMessage';
-  console.log(config.message);
+  let errorMessage = error.response?.data?.errMessage;
+  if (typeof errorMessage === 'string' && errorMessage.includes('|')) {
+    const parsedMessage = parseMessage(errorMessage);
+    error.response.data.errMessage = parsedMessage;
+  }
   // 성공 메세지 비워두기
-  config.message = '서버에서 전달받은 에러메시지';
+  delete config.message;
 
   return Promise.reject(error);
 };

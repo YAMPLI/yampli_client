@@ -77,10 +77,7 @@ const SignUp = () => {
     };
     try {
       const res = await api.post(QUERY.END_POINT.USER.SIGN_UP, userInfo, {
-        message: {
-          title: `회원가입에 성공했습니다.`,
-          subTitle: `가입하신 메일을 확인하여 인증을 완료해주세요.`,
-        },
+        message: `회원가입에 성공했습니다.|가입하신 메일을 확인하여 인증을 완료해주세요.`,
         onSuccess: () => navigate('/login'),
       });
     } catch (err) {

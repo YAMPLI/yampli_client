@@ -16,8 +16,8 @@ const useRegexInput = (
     (e) => {
       const { value } = e.target;
       setInput(value);
-
-      if (!regexPattern.test(value)) {
+      let regex = new RegExp(regexPattern);
+      if (!regex.test(value)) {
         setMessage(value === '' ? '' : validationMessage);
         setIsValid(false);
       } else {

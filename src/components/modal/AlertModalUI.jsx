@@ -79,13 +79,14 @@ const AlertMsgWrapper = styled.div`
 
 const shrink = keyframes`
   from {
-    width: 0%;
+    width: 0ch;
   }
   to {
     width: 100%;
   }
 `;
 const ProgressBar = styled.div`
+  align-self: start;
   height: 0.2rem;
   background-color: ${(props) => props.theme.color.text.main};
   animation: ${shrink} ${(props) => props.progressBarDuration}ms linear forwards;

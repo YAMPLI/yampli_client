@@ -40,6 +40,7 @@ const responseInterceptor = (response) => {
     data: { message },
   } = response;
   let onSuccess;
+  console.log(`responseInterceptor 시작`, response);
 
   // 상태 코드가 200일 때만 메시지를 처리
   if (status === 200) {
@@ -66,6 +67,7 @@ const responseInterceptor = (response) => {
 };
 
 const responseInterceptorError = async (error, instance) => {
+  console.log('responseInterceptorError 시작', error);
   const {
     config,
     response: { status },

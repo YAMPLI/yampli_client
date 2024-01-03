@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { __getLogin } from '../store/authSlice';
-import LoadingSpinner from '../components/common/LoadingSpinner';
+import { __getLogin } from '../../store/authSlice';
+import LoadingSpinner from '../../components/common/LoadingSpinner';
 
 const KakaoCallback = () => {
   const location = useLocation();
@@ -14,7 +14,14 @@ const KakaoCallback = () => {
   // 서버에 인가코드로 유저 데이터를 요청한다.
 
   useEffect(() => {
-    dispatch(__getLogin(authCode));
+    dispatch(__getLogin(authCode))
+      .unwrap()
+      .then(() => {
+        console.log('성공');
+      })
+      .catch((err) => {
+        navigate('/login');
+      });
   }, []);
   useEffect(() => {
     console.log(user.url);

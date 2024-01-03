@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { api } from '../api/axios';
 import jwtDecode from 'jwt-decode';
 
 const initialState = {};
@@ -7,35 +7,28 @@ const initialState = {};
 export const __getLogin = createAsyncThunk(
   'auth/getLogin',
   async (payload, thunkAPI) => {
-    try {
-      console.log('tt');
-      const { data } = await axios.get(
-        `/api/auth/kakao/oauth?code=${payload}`,
-        {
-          withCredentials: true,
-        },
-      );
-      // 요청 성공시 fulfillwithvalue 실행
-      console.log(data);
-      return thunkAPI.fulfillWithValue(data.token);
-    } catch (error) {
-      // 실패시 rejectwithvalue실행
-      return thunkAPI.rejectWithValue(error);
-    }
+    return await api
+      .get(`/api/auth/kakao/oauth?code=${payload}`)
+      .then((response) => thunkAPI.fulfillWithValue(response.data.token))
+      .catch(() => thunkAPI.rejectWithValue());
   },
 );
+
+const getLoginExtraReducer = (builder) => {
+  builder.addCase(__getLogin.fulfilled, (state, { payload }) => {
+    return { ...state, user: jwtDecode(payload), token: payload };
+  });
+  builder.addCase(__getLogin.rejected, (state, { payload }) => {
+    console.log(payload.response.data.data.url);
+    state.url = payload.response.data.data.url;
+  });
+};
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(__getLogin.fulfilled, (state, { payload }) => {
-      return { ...state, user: jwtDecode(payload), token: payload };
-    });
-    builder.addCase(__getLogin.rejected, (state, { payload }) => {
-      console.log(payload.response.data.data.url);
-      state.url = payload.response.data.data.url;
-    });
+    getLoginExtraReducer(builder);
   },
 });
 

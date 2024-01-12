@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api/axios';
 import jwtDecode from 'jwt-decode';
-
+import QUERY from '../constants/query';
 const initialState = {};
 
 export const __getLogin = createAsyncThunk(
   'auth/getLogin',
   async (payload, thunkAPI) => {
     return await api
-      .get(`/api/auth/kakao/oauth?code=${payload}`)
+      .get(`${QUERY.END_POINT.USER.LOGIN_KAKAO(payload)}`)
       .then((response) => thunkAPI.fulfillWithValue(response.data.token))
       .catch(() => thunkAPI.rejectWithValue());
   },

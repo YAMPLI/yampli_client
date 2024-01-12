@@ -54,7 +54,7 @@ const AlertContainer = styled.div`
   ${(props) => props.theme.FlexItemCenterColumn};
   background-color: ${(props) => props.theme.color.background.main};
   border-radius: 0.5rem;
-  width: 21.25rem;
+  min-width: 21.25rem;
 `;
 
 const AlertMsgWrapper = styled.div`

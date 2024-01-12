@@ -85,11 +85,14 @@ const responseInterceptorError = async (error, instance) => {
     }
   }
 
-  let errorMessage = error.response?.data?.errMessage;
+  let errorMessage =
+    error.response?.data?.errMessage || error.response.errMessage;
+  console.log(errorMessage);
   if (typeof errorMessage === 'string' && errorMessage.includes('|')) {
     const parsedMessage = parseMessage(errorMessage);
-    error.response.data.errMessage = parsedMessage;
+    errorMessage = parsedMessage;
   }
+  showAlertWithButton(errorMessage);
   // 성공 메세지 비워두기
   delete config.message;
 

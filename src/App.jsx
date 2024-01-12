@@ -14,7 +14,7 @@ import GlobalModalContainer from './components/modal/GlobalModalContainer';
 import SignUp from './pages/auth/SignUp';
 import Test from './myTest/TestDisplay';
 import EmailAuthPage from './pages/auth/EmailAuth';
-
+import EmailLogin from './pages/auth/EmailLogin';
 function App() {
   return (
     <>
@@ -24,6 +24,7 @@ function App() {
           <Route path="/test" element={<Test />} />
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/email-login" element={<EmailLogin />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/verify-email" element={<EmailAuthPage />} />
           <Route path="/group" element={<Group />} />

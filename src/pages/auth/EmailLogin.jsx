@@ -12,9 +12,7 @@ import Input from '../../components/common/Input';
 import useRegexInput from '../../hooks/useRegexInput';
 import REGEX from '../../constants/regexPatterns';
 import STRING from '../../constants/strings';
-import QUERY from '../../constants/query';
-import { api } from '../../api/axios';
-import { __getLogin } from '../../store/authSlice';
+import { __getEmailLogin } from '../../store/authSlice';
 
 /**
  * =========================
@@ -60,7 +58,15 @@ const EmailLogin = () => {
       email: inputEmail,
       password: inputPw,
     };
-    dispatch(__getLogin(userInfo));
+    dispatch(
+      __getEmailLogin({
+        userInfo,
+        customObj: {
+          message: `로그인에 성공했습니다..`,
+          onSuccess: () => navigate('/login'),
+        },
+      }),
+    );
   };
 
   return (

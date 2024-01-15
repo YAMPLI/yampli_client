@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { KAKAO_AUTH_URL } from '../../config/SocialOAuth.';
 import { LoginButton } from '../../components/common/Button';
@@ -6,6 +7,7 @@ import KakaoLoginLogo from '../../assets/imgs/logo-kakao.png';
 import authStyles from './AuthStyles';
 import STRINGS from '../../constants/strings';
 const LoginPage = () => {
+  const navigate = useNavigate();
   return (
     <authStyles.AuthContainer>
       <authStyles.AuthBox>
@@ -18,7 +20,9 @@ const LoginPage = () => {
             <img src={KakaoLoginLogo} alt="kakao login" />
             카카오로 로그인
           </LoginButton>
-          <LoginButton fullWidth>이메일로 로그인</LoginButton>
+          <LoginButton fullWidth onClick={() => navigate('/email-login')}>
+            이메일로 로그인
+          </LoginButton>
         </ButtonWrapper>
         <BottomSection>
           <a href="/signup">이메일로 회원가입</a>

@@ -44,8 +44,8 @@ const responseInterceptor = (response) => {
 
   // 상태 코드가 200일 때만 메시지를 처리
   if (status === 200) {
-    // request시 전달받은 메시지가 있으면 그 메시지를 사용하고, 그렇지 않으면 응답에서 받은 메시지를 사용
-    const outputMessage = config.message || message;
+    // 서버 응답 메시지 우선 , 서버 메시지 없을 시 클라이언트 메시지 사용
+    const outputMessage = message || config.message;
     if (config.onSuccess) {
       onSuccess = config.onSuccess;
       showAlertWithButton(outputMessage, onSuccess);
@@ -84,15 +84,20 @@ const responseInterceptorError = async (error, instance) => {
       return instance(config);
     }
   }
-
+  let resUrl = error.response.data.data.url || null;
+  console.log(`resUrl : ${resUrl}`);
   let errorMessage =
     error.response?.data?.errMessage || error.response.errMessage;
-  console.log(errorMessage);
   if (typeof errorMessage === 'string' && errorMessage.includes('|')) {
     const parsedMessage = parseMessage(errorMessage);
     errorMessage = parsedMessage;
   }
-  showAlertWithButton(errorMessage);
+
+  resUrl
+    ? showAlertWithButton(errorMessage, () => {
+        window.location.href = resUrl;
+      })
+    : showAlertWithButton(errorMessage);
   // 성공 메세지 비워두기
   delete config.message;
 
@@ -134,7 +139,8 @@ const createAxiosInstance = (customObj, timeoutSecond) => {
 };
 
 export const api = {
-  get: (path, timeoutSecond) => createAxiosInstance(timeoutSecond).get(path),
+  get: (path, customObj, timeoutSecond) =>
+    createAxiosInstance(customObj, timeoutSecond).get(path),
   post: (path, payload, customObj, timeoutSecond) =>
     createAxiosInstance(customObj, timeoutSecond).post(path, payload),
   delete: (path, timeoutSecond) =>

@@ -8,7 +8,7 @@ import LoginPage from './pages/auth/LoginPage';
 import PlaylistPage from './pages/PlaylistPage';
 import CreatePlaylistPage from './pages/CreatePlaylistPage';
 import Group from './pages/GroupPage';
-import KakaoCallback from './pages/KakaoCallback';
+import KakaoCallback from './pages/auth/KakaoCallback';
 import Layout from './layout/Layout';
 import GlobalModalContainer from './components/modal/GlobalModalContainer';
 import SignUp from './pages/auth/SignUp';

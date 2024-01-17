@@ -1,41 +1,55 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { api } from '../api/axios';
 import jwtDecode from 'jwt-decode';
-
+import QUERY from '../constants/query';
 const initialState = {};
 
-export const __getLogin = createAsyncThunk(
-  'auth/getLogin',
+export const __getKakaoLogin = createAsyncThunk(
+  'auth/getKakaoLogin',
   async (payload, thunkAPI) => {
-    try {
-      console.log('tt');
-      const { data } = await axios.get(
-        `/api/auth/kakao/oauth?code=${payload}`,
-        {
-          withCredentials: true,
-        },
-      );
-      // 요청 성공시 fulfillwithvalue 실행
-      console.log(data);
-      return thunkAPI.fulfillWithValue(data.token);
-    } catch (error) {
-      // 실패시 rejectwithvalue실행
-      return thunkAPI.rejectWithValue(error);
-    }
+    return await api
+      .get(`${QUERY.END_POINT.AUTH.LOGIN_KAKAO(payload)}`)
+      .then((response) => thunkAPI.fulfillWithValue(response.data.token))
+      .catch(() => thunkAPI.rejectWithValue());
   },
 );
+
+export const __getEmailLogin = createAsyncThunk(
+  'auth/getEmailLogin',
+  async (payload, thunkAPI) => {
+    return await api
+      .post(
+        QUERY.END_POINT.AUTH.LOGIN_EMAIL,
+        payload.userInfo,
+        payload.customObj,
+      )
+      .then((response) => thunkAPI.fulfillWithValue(response.data))
+      .catch(() => thunkAPI.rejectWithValue());
+  },
+);
+const getKakaoLoginExtraReducer = (builder) => {
+  builder.addCase(__getKakaoLogin.fulfilled, (state, { payload }) => {
+    return { ...state, user: jwtDecode(payload), token: payload };
+  });
+  builder.addCase(__getKakaoLogin.rejected, (state, { payload }) => {
+    console.log(payload.response.data.data.url);
+    state.url = payload.response.data.data.url;
+  });
+};
+
+const getEmailLoginExtraReducer = (builder) => {
+  builder.addCase(__getEmailLogin.fulfilled, (state, { payload }) => {
+    console.log(payload);
+    return { ...state, url: payload };
+  });
+};
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(__getLogin.fulfilled, (state, { payload }) => {
-      return { ...state, user: jwtDecode(payload), token: payload };
-    });
-    builder.addCase(__getLogin.rejected, (state, { payload }) => {
-      console.log(payload.response.data.data.url);
-      state.url = payload.response.data.data.url;
-    });
+    getKakaoLoginExtraReducer(builder);
+    getEmailLoginExtraReducer(builder);
   },
 });
 
